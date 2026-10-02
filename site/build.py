@@ -53,7 +53,7 @@ LAYOUT = """<!doctype html>
 """
 
 PAGES = [  # (fragmento, caminho de saída, título, descrição, menu ativo)
-    ("index.html", "/", "João Barnabé · CFO e Diretor Financeiro",
+    ("index.html", "/", "João Barnabé",
      "CFO e Diretor Financeiro com mais de 8 anos em e-commerce de alto crescimento: Controladoria, Tesouraria, FP&A, 2 IPOs e integração de M&A.", "home"),
     ("projetos.html", "/projetos/", "Projetos · João Barnabé",
      "Projetos de João Barnabé: ferramentas para o dia a dia de finanças e gestão, abertas para quem quiser usar.", "apps"),
