@@ -6,6 +6,7 @@ Páginas: site/src/pages/*.html (só o miolo) + o layout abaixo; a documentaçã
 from __future__ import annotations
 
 import json
+import re
 import shutil
 from pathlib import Path
 
@@ -30,7 +31,8 @@ LAYOUT = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=7">
+<link rel="stylesheet" href="/assets/site.css?v=8">
+<link rel="stylesheet" href="/assets/posicoes.css?v=8">
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -61,6 +63,22 @@ PAGES = [  # (fragmento, caminho de saída, título, descrição, menu ativo)
 ]
 
 
+POS: set[str] = set()
+
+
+def sem_estilo_inline(html: str) -> str:
+    """A CSP do site bloqueia style="..."; posicoes left/width viram classes (regras em posicoes.css)."""
+    def troca(m: re.Match) -> str:
+        cls, left, width = m.group(1), m.group(2), m.group(3)
+        extra = " l" + left.replace(".", "_")
+        POS.add(f".l{left.replace('.', '_')}{{left:{left}%}}")
+        if width:
+            extra += " w" + width.replace(".", "_")
+            POS.add(f".w{width.replace('.', '_')}{{width:{width}%}}")
+        return f'class="{cls}{extra}"'
+    return re.sub(r'class="([^"]*)" style="left:([\d.]+)%(?:;width:([\d.]+)%)?"', troca, html)
+
+
 def render(content: str, path: str, title: str, desc: str, current: str) -> str:
     from datetime import date
     mark = lambda k: 'aria-current="page"' if current == k else ""  # noqa: E731
@@ -73,7 +91,7 @@ def render(content: str, path: str, title: str, desc: str, current: str) -> str:
                          cur_home=mark("home"), cur_apps=("aria-current=\"page\"" if current in ("apps", "jb", "docs") else ""), year=date.today().year)
     for k, v in CFG.items():
         html = html.replace("{{" + k + "}}", str(v))
-    return html
+    return sem_estilo_inline(html)
 
 
 def write(path: str, html: str) -> None:
@@ -95,6 +113,7 @@ def main() -> None:
     body = markdown.markdown(md, extensions=["tables", "fenced_code", "sane_lists", "toc"])
     write("/jot-brief/docs/", render(f'<div class="wrap"><article class="doc">{body}</article></div>', "/jot-brief/docs/",
                                     "Documentação · JB - Jot Brief", "Tudo o que o JB - Jot Brief faz e como usar.", "docs"))
+    (OUT / "assets" / "posicoes.css").write_text("\n".join(sorted(POS)) + "\n", encoding="utf-8")
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {CFG['site_url']}/sitemap.xml\n", encoding="utf-8")
     urls = ["/", "/projetos/", "/jot-brief/", "/jot-brief/docs/"]
     (OUT / "sitemap.xml").write_text(

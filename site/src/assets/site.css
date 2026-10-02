@@ -72,9 +72,10 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 .axis .mile .lbl { position: absolute; top: -2px; left: 6px; white-space: nowrap; font-family: var(--font-mono); font-size: 11px; color: var(--navy); }
 .axis .mile.edu { background: var(--navy); }
 .axis .mile.end .lbl { left: auto; right: 6px; }
-ol.timeline { list-style: none; padding: 0; margin: 8px 0 12px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0 14px; }
+ol.timeline { list-style: none; padding: 0; margin: 8px 0 12px; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0 12px; }
 ol.timeline li { display: flex; flex-direction: column; border-top: 1px solid var(--gray-border); padding-top: 8px; }
 ol.timeline .num { font-family: var(--font-mono); font-size: 12px; color: var(--navy); border: 1px solid var(--terracotta); border-radius: 50%; width: 22px; height: 22px; display: grid; place-items: center; margin-bottom: 8px; }
+ol.timeline .num.edu { border-color: var(--navy); }
 ol.timeline .when { font-family: var(--font-mono); font-size: 13px; color: var(--navy); }
 ol.timeline strong { font-size: 15px; line-height: 1.35; color: var(--navy); margin: 2px 0 4px; }
 ol.timeline p { margin: 0; font-size: 14px; line-height: 1.5; }
@@ -119,3 +120,5 @@ article.doc { overflow-wrap: anywhere; }
 article.doc table { display: block; max-width: 100%; overflow-x: auto; }
 article.doc pre { max-width: 100%; }
 article.doc img { max-width: 100%; height: auto; }
+
+#lista { margin-top: 0; }
