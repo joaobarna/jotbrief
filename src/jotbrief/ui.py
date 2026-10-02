@@ -32,6 +32,7 @@ from .ui_helpers import (active_word, build_items, call_title, group_by_day, par
                          mark_manual, read_auto_names, read_names, read_parts, read_subject, word_timings, write_names)
 
 MAX_BUBBLES = 300
+API_KEYS_URL = "https://platform.claude.com/settings/keys"  # onde criar a chave da API (console.anthropic.com redireciona para cá)
 
 THEMES = {
     "escuro": dict(bg="#0F1115", panel="#161A20", text="#E6E8EB", muted="#8B93A1", border="#232832",
@@ -979,9 +980,11 @@ class ApiKeyDialog(QDialog):
         self.setWindowTitle("Chave da API do Claude")
         self.setMinimumWidth(460)
         lay = QVBoxLayout(self)
-        intro = QLabel("O chat e o assunto das reuniões usam a API da Anthropic, com a sua chave.\n"
-                       "Crie uma em console.anthropic.com → API keys e cole abaixo. Ela fica só neste computador "
-                       "(%APPDATA%\\jotbrief) e nunca é enviada a ninguém além da Anthropic.")
+        intro = QLabel("O chat e o assunto das reuniões usam a API da Anthropic, com a sua chave.<br>"
+                       f'Crie uma em <a href="{API_KEYS_URL}">platform.claude.com/settings/keys</a> (botão “Create Key”) e cole abaixo. '
+                       "Ela fica só neste computador (%APPDATA%\\jotbrief) e nunca é enviada a ninguém além da Anthropic.")
+        intro.setTextFormat(Qt.RichText)
+        intro.setOpenExternalLinks(True)  # abre no navegador padrão
         intro.setWordWrap(True)
         lay.addWidget(intro)
         self.edit = QLineEdit()

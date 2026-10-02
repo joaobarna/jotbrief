@@ -205,3 +205,12 @@ def test_footer_shows_version_and_versions_dialog_lists_history(app):
     assert versao.atual() in d.findChild(QtWidgets.QLabel, "brand").text()
     assert versao.entradas()[0]["titulo"][:20] in d.findChild(QtWidgets.QTextBrowser).toPlainText()
     w.close()
+
+
+def test_api_key_dialog_links_to_anthropic_keys_page(app):
+    from jotbrief import ui
+
+    d = ui.ApiKeyDialog(None, False)
+    intro = d.findChildren(QtWidgets.QLabel)[0]
+    assert ui.API_KEYS_URL == "https://platform.claude.com/settings/keys"
+    assert ui.API_KEYS_URL in intro.text() and intro.openExternalLinks()
