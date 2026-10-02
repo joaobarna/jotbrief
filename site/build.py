@@ -85,8 +85,8 @@ LAYOUT = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=25">
-<link rel="stylesheet" href="/assets/posicoes.css?v=25">
+<link rel="stylesheet" href="/assets/site.css?v=26">
+<link rel="stylesheet" href="/assets/posicoes.css?v=26">
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -109,7 +109,7 @@ LAYOUT = """<!doctype html>
 {content}
 </main>
 <footer class="site"><div class="wrap">
-  <p>© {year} João Barnabé · <a href="https://www.linkedin.com/in/joao-barnabe">LinkedIn</a> · <a href="mailto:joaobarna@gmail.com">{footer_email}</a> · <a class="ver" href="{versions}" title="{ver_tip}">v{site_version}</a></p>
+  <p>© {year} João Barnabé · <a href="https://www.linkedin.com/in/joao-barnabe" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="mailto:joaobarna@gmail.com">{footer_email}</a> · <a class="ver" href="{versions}" title="{ver_tip}">v{site_version}</a></p>
 </div></footer>
 </body>
 </html>
