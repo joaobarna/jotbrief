@@ -214,3 +214,25 @@ def test_api_key_dialog_links_to_anthropic_keys_page(app):
     intro = d.findChildren(QtWidgets.QLabel)[0]
     assert ui.API_KEYS_URL == "https://platform.claude.com/settings/keys"
     assert ui.API_KEYS_URL in intro.text() and intro.openExternalLinks()
+
+
+def test_update_button_appears_only_for_a_newer_release_and_blocks_while_recording(app, monkeypatch):
+    from types import SimpleNamespace
+
+    from jotbrief import ui, update
+
+    w = ui.Window()
+    assert w.btn_update.isHidden()
+    w.on_update_found(update.Release("2000.01.01.00.00", "u", 1, "", "p", ""), False)       # mais velha: nada
+    assert w.btn_update.isHidden()
+    new = update.Release("2999.01.01.00.00", PREFIX := update.DOWNLOAD_PREFIX + "v/x.exe", 1, "", "https://p", "")
+    w.on_update_found(new, False)
+    assert not w.btn_update.isHidden() and "2999.01.01.00.00" in w.btn_update.text()
+    shown = []
+    monkeypatch.setattr(ui.QMessageBox, "information", lambda *a, **k: shown.append(a[2]))
+    monkeypatch.setattr(ui.QMessageBox, "exec", lambda self: (_ for _ in ()).throw(AssertionError("não devia perguntar")))
+    w.session = SimpleNamespace(dir=None)
+    w.start_update()
+    assert shown and "Pare a gravação" in shown[0]                                          # gravando: não atualiza
+    w.session = None
+    w.close()

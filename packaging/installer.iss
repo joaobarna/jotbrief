@@ -5,6 +5,8 @@
   #define AppVersion "0.1.0"
 #endif
 
+; Os seus dados (reuniões, configuração, vozes) ficam fora da pasta do programa e NÃO são apagados ao desinstalar.
+
 [Setup]
 AppId={{B4F0A7C2-6D0E-4C55-9C1A-3F7A2E5D9B11}
 AppName={#AppName}
@@ -43,5 +45,11 @@ Name: "{userstartup}\{#AppName}"; Filename: "{app}\JotBrief.exe"; Tasks: startup
 
 [Run]
 Filename: "{app}\JotBrief.exe"; Description: "Abrir o JB - Jot Brief"; Flags: nowait postinstall skipifsilent
+; atualização feita de dentro do app: o app se fechou e o instalador o reabre ao terminar
+Filename: "{app}\JotBrief.exe"; Flags: nowait; Check: RelaunchRequested
 
-; Os seus dados (reuniões, configuração, vozes) ficam fora da pasta do programa e NÃO são apagados ao desinstalar.
+[Code]
+function RelaunchRequested: Boolean;
+begin
+  Result := ExpandConstant('{param:RELAUNCH|0}') = '1';
+end;

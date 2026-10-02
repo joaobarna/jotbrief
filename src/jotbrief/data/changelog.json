@@ -1,5 +1,35 @@
 [
   {
+    "versao": "2026.10.02.17.21",
+    "titulo": "Site: botao Salvar contato (cartao .vcf em pt e en, dois telefones, cargo Diretor Financeiro, com foto)",
+    "hash": "a2b81ee"
+  },
+  {
+    "versao": "2026.10.02.17.15",
+    "titulo": "Site: remove o numero da versao da nota da pagina do JB (pt e en)",
+    "hash": "51a08de"
+  },
+  {
+    "versao": "2026.10.02.17.14",
+    "titulo": "Site: imagem de pre-visualizacao do link (og:image 1200x630, pt e en) e UNICAMP em negrito",
+    "hash": "4122774"
+  },
+  {
+    "versao": "2026.10.02.17.11",
+    "titulo": "Site: foto ao lado da abertura (pt e en), circular, otimizada em 18 KB",
+    "hash": "4527e89"
+  },
+  {
+    "versao": "2026.10.02.17.08",
+    "titulo": "Site: mais respiro no logo da UNICAMP e remove a nota de job rotation abaixo da trajetoria",
+    "hash": "c0bd3f9"
+  },
+  {
+    "versao": "2026.10.02.15.55",
+    "titulo": "Robustez do app instalado: novas tentativas ao abrir o modelo (arquivo preso), erro de GPU e CPU juntos, log em arquivo, comando selftest, pasta de reunioes em Documentos, setup corrigido",
+    "hash": "2305e59"
+  },
+  {
     "versao": "2026.10.02.15.22",
     "titulo": "Chave da API: link clicavel para criar a chave (platform.claude.com/settings/keys)",
     "hash": "b984149"

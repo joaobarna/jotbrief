@@ -65,6 +65,9 @@ QLabel#footer {{ background: transparent; color: {t['muted']}; font-size: 11px; 
 QPushButton#verlink {{ background: transparent; border: none; color: {t['muted']}; font-size: 11px; padding: 6px 20px;
                       text-decoration: underline; }}
 QPushButton#verlink:hover {{ color: {t['text']}; }}
+QPushButton#updatelink {{ background: {t['accent']}; color: {t['accent_text']}; border: none; border-radius: 8px;
+                         font-size: 11px; font-weight: 700; padding: 4px 12px; margin: 3px 6px; }}
+QPushButton#updatelink:hover {{ background: {t['text']}; color: {t['bg']}; }}
 QWidget#chatpanel {{ background: {t['panel']}; }}
 QTextBrowser#chatview {{ background: {t['bg']}; border: 1px solid {t['border']}; border-radius: 12px; padding: 10px; }}
 QTextEdit#chatinput {{ background: {t['bg']}; border: 1px solid {t['border']}; border-radius: 12px; padding: 8px 10px;
@@ -171,6 +174,9 @@ class Bridge(QObject):
     fx_ready = Signal(object)  # cotação do dólar atualizada ({'rate', 'at', 'source'})
     cuda_progress = Signal(str, float)  # (texto, 0–1) do download das bibliotecas da GPU
     cuda_done = Signal(str)  # erro ("" = deu certo, "cancelado" = você cancelou)
+    update_found = Signal(object, bool)  # (Release ou None, foi pedido por você?)
+    update_progress = Signal(int, int)  # (bytes baixados, total)
+    update_done = Signal(str, str)  # (caminho do instalador, erro ou "cancelado")
 
 
 CLAUDE_ORANGE = "#D97757"  # laranja da marca Claude
@@ -1046,9 +1052,15 @@ class VersionsDialog(QDialog):
         view.setHtml("".join(f"<p><b>{_esc(e['versao'])}</b><br>{_esc(e['titulo'])}</p>" for e in items)
                      or "<p>O histórico não está disponível nesta versão.</p>")
         lay.addWidget(view, 1)
+        row = QHBoxLayout()
+        check = QPushButton("Verificar atualizações", objectName="ghost")
+        check.clicked.connect(lambda: parent.check_update(manual=True) if hasattr(parent, "check_update") else None)
         close = QPushButton("Fechar", objectName="ghost")
         close.clicked.connect(self.accept)
-        lay.addWidget(close, 0, Qt.AlignRight)
+        row.addWidget(check)
+        row.addStretch(1)
+        row.addWidget(close)
+        lay.addLayout(row)
 
 
 class ChatPanel(QWidget):
@@ -1220,6 +1232,11 @@ class Window(QWidget):
         self.b.fx_ready.connect(self.on_fx)
         self.b.cuda_progress.connect(self._on_cuda_progress)
         self.b.cuda_done.connect(self._on_cuda_done)
+        self.b.update_found.connect(self.on_update_found)
+        self.b.update_progress.connect(self._on_update_progress)
+        self.b.update_done.connect(self._on_update_done)
+        if self.cfg.update_check:
+            QTimer.singleShot(6000, self.check_update)
         QTimer.singleShot(800, self._first_run_key)
         QTimer.singleShot(1500, self._offer_cuda)
         threading.Thread(target=lambda: self.b.fx_ready.emit(fx.refresh()), daemon=True).start()
@@ -1445,11 +1462,18 @@ class Window(QWidget):
         ver.setCursor(Qt.PointingHandCursor)
         ver.setToolTip("Ver o histórico de versões")
         ver.clicked.connect(lambda: VersionsDialog(self).exec())
+        self.btn_update = QPushButton("", objectName="updatelink")
+        self.btn_update.setCursor(Qt.PointingHandCursor)
+        self.btn_update.setToolTip("Baixa e instala a versão nova (o app fecha e reabre sozinho)")
+        self.btn_update.clicked.connect(self.start_update)
+        self.btn_update.hide()
+        self.pending_update = None
         foot = QWidget(objectName="footerbar")
         foot.setAttribute(Qt.WA_StyledBackground, True)
         fl = QHBoxLayout(foot)
         fl.setContentsMargins(0, 0, 0, 0)
         fl.addWidget(lgpd, 1)
+        fl.addWidget(self.btn_update, 0)
         fl.addWidget(ver, 0)
 
         self.chat = ChatPanel()
@@ -1744,6 +1768,92 @@ class Window(QWidget):
         from .runtime import is_frozen
         if is_frozen() and not os.environ.get("ANTHROPIC_API_KEY"):
             self.ask_api_key()
+
+    # ---- atualização do app ----
+    def check_update(self, manual: bool = False):
+        """Pergunta ao GitHub qual é a versão mais nova (em segundo plano; sem internet, só ignora)."""
+        def work():
+            from . import update
+            try:
+                self.b.update_found.emit(update.latest(), manual)
+            except Exception:  # noqa: BLE001
+                self.b.update_found.emit(None, manual)
+        threading.Thread(target=work, daemon=True).start()
+
+    def on_update_found(self, rel, manual: bool):
+        from . import update
+        from .versao import atual
+        if rel is not None and update.is_newer(rel.version, atual()):
+            self.pending_update = rel
+            self.btn_update.setText(f"⬆ Atualizar para {rel.version}")
+            self.btn_update.show()
+            if manual:
+                self.lbl.setText(f"Há uma versão nova: {rel.version}. Use o botão “Atualizar” no rodapé.")
+        elif manual:
+            QMessageBox.information(self, "Atualizações",
+                                    f"Você já está na versão mais recente ({atual()})." if rel is not None
+                                    else "Não deu para consultar as atualizações agora (sem internet?).")
+
+    def start_update(self):
+        from . import update
+        from .runtime import is_frozen
+        rel = self.pending_update
+        if rel is None:
+            return
+        if self.session is not None:
+            QMessageBox.information(self, "Atualizar", "Pare a gravação antes de atualizar o app.")
+            return
+        if not is_frozen():  # código-fonte: não há instalador a executar
+            QDesktopServices.openUrl(QUrl(rel.page))
+            return
+        box = QMessageBox(QMessageBox.Question, "Atualizar o app",
+                          f"Atualizar para a versão {rel.version}?\n\nO app baixa o instalador ({rel.size / 1e6:.0f} MB), fecha, "
+                          "atualiza e reabre sozinho. Suas reuniões e configurações ficam como estão.", QMessageBox.NoButton, self)
+        yes = box.addButton("Atualizar agora", QMessageBox.AcceptRole)
+        box.addButton("Depois", QMessageBox.RejectRole)
+        box.exec()
+        if box.clickedButton() is not yes:
+            return
+        self._update_cancel = threading.Event()
+        self._update_dlg = QProgressDialog("Baixando o instalador…", "Cancelar", 0, 100, self)
+        self._update_dlg.setWindowTitle("Atualizando")
+        self._update_dlg.setMinimumDuration(0)
+        self._update_dlg.setAutoClose(False)
+        self._update_dlg.canceled.connect(self._update_cancel.set)
+        self._update_dlg.show()
+
+        def work():
+            import tempfile
+            try:
+                path = update.download(rel, Path(tempfile.gettempdir()) / "jotbrief-update",
+                                       self.b.update_progress.emit, self._update_cancel.is_set)
+                self.b.update_done.emit(str(path), "")
+            except update.Cancelled:
+                self.b.update_done.emit("", "cancelado")
+            except Exception as e:  # noqa: BLE001
+                self.b.update_done.emit("", str(e))
+        threading.Thread(target=work, daemon=True).start()
+
+    def _on_update_progress(self, got: int, total: int):
+        dlg = getattr(self, "_update_dlg", None)
+        if dlg is not None and total:
+            dlg.setValue(min(int(got * 100 / total), 99))
+            dlg.setLabelText(f"Baixando o instalador… {got / 1e6:.0f} de {total / 1e6:.0f} MB")
+
+    def _on_update_done(self, path: str, err: str):
+        from . import update
+        dlg = getattr(self, "_update_dlg", None)
+        if dlg is not None:
+            dlg.close()
+            self._update_dlg = None
+        if err == "cancelado":
+            self.lbl.setText("Atualização cancelada.")
+        elif err:
+            QMessageBox.warning(self, "Atualizar", f"Não deu para atualizar: {err}")
+        else:
+            self.lbl.setText("Instalando a versão nova… o app vai fechar e reabrir.")
+            update.launch_installer(Path(path))
+            QTimer.singleShot(400, QApplication.quit)
 
     # ---- aceleração por GPU (app instalado) ----
     def _offer_cuda(self):

@@ -100,6 +100,7 @@ class Config:
     volume: int = 100  # volume do player (0–100)
     floating: bool = False  # modo balão: ao gravar, a janela vira a barra flutuante
     chat_open: bool = True  # coluna do chat com o Claude (💬) visível
+    update_check: bool = True  # ao abrir, confere em segundo plano se há versão nova (só avisa; atualizar é com um clique seu)
     cuda_offer: str = "ask"  # app instalado com placa NVIDIA: "ask" pergunta se baixa a aceleração por GPU; "never" não pergunta mais
     chat_effort: str = "medium"  # esforço do Claude no chat: low | medium | high | xhigh | max (mais esforço = mais lento e caro)
     silence_ms: int = 600
