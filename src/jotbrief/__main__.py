@@ -1,0 +1,239 @@
+from __future__ import annotations
+
+import argparse
+import logging
+import os
+import sys
+from pathlib import Path
+
+
+def _load_env():
+    from .config import load_env
+    load_env()
+
+
+def cmd_run(args):
+    from .config import Config
+    from .session import Session, fmt_time
+
+    cfg = Config.load()
+
+    def on_utt(u):
+        if u.final:
+            who = {"mic": "Eu", "loop": "Reunião"}[u.source]
+            print(f"[{fmt_time(u.t0)}] {who}: {u.text}", flush=True)
+
+    s = Session(cfg, on_utt, lambda m: print(f"* {m}", flush=True))
+    s.prepare()
+    s.start()
+    print("Gravando. Ctrl+C para parar.")
+    try:
+        while True:
+            import time
+            time.sleep(0.5)
+    except KeyboardInterrupt:
+        pass
+    folder = s.stop()
+    print(f"Pasta: {folder}")
+
+
+def cmd_devices(_):
+    from .audio import default_devices, list_devices
+    d = list_devices()
+    for kind in ("mics", "loopbacks"):
+        print(kind)
+        for x in d[kind]:
+            print(f"  [{x['index']}] {x['name']} ({int(x['defaultSampleRate'])} Hz)")
+    mic, spk = default_devices()
+    print(f"padrão: mic={mic['name']} | loopback={spk['name']}")
+
+
+def cmd_setup(_):
+    from .config import Config
+    from .transcriber import Transcriber
+    from .vad import _get_model
+
+    _get_model()
+    t = Transcriber(Config.load(), lambda u: None)
+    t.load()
+    print(f"Modelos prontos: {t.model_name}")
+
+
+def cmd_mcp(_):
+    from .mcp_server import main as mcp_main
+    mcp_main()
+
+
+def cmd_mcp_config(_):
+    """Mostra o trecho para o claude_desktop_config.json (não altera nada)."""
+    import json
+
+    from .claude_config import server_entry
+    cfg = {"mcpServers": {"jotbrief": server_entry()}}
+    print(json.dumps(cfg, indent=2, ensure_ascii=False))
+
+
+def cmd_mcp_install(args):
+    """Registra o servidor no Claude Desktop (com backup). Exige o Claude fechado."""
+    from . import claude_config as cc
+
+    if cc.claude_running() and not args.force:
+        print("O Claude Desktop está aberto: ele reescreve a configuração e perderia a alteração.\n"
+              "Feche-o por completo (ícone da bandeja → Sair) e rode este comando de novo.")
+        return 1
+    for path in ([Path(args.config)] if args.config else cc.config_paths()):
+        backup = cc.install(path)
+        print(f"Configurado: {path}\n  backup: {backup.name if backup else '(arquivo novo)'}\n"
+              f"  verificado: {cc.is_installed(path)}")
+    print("Agora abra o Claude Desktop e peça: \"liste minhas reuniões do JB\".")
+    return 0
+
+
+def cmd_check_key(_):
+    """Testa a chave da API (chamada gratuita que só consulta o modelo); nunca mostra a chave."""
+    import anthropic
+
+    from .config import Config, env_candidates
+
+    found = [str(p) for p in env_candidates() if p.exists()]
+    print("Arquivos .env encontrados:", ", ".join(found) if found else "nenhum")
+    print("ANTHROPIC_API_KEY:", "definida" if os.environ.get("ANTHROPIC_API_KEY") else "NÃO definida")
+    model = Config.load().claude_model
+    try:
+        m = anthropic.Anthropic().models.retrieve(model)
+    except anthropic.AuthenticationError:
+        print("A chave foi recusada pela Anthropic (inválida, revogada ou sem crédito de acesso).")
+        return 1
+    except anthropic.APIConnectionError as e:
+        print(f"Sem conexão com a API: {e}")
+        return 1
+    except (anthropic.AnthropicError, TypeError) as e:  # sem credencial configurada etc.
+        if isinstance(e, TypeError) and "authentication" not in str(e).lower():
+            raise
+        print("Nenhuma credencial encontrada. Coloque ANTHROPIC_API_KEY=sua_chave no arquivo .env "
+              "(veja o README) e rode este comando de novo.")
+        return 1
+    print(f"OK: chave válida; modelo {m.id} disponível.")
+    return 0
+
+
+def cmd_subjects(_):
+    """Gera o assunto das reuniões salvas que ainda estão 'Sem assunto'."""
+    from . import meetings
+    from .config import Config
+    from .summarize import generate_subject
+    from .ui_helpers import read_subject
+
+    cfg = Config.load()
+    todo = [d for d in meetings.meeting_dirs(meetings.default_root(cfg)) if not read_subject(d)]
+    if not todo:
+        print("Todas as reuniões já têm assunto.")
+        return 0
+    for d in todo:
+        try:
+            print(f"{d.name}: {generate_subject(d, cfg)}")
+        except Exception as e:  # noqa: BLE001
+            print(f"{d.name}: não gerado ({e})")
+            if "ANTHROPIC_API_KEY" in str(e):
+                return 1  # sem chave: não adianta tentar as outras
+    return 0
+
+
+def cmd_learn_voices(_):
+    """Aprende as vozes das pessoas que você já nomeou nas reuniões salvas (só nomes definidos por você)."""
+    from . import meetings, voices
+    from .config import Config
+    from .ui_helpers import read_auto_names, read_names
+    from .voices import learnable_label
+
+    root = meetings.default_root(Config.load())
+    total = 0
+    for d in meetings.meeting_dirs(root):
+        auto = set(read_auto_names(d))
+        for label, name in read_names(d).items():
+            if learnable_label(label) and label not in auto:
+                secs = voices.learn_from_meeting(d, label, name)
+                if secs > 0:
+                    total += 1
+                    print(f"{d.name}: {label} = {name} ({secs:.0f} s de fala)")
+    known = voices.load_voices()
+    print(f"{total} voz(es) aprendida(s). Cadastro: {', '.join(known) if known else 'vazio'}")
+    print(f"Arquivo: {voices.VOICES_PATH}  (apague-o para esquecer todas as vozes)")
+    return 0
+
+
+def cmd_identify(args):
+    """Separa as vozes de uma reunião (usado pelo app, em processo separado). Saída: linhas STATUS/RESULT/ERROR."""
+    import dataclasses
+    from pathlib import Path
+
+    from . import speakers
+    from .config import Config
+
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError):
+        pass
+    cfg = Config.load()
+    if args.people:
+        cfg = dataclasses.replace(cfg, num_speakers=args.people)
+    try:
+        n = speakers.identify(Path(args.folder), cfg, progress=lambda m: print("STATUS " + str(m).replace("\n", " "), flush=True))
+    except Exception as e:  # noqa: BLE001
+        print("ERROR " + str(e).replace("\n", " "), flush=True)
+        return 1
+    print(f"RESULT {n}", flush=True)
+    return 0
+
+
+def cmd_skill(_):
+    """Gera a skill do Claude 'jb-transcricao' (SKILL.md + painel.html + .zip) na pasta skills/ do projeto."""
+    from pathlib import Path
+
+    from .skill import SKILL_NAME, build_skill
+
+    from .runtime import is_frozen, project_root, user_files_dir
+    dest = (user_files_dir() if is_frozen() else project_root()) / "skills"
+    z = build_skill(dest)
+    print(f"Skill gerada em: {dest / SKILL_NAME}")
+    print(f"Arquivo para enviar ao Claude: {z}")
+    print("Instalar: Claude → Configurações → Capacidades (ou Personalizar) → Skills → Enviar skill → escolha o .zip.")
+    return 0
+
+
+def cmd_gui(_):
+    from .ui import main as ui_main
+    ui_main()
+
+
+def main():
+    _load_env()
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    p = argparse.ArgumentParser(prog="jotbrief")
+    sub = p.add_subparsers(dest="cmd", required=True)
+    r = sub.add_parser("run", help="grava e transcreve (CLI)")
+    r.set_defaults(fn=cmd_run)
+    sub.add_parser("devices", help="lista dispositivos").set_defaults(fn=cmd_devices)
+    sub.add_parser("setup", help="baixa/carrega os modelos").set_defaults(fn=cmd_setup)
+    sub.add_parser("gui", help="abre a janela").set_defaults(fn=cmd_gui)
+    sub.add_parser("mcp", help="servidor MCP (o Claude Desktop lê as reuniões)").set_defaults(fn=cmd_mcp)
+    sub.add_parser("skill", help="gera a skill do Claude (jb-transcricao) e o painel HTML").set_defaults(fn=cmd_skill)
+    sub.add_parser("mcp-config", help="mostra o trecho de configuração do Claude Desktop").set_defaults(fn=cmd_mcp_config)
+    sub.add_parser("check-key", help="testa a ANTHROPIC_API_KEY").set_defaults(fn=cmd_check_key)
+    sub.add_parser("subjects", help="gera o assunto das reuniões que estão 'Sem assunto'").set_defaults(fn=cmd_subjects)
+    sub.add_parser("learn-voices", help="aprende as vozes das pessoas já nomeadas nas reuniões salvas") \
+        .set_defaults(fn=cmd_learn_voices)
+    idf = sub.add_parser("identify", help="separa as vozes de uma reunião (usado pelo app)")
+    idf.add_argument("folder")
+    idf.add_argument("--people", type=int, default=0, help="nº de pessoas na call (0 = automático)")
+    idf.set_defaults(fn=cmd_identify)
+    mi = sub.add_parser("mcp-install", help="registra o servidor no Claude Desktop (feche o Claude antes)")
+    mi.add_argument("--force", action="store_true", help="grava mesmo com o Claude aberto (a alteração pode se perder)")
+    mi.add_argument("--config", help="caminho do claude_desktop_config.json (padrão: detectado)")
+    mi.set_defaults(fn=cmd_mcp_install)
+    args = p.parse_args()
+    return args.fn(args)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

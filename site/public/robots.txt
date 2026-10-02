@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://joao-barnabe.com/sitemap.xml
