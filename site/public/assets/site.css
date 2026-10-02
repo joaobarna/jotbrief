@@ -84,6 +84,11 @@ ol.timeline .badge { display: none; }
   ol.timeline li { padding: 14px 0; }
   ol.timeline .badge { display: inline-block; align-self: flex-start; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--navy); border: 1px solid var(--terracotta); border-radius: 6px; padding: 3px 7px; background: #fff; }
 }
+.langs { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 20px 0; }
+.lang { display: flex; align-items: center; gap: 16px; background: #fff; border: 1px solid var(--gray-border); border-top: 4px solid var(--terracotta); border-radius: 12px; padding: 18px 22px; }
+.lang .flag { width: 44px; height: 44px; flex: none; border-radius: 50%; box-shadow: 0 0 0 1px var(--gray-border); }
+.lang strong { display: block; font-family: var(--font-serif); font-size: 19px; color: var(--navy); line-height: 1.2; }
+.lang span { font-size: 15px; }
 ol.steps { counter-reset: s; list-style: none; padding: 0; }
 ol.steps li { counter-increment: s; position: relative; padding: 4px 0 14px 52px; }
 ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 2px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--terracotta); color: var(--navy); font-family: var(--font-serif); font-weight: 700; display: grid; place-items: center; }
