@@ -111,7 +111,7 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 ol.timeline { list-style: none; padding: 0; margin: 8px 0 12px; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0 12px; }
 ol.timeline li { display: flex; flex-direction: column; border-top: 1px solid var(--gray-border); padding-top: 8px; }
 ol.timeline .num { font-family: var(--font-mono); font-size: 12px; color: var(--navy); border: 1px solid var(--terracotta); border-radius: 50%; width: 22px; height: 22px; display: grid; place-items: center; margin-bottom: 8px; }
-ol.timeline .num.edu { border-color: var(--navy); }
+ol.timeline .uni { height: 36px; width: auto; align-self: flex-start; margin: -6px 0 0; }
 ol.timeline .when { font-family: var(--font-mono); font-size: 13px; color: var(--navy); }
 ol.timeline strong { font-size: 15px; line-height: 1.35; color: var(--navy); margin: 2px 0 4px; }
 ol.timeline p { margin: 0; font-size: 14px; line-height: 1.5; }
@@ -126,7 +126,7 @@ ol.timeline .badge { display: none; }
 }
 .clist { list-style: none; padding: 0; margin: 10px 0; border-top: 1px solid var(--gray-border); }
 .clist li { padding: 8px 4px; border-bottom: 1px solid var(--gray-border); }
-.clist .when { font-family: var(--font-mono); font-size: 13px; color: var(--navy); display: inline-block; min-width: 56px; }
+.clist .when { font-family: var(--font-mono); font-size: 13px; color: var(--navy); display: inline-block; min-width: 84px; }
 .langs { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 .langs { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin: 10px 0; }
 .lang { display: flex; align-items: center; gap: 16px; background: #fff; border: 1px solid var(--gray-border); border-top: 4px solid var(--terracotta); border-radius: 10px; padding: 10px 16px; }
