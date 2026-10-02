@@ -34,7 +34,7 @@ US = ('<span class="flagwrap"><svg class="flag" viewBox="0 0 60 60" aria-hidden=
 
 LANGS = {
     "pt": {
-        "html": "pt-BR", "og": "pt_BR", "flag": BR, "switch_label": "Idioma",
+        "html": "pt-BR", "og": "pt_BR", "og_img": "/assets/og.jpg", "og_alt": "João Barnabé, CFO e Diretor Financeiro: dados que decidem, automação que entrega", "flag": BR, "switch_label": "Idioma",
         "paths": {"home": "/", "projects": "/projetos/", "jb": "/jot-brief/", "docs": "/jot-brief/docs/", "versions": "/versoes/"},
         "nav": {"home": "Sobre", "projects": "Projetos"}, "nav_label": "Principal", "crumb_label": "Você está em",
         "docs_label": "Documentação", "footer_email": "E-mail", "ver_title": "Versões do site", "ver_lead": "A versão é a data e a hora (Brasília) da última alteração publicada.", "ver_tip": "Histórico de versões",
@@ -49,7 +49,7 @@ LANGS = {
         "docs_md": HERE.parent / "DOCUMENTACAO.md",
     },
     "en": {
-        "html": "en", "og": "en_US", "flag": US, "switch_label": "Language",
+        "html": "en", "og": "en_US", "og_img": "/assets/og-en.jpg", "og_alt": "João Barnabé, CFO and Finance Director: data that decides, automation that delivers", "flag": US, "switch_label": "Language",
         "paths": {"home": "/en/", "projects": "/en/projects/", "jb": "/en/jot-brief/", "docs": "/en/jot-brief/docs/", "versions": "/en/versions/"},
         "nav": {"home": "About", "projects": "Projects"}, "nav_label": "Main", "crumb_label": "You are here",
         "docs_label": "Documentation", "footer_email": "Email", "ver_title": "Site versions", "ver_lead": "The version is the date and time (Brasília) of the last published change. Change descriptions are written in Portuguese.", "ver_tip": "Version history",
@@ -77,6 +77,12 @@ LAYOUT = """<!doctype html>
 <meta property="og:type" content="website">
 <meta property="og:locale" content="{og_locale}">
 <meta property="og:url" content="{site_url}{path}">
+<meta property="og:image" content="{site_url}{og_img}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{og_alt}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{site_url}{og_img}">
 <link rel="canonical" href="{site_url}{path}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
@@ -85,8 +91,8 @@ LAYOUT = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=29">
-<link rel="stylesheet" href="/assets/posicoes.css?v=29">
+<link rel="stylesheet" href="/assets/site.css?v=30">
+<link rel="stylesheet" href="/assets/posicoes.css?v=30">
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -171,7 +177,7 @@ def render(content: str, lang: str, page: str, path: str, alt_paths: dict[str, s
             [f'<link rel="alternate" hreflang="{LANGS[k]["html"]}" href="{CFG["site_url"]}{alt_paths[k]}">' for k in ("pt", "en")]
             + [f'<link rel="alternate" hreflang="x-default" href="{CFG["site_url"]}{alt_paths["pt"]}">'])
     html = LAYOUT.format(
-        html_lang=L["html"], og_locale=L["og"], title=title, description=desc, site_url=CFG["site_url"], path=path,
+        html_lang=L["html"], og_locale=L["og"], og_img=L["og_img"], og_alt=L["og_alt"], title=title, description=desc, site_url=CFG["site_url"], path=path,
         alternates=alternates, content=content, year=date.today().year,
         home=L["paths"]["home"], projects=L["paths"]["projects"], nav_label=L["nav_label"],
         nav_home=L["nav"]["home"], nav_projects=L["nav"]["projects"], switch_label=L["switch_label"],
