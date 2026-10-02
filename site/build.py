@@ -7,6 +7,7 @@ Português fica na raiz (/), inglês em /en/.
 """
 from __future__ import annotations
 
+import base64
 import json
 import re
 import shutil
@@ -91,8 +92,8 @@ LAYOUT = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=30">
-<link rel="stylesheet" href="/assets/posicoes.css?v=30">
+<link rel="stylesheet" href="/assets/site.css?v=32">
+<link rel="stylesheet" href="/assets/posicoes.css?v=32">
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -122,6 +123,38 @@ LAYOUT = """<!doctype html>
 """
 
 POS: set[str] = set()
+
+CONTATO = {  # cartão de contato (vCard 3.0); os telefones: Campinas (o do botão do WhatsApp) e São Paulo
+    "pt": {"arquivo": "joao-barnabe.vcf", "titulo": "Diretor Financeiro"},
+    "en": {"arquivo": "joao-barnabe-en.vcf", "titulo": "Finance Director"},
+}
+TELEFONES = ["+5519936187299", "+5511936195660"]  # o 1º é o do botão do WhatsApp (Campinas); o 2º, São Paulo
+
+
+def dobrar(linha: str) -> str:
+    """vCard: linhas com no máximo 75 caracteres; as continuações começam com um espaço."""
+    partes, resto = [], linha
+    while len(resto) > 75:
+        partes.append(resto[:75])
+        resto = " " + resto[75:]
+    partes.append(resto)
+    return "\r\n".join(partes)
+
+
+def montar_vcard(lang: str) -> str:
+    foto = base64.b64encode((SRC / "assets" / "contato-foto.jpg").read_bytes()).decode("ascii")
+    linhas = [
+        "BEGIN:VCARD", "VERSION:3.0", "N:Barnabé;João;;;", "FN:João Barnabé",
+        f"TITLE:{CONTATO[lang]['titulo']}",
+        "EMAIL;TYPE=INTERNET,PREF:joaobarna@gmail.com",
+        f"TEL;TYPE=CELL,VOICE,PREF:{TELEFONES[0]}",
+        f"TEL;TYPE=CELL,VOICE:{TELEFONES[1]}",
+        f"URL:{CFG['site_url']}/" + ("en/" if lang == "en" else ""),
+        "URL:https://www.linkedin.com/in/joao-barnabe",
+        f"PHOTO;ENCODING=b;TYPE=JPEG:{foto}",
+        "END:VCARD",
+    ]
+    return "\r\n".join(dobrar(x) for x in linhas) + "\r\n"
 BRT = timezone(timedelta(hours=-3))  # Brasília (sem horário de verão desde 2019)
 
 
@@ -227,6 +260,8 @@ def main() -> None:
     # 404 bilíngue: a Cloudflare serve /404.html da raiz
     write("/404.html", render((SRC / "pages" / "pt" / "404.html").read_text(encoding="utf-8"), "pt", "404", "/404.html",
                               {"pt": "/", "en": "/en/"}))
+    for lang, c in CONTATO.items():
+        (OUT / c["arquivo"]).write_bytes(montar_vcard(lang).encode("utf-8"))
     (OUT / "assets" / "posicoes.css").write_text("\n".join(sorted(POS)) + "\n", encoding="utf-8")
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {CFG['site_url']}/sitemap.xml\n", encoding="utf-8")
     (OUT / "sitemap.xml").write_text(
@@ -238,6 +273,7 @@ def main() -> None:
         "  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n"
         "  Content-Security-Policy: default-src 'self'; style-src 'self' https://fonts.googleapis.com; "
         "font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'self'; form-action 'none'\n"
+        "/*.vcf\n  Content-Type: text/vcard; charset=utf-8\n"
         "/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n", encoding="utf-8")
     print("site gerado em", OUT, "|", sum(1 for _ in OUT.rglob("*") if _.is_file()), "arquivos")
 

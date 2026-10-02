@@ -4,5 +4,7 @@
   X-Frame-Options: DENY
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Content-Security-Policy: default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'self'; form-action 'none'
+/*.vcf
+  Content-Type: text/vcard; charset=utf-8
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
