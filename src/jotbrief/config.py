@@ -118,6 +118,10 @@ class Config:
             for k, v in data.items():
                 if hasattr(cfg, k):
                     setattr(cfg, k, Path(v) if k == "output_dir" else v)
+        from .runtime import is_frozen, user_files_dir
+        if is_frozen() and not Path(cfg.output_dir).is_absolute():
+            # caminho relativo (herdado do uso pelo código-fonte) não faz sentido no app instalado: vai para Documentos
+            cfg.output_dir = user_files_dir() / cfg.output_dir
         return cfg
 
     def save(self) -> None:

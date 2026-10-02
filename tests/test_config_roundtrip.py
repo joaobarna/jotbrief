@@ -53,3 +53,17 @@ def test_version_format_and_changelog_merge():
     atual = versao.atual()
     assert atual == "dev" or re.fullmatch(r"\d{4}\.\d{2}\.\d{2}\.\d{2}\.\d{2}", atual)
     assert all(re.fullmatch(r"\d{4}\.\d{2}\.\d{2}\.\d{2}\.\d{2}", e["versao"]) for e in versao.entradas())
+
+
+def test_installed_app_resolves_relative_output_dir_into_documents(tmp_path, monkeypatch):
+    import sys
+
+    from jotbrief import config
+
+    cfg_file = tmp_path / "config.toml"
+    cfg_file.write_text('output_dir = "reunioes"\n', encoding="utf-8")
+    monkeypatch.setattr(config, "CONFIG_PATH", cfg_file)
+    assert str(config.Config.load().output_dir) == "reunioes"                       # código-fonte: continua relativo
+    monkeypatch.setattr(sys, "frozen", True, raising=False)
+    out = config.Config.load().output_dir
+    assert out.is_absolute() and out.parts[-3:] == ("Documents", "JB - Jot Brief", "reunioes") or out.parts[-2:] == ("JB - Jot Brief", "reunioes")

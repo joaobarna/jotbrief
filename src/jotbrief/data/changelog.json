@@ -1,5 +1,55 @@
 [
   {
+    "versao": "2026.10.02.15.22",
+    "titulo": "Chave da API: link clicavel para criar a chave (platform.claude.com/settings/keys)",
+    "hash": "b984149"
+  },
+  {
+    "versao": "2026.10.02.13.52",
+    "titulo": "Site: LinkedIn e e-mail (Gmail para joaobarna@gmail.com) abrem em nova aba, como o WhatsApp",
+    "hash": "67674a6"
+  },
+  {
+    "versao": "2026.10.02.13.52",
+    "titulo": "Site: botao do WhatsApp abre em nova aba",
+    "hash": "dbec131"
+  },
+  {
+    "versao": "2026.10.02.13.49",
+    "titulo": "Site: botao do WhatsApp com mensagem pre-pronta (pt e en)",
+    "hash": "b3bbf46"
+  },
+  {
+    "versao": "2026.10.02.13.47",
+    "titulo": "Site: linha de Marketing como Diretor de Marketing, com o traçado pela metade (2022-2024)",
+    "hash": "250c31e"
+  },
+  {
+    "versao": "2026.10.02.13.46",
+    "titulo": "Site: secoes da home expandem e escondem; Certificados e cursos comeca escondida",
+    "hash": "6e15bf4"
+  },
+  {
+    "versao": "2026.10.02.13.46",
+    "titulo": "Site: logo oficial da UNICAMP no card da formacao, icone do Gmail no botao de e-mail, mes dos cursos",
+    "hash": "458b86c"
+  },
+  {
+    "versao": "2026.10.02.13.41",
+    "titulo": "Site: versao no rodape (AAAA.MM.DD.HH.mm como no JB Ladder) com pagina de historico de versoes",
+    "hash": "673392b"
+  },
+  {
+    "versao": "2026.10.02.13.40",
+    "titulo": "Site: job rotation de Marketing na regua, favicon JB, certificados e cursos, icone do LinkedIn no botao",
+    "hash": "ccb5dfb"
+  },
+  {
+    "versao": "2026.10.02.13.40",
+    "titulo": "Versao no formato do JB Ladder (YYYY.MM.DD.HH.mm = commit em Brasilia): app, instalador, Release e historico de versoes",
+    "hash": "58d00ca"
+  },
+  {
     "versao": "2026.10.02.13.35",
     "titulo": "Site: pagina do JB em listas (pt e en) e trilha de navegacao legivel no fundo claro",
     "hash": "a3d9589"

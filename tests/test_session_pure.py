@@ -216,3 +216,68 @@ def test_meet_event_file_survives_concurrent_writes(tmp_path):
     [t.join() for t in ts]
     lines = (folder / meet_names.FILE).read_text(encoding="utf-8").splitlines()
     assert len(lines) == 1200 and all(json.loads(l)["name"].startswith("Pessoa") for l in lines)   # nenhuma linha quebrada
+
+
+def test_load_whisper_retries_when_file_is_temporarily_locked(monkeypatch):
+    import faster_whisper
+
+    from jotbrief import transcriber
+
+    calls = []
+
+    class FakeModel:
+        def __init__(self, name, device, compute_type):
+            calls.append(name)
+            if len(calls) < 3:
+                raise RuntimeError("Unable to open file 'model.bin' in model 'x'")
+
+    monkeypatch.setattr(faster_whisper, "WhisperModel", FakeModel)
+    assert isinstance(transcriber.load_whisper("small", "cpu", "int8", attempts=4, wait=0), FakeModel)
+    assert len(calls) == 3                                           # 2 falhas por arquivo preso, 3ª funciona
+    calls.clear()
+    monkeypatch.setattr(faster_whisper, "WhisperModel", lambda *a, **k: (_ for _ in ()).throw(ValueError("outro erro")))
+    import pytest
+    with pytest.raises(ValueError):
+        transcriber.load_whisper("small", "cpu", "int8", attempts=4, wait=0)   # outros erros não ficam repetindo
+
+
+def test_gpu_and_cpu_failures_are_both_reported(monkeypatch):
+    from jotbrief import transcriber
+    from jotbrief.config import Config
+
+    monkeypatch.setattr(transcriber, "resolve_device", lambda cfg: ("large-v3-turbo", "cuda", "float16"))
+
+    def fail(name, device, compute, **k):
+        raise RuntimeError(f"erro {device}")
+
+    monkeypatch.setattr(transcriber, "load_whisper", fail)
+    import pytest
+    with pytest.raises(RuntimeError, match=r"GPU: erro cuda \| Processador \(small\): erro cpu"):
+        transcriber.Transcriber(Config(), lambda u: None).load()
+
+
+def test_logs_setup_writes_file_and_records_thread_exceptions(tmp_path):
+    import logging
+    import sys
+    import threading
+
+    from jotbrief import logs
+
+    saved = (sys.excepthook, threading.excepthook, list(logging.getLogger().handlers))
+    try:
+        logs._installed = False
+        p = logs.setup(tmp_path / "x.log")
+        t = threading.Thread(target=lambda: 1 / 0, name="teste")
+        t.start()
+        t.join()
+        for h in logging.getLogger().handlers:
+            h.flush()
+        txt = (tmp_path / "x.log").read_text(encoding="utf-8")
+        assert p == tmp_path / "x.log" and "início" in txt and "exceção em thread teste" in txt and "ZeroDivisionError" in txt
+    finally:
+        sys.excepthook, threading.excepthook = saved[0], saved[1]
+        for h in list(logging.getLogger().handlers):
+            if h not in saved[2]:
+                logging.getLogger().removeHandler(h)
+                h.close()
+        logs._installed = False

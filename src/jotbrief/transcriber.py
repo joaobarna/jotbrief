@@ -78,6 +78,23 @@ def _preload_cuda_dlls():
         os.environ["PATH"] = str(d) + os.pathsep + os.environ["PATH"]
 
 
+def load_whisper(name: str, device: str, compute: str, attempts: int = 4, wait: float = 2.0):
+    """Abre o modelo; se o Windows/antivírus estiver segurando o arquivo (comum na 1ª leitura por um programa novo),
+    espera um pouco e tenta de novo em vez de desistir."""
+    import time
+
+    from faster_whisper import WhisperModel
+
+    for i in range(attempts):
+        try:
+            return WhisperModel(name, device=device, compute_type=compute)
+        except Exception as e:
+            if "Unable to open file" not in str(e) or i == attempts - 1:
+                raise
+            log.warning("arquivo do modelo indisponível (%s); nova tentativa %d/%d", e, i + 2, attempts)
+            time.sleep(wait * (i + 1))
+
+
 class Transcriber:
     def __init__(self, cfg: Config, on_utterance: Callable[[Utterance], None],
                  on_warning: Callable[[str], None] | None = None):
@@ -94,19 +111,19 @@ class Transcriber:
         self._last_lang = AUTO_LANGS[0]
 
     def load(self):
-        from faster_whisper import WhisperModel
-
         name, device, compute = resolve_device(self.cfg)
         log.info("carregando Whisper %s (%s/%s)", name, device, compute)
         try:
-            self.model = WhisperModel(name, device=device, compute_type=compute)
-        except Exception:
-            if device == "cuda":
-                log.exception("falha em CUDA, caindo para CPU")
-                name, device, compute = self.cfg.model_cpu, "cpu", "int8"
-                self.model = WhisperModel(name, device=device, compute_type=compute)
-            else:
+            self.model = load_whisper(name, device, compute)
+        except Exception as gpu_err:
+            if device != "cuda":
                 raise
+            log.exception("falha em CUDA, caindo para CPU")
+            name, device, compute = self.cfg.model_cpu, "cpu", "int8"
+            try:
+                self.model = load_whisper(name, device, compute)
+            except Exception as cpu_err:  # mostra os DOIS motivos (antes só aparecia o da CPU)
+                raise RuntimeError(f"GPU: {gpu_err} | Processador ({name}): {cpu_err}") from cpu_err
         self.model_name = f"{name} ({device})"
 
     def start(self):

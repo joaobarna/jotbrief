@@ -51,12 +51,85 @@ def cmd_devices(_):
 def cmd_setup(_):
     from .config import Config
     from .transcriber import Transcriber
-    from .vad import _get_model
+    from .vad import SileroVad
 
-    _get_model()
+    SileroVad()  # carrega o modelo de detecção de fala (ONNX)
     t = Transcriber(Config.load(), lambda u: None)
     t.load()
     print(f"Modelos prontos: {t.model_name}")
+
+
+def cmd_selftest(_):
+    """Autodiagnóstico (também para suporte): versões, GPU, bibliotecas CUDA, arquivos dos modelos e carga real dos modelos."""
+    import os
+    import platform
+    import sys
+    import traceback
+    from pathlib import Path
+
+    from . import cuda_setup, logs, runtime, versao
+    from .config import Config
+
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError):
+        pass
+    bad = 0
+
+    def line(ok: bool, text: str):
+        nonlocal bad
+        bad += 0 if ok else 1
+        print(("OK     " if ok else "FALHA  ") + text, flush=True)
+
+    cfg = Config.load()
+    print(f"JB - Jot Brief {versao.atual()} | {'instalado' if runtime.is_frozen() else 'código-fonte'} | "
+          f"Python {platform.python_version()} | {platform.platform()}")
+    print(f"log: {logs.log_path()} | dados: {runtime.data_dir()} | pasta das reuniões: {Path(cfg.output_dir).resolve()}")
+    line(Path(cfg.output_dir).is_absolute() or not runtime.is_frozen(),
+         f"pasta das reuniões é absoluta ({cfg.output_dir})" if Path(cfg.output_dir).is_absolute()
+         else f"pasta das reuniões é RELATIVA ({cfg.output_dir}): no app instalado deveria ser absoluta")
+    try:
+        import ctranslate2
+        n = ctranslate2.get_cuda_device_count()
+        print(f"ctranslate2 {ctranslate2.__version__} | placas CUDA: {n} | NVIDIA presente: {cuda_setup.gpu_present()}")
+    except Exception as e:  # noqa: BLE001
+        line(False, f"ctranslate2: {e}")
+    line(cuda_setup.cuda_ready(), "bibliotecas CUDA (cuBLAS e cuDNN) encontradas: "
+         + (", ".join(str(d) for d in runtime.dll_search_dirs()) or "nenhuma"))
+    try:
+        from .transcriber import resolve_device
+        name, device, compute = resolve_device(cfg)
+        print(f"modelo escolhido: {name} ({device}/{compute})")
+        from faster_whisper.utils import download_model
+        for model in {name, cfg.model_cpu}:
+            try:
+                path = Path(download_model(model, local_files_only=True))   # o mesmo método que o faster-whisper usa
+                mb = path / "model.bin"
+                ok = mb.exists()
+                size = mb.stat().st_size // 1_048_576 if ok else 0
+                if ok:
+                    with open(mb, "rb") as f:   # abre e lê de verdade (é aqui que um antivírus seguraria o arquivo)
+                        f.read(1 << 20)
+                line(ok, f"arquivo do modelo {model}: {mb} ({size} MB, {'link' if mb.is_symlink() else 'arquivo'})")
+            except Exception as e:  # noqa: BLE001
+                line(False, f"arquivo do modelo {model}: {type(e).__name__}: {e}")
+    except Exception:  # noqa: BLE001
+        line(False, "escolha do modelo:\n" + traceback.format_exc())
+    try:
+        from .transcriber import Transcriber
+        t = Transcriber(cfg, lambda u: None)
+        t.load()
+        line(True, f"Whisper carregado: {t.model_name}")
+    except Exception:  # noqa: BLE001
+        line(False, "Whisper não carregou:\n" + traceback.format_exc())
+    try:
+        from .vad import SileroVad
+        SileroVad()
+        line(True, "detector de fala (ONNX) carregado")
+    except Exception:  # noqa: BLE001
+        line(False, "detector de fala:\n" + traceback.format_exc())
+    print("\nTudo certo." if not bad else f"\n{bad} problema(s) encontrado(s). Mande este texto para o suporte.")
+    return 1 if bad else 0
 
 
 def cmd_mcp(_):
@@ -209,6 +282,8 @@ def cmd_gui(_):
 def main():
     _load_env()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    from . import logs
+    logs.setup()  # também em arquivo: o app instalado não tem console
     p = argparse.ArgumentParser(prog="jotbrief")
     from .versao import atual
     p.add_argument("--version", action="version", version=f"JB - Jot Brief {atual()}")
@@ -225,6 +300,7 @@ def main():
     sub.add_parser("subjects", help="gera o assunto das reuniões que estão 'Sem assunto'").set_defaults(fn=cmd_subjects)
     sub.add_parser("learn-voices", help="aprende as vozes das pessoas já nomeadas nas reuniões salvas") \
         .set_defaults(fn=cmd_learn_voices)
+    sub.add_parser("selftest", help="autodiagnóstico: versões, GPU, modelos e o que falhar").set_defaults(fn=cmd_selftest)
     idf = sub.add_parser("identify", help="separa as vozes de uma reunião (usado pelo app)")
     idf.add_argument("folder")
     idf.add_argument("--people", type=int, default=0, help="nº de pessoas na call (0 = automático)")
