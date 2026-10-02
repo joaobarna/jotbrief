@@ -50,6 +50,10 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 .crumbs a:hover { color: var(--navy); border-bottom: 0; }
 .hero { padding: 32px 0 8px; }
 .hero p.lead { font-size: 17px; max-width: 760px; margin: 0 0 4px; }
+.heroflex { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.heroflex .herotext { flex: 1; min-width: 0; }
+.foto { width: 140px; height: 140px; flex: none; border-radius: 50%; object-fit: cover; border: 3px solid var(--terracotta); box-shadow: 0 6px 18px rgba(10,25,47,.18); }
+@media (max-width: 640px) { .heroflex { flex-direction: column-reverse; align-items: flex-start; gap: 14px; } .foto { width: 104px; height: 104px; } }
 .btn { display: inline-block; background: var(--terracotta-texto); color: #fff; font-weight: 700; text-decoration: none; padding: 9px 20px; border-radius: 8px; font-size: 15px; }
 .btn { display: inline-flex; align-items: center; gap: 8px; }
 .btn .ico { width: 18px; height: 18px; flex: none; }
