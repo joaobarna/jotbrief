@@ -75,8 +75,8 @@ LAYOUT = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=12">
-<link rel="stylesheet" href="/assets/posicoes.css?v=12">
+<link rel="stylesheet" href="/assets/site.css?v=14">
+<link rel="stylesheet" href="/assets/posicoes.css?v=14">
 </head>
 <body>
 <header class="site"><div class="wrap">

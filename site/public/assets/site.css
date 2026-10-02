@@ -46,6 +46,8 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 
 .crumbs { padding-top: 20px; font-size: 14px; font-family: var(--font-mono); color: #5c636a; }
 .crumbs span[aria-current] { color: var(--navy); }
+.crumbs a { color: var(--terracotta-texto); margin: 0; padding: 0; font-weight: 400; font-size: inherit; border-bottom: 0; text-decoration: underline; text-underline-offset: 3px; }
+.crumbs a:hover { color: var(--navy); border-bottom: 0; }
 .hero { padding: 32px 0 8px; }
 .hero p.lead { font-size: 17px; max-width: 760px; margin: 0 0 4px; }
 .btn { display: inline-block; background: var(--terracotta-texto); color: #fff; font-weight: 700; text-decoration: none; padding: 9px 20px; border-radius: 8px; font-size: 15px; }
@@ -64,6 +66,11 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 .tag { font-family: var(--font-mono); font-size: 12px; border: 1px solid var(--terracotta); border-radius: 6px; padding: 2px 8px; color: var(--navy); }
 .card .appicon { width: 56px; height: 56px; margin-bottom: 10px; }
 
+.flist { list-style: none; padding: 0; margin: 10px 0; border-top: 1px solid var(--gray-border); }
+.flist li { display: grid; grid-template-columns: 230px 1fr; gap: 6px 24px; padding: 12px 4px; border-bottom: 1px solid var(--gray-border); }
+.flist h3 { margin: 0; font-size: 17px; }
+.flist p { margin: 0; }
+@media (max-width: 760px) { .flist li { grid-template-columns: 1fr; } }
 .plist { list-style: none; padding: 0; margin: 10px 0; border-top: 1px solid var(--gray-border); }
 .prow { display: flex; align-items: center; gap: 18px; padding: 16px 4px; border-bottom: 1px solid var(--gray-border); }
 .prow .appicon { width: 56px; height: 56px; flex: none; margin: 0; }
