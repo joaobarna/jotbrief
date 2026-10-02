@@ -51,6 +51,8 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 .hero { padding: 32px 0 8px; }
 .hero p.lead { font-size: 17px; max-width: 760px; margin: 0 0 4px; }
 .btn { display: inline-block; background: var(--terracotta-texto); color: #fff; font-weight: 700; text-decoration: none; padding: 9px 20px; border-radius: 8px; font-size: 15px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; }
+.btn .ico { width: 18px; height: 18px; flex: none; }
 .btn:hover { background: var(--navy); color: #fff; }
 .btn.alt { background: transparent; color: var(--navy); border: 2px solid var(--navy); padding: 7px 18px; }
 .btn.alt:hover { background: var(--navy); color: #fff; }
@@ -90,7 +92,7 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 .band p { margin: 4px 0 0; }
 
 /* linha do tempo: régua proporcional aos anos + cards numerados */
-.axis { position: relative; height: 92px; margin: 16px 0 4px; }
+.axis { position: relative; height: 112px; margin: 16px 0 4px; }
 .axis .line { position: absolute; left: 0; right: 0; top: 52px; height: 2px; background: var(--gray-border); }
 .axis .seg { position: absolute; top: -2px; height: 6px; border-radius: 3px; }
 .axis .seg.s0 { background: var(--navy); }
@@ -99,6 +101,8 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 .axis .ticks { position: absolute; left: 0; right: 0; top: 60px; }
 .axis .tick { position: absolute; top: 0; width: 1px; height: 6px; background: #8a9099; }
 .axis .tick .y { position: absolute; top: 9px; left: 0; transform: translateX(-50%); font-family: var(--font-mono); font-size: 11px; color: #5c636a; }
+.axis .rot { position: absolute; top: 90px; height: 0; border-top: 2px dotted #8a9099; }
+.axis .rot .rlbl { position: absolute; left: 50%; top: 5px; transform: translateX(-50%); white-space: nowrap; font-family: var(--font-mono); font-size: 11px; color: #5c636a; }
 .axis .mile { position: absolute; top: 4px; width: 1px; height: 46px; background: var(--terracotta); }
 .axis .mile .lbl { position: absolute; top: -2px; left: 6px; white-space: nowrap; font-family: var(--font-mono); font-size: 11px; color: var(--navy); }
 .axis .mile.edu { background: var(--navy); }
@@ -119,6 +123,9 @@ ol.timeline .badge { display: none; }
   ol.timeline li { padding: 14px 0; }
   ol.timeline .badge { display: inline-block; align-self: flex-start; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--navy); border: 1px solid var(--terracotta); border-radius: 6px; padding: 3px 7px; background: #fff; }
 }
+.clist { list-style: none; padding: 0; margin: 10px 0; border-top: 1px solid var(--gray-border); }
+.clist li { padding: 8px 4px; border-bottom: 1px solid var(--gray-border); }
+.clist .when { font-family: var(--font-mono); font-size: 13px; color: var(--navy); display: inline-block; min-width: 56px; }
 .langs { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 .langs { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin: 10px 0; }
 .lang { display: flex; align-items: center; gap: 16px; background: #fff; border: 1px solid var(--gray-border); border-top: 4px solid var(--terracotta); border-radius: 10px; padding: 10px 16px; }

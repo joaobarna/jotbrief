@@ -75,12 +75,15 @@ LAYOUT = """<!doctype html>
 <meta property="og:locale" content="{og_locale}">
 <meta property="og:url" content="{site_url}{path}">
 <link rel="canonical" href="{site_url}{path}">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 {alternates}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=14">
-<link rel="stylesheet" href="/assets/posicoes.css?v=14">
+<link rel="stylesheet" href="/assets/site.css?v=17">
+<link rel="stylesheet" href="/assets/posicoes.css?v=17">
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -167,6 +170,7 @@ def main() -> None:
     shutil.rmtree(OUT, ignore_errors=True)
     OUT.mkdir(parents=True)
     shutil.copytree(SRC / "assets", OUT / "assets")
+    shutil.copy(SRC / "assets" / "favicon.ico", OUT / "favicon.ico")  # navegadores pedem /favicon.ico por padrão
     urls: list[str] = []
     for page in ("home", "projects", "jb", "docs"):
         alt = {k: LANGS[k]["paths"][page] for k in LANGS}
