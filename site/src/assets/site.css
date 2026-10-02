@@ -45,6 +45,7 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 
 .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin: 12px 0; }
 .card { background: #fff; border: 1px solid var(--gray-border); border-top: 4px solid var(--terracotta); border-radius: 10px; padding: 16px 18px; }
+.grid.pilares { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .card h3 { margin-top: 2px; }
 .card p { margin: 6px 0; }
 .card .kpi { font-family: var(--font-serif); font-size: 28px; font-weight: 700; color: var(--terracotta-texto); line-height: 1.1; }
