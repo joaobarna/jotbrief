@@ -72,6 +72,7 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 .flist li { display: grid; grid-template-columns: 230px 1fr; gap: 6px 24px; padding: 12px 4px; border-bottom: 1px solid var(--gray-border); }
 .flist h3 { margin: 0; font-size: 17px; }
 .flist p { margin: 0; }
+.vlist h3 { font-family: var(--font-mono); font-size: 14px; font-weight: 500; }
 @media (max-width: 760px) { .flist li { grid-template-columns: 1fr; } }
 .plist { list-style: none; padding: 0; margin: 10px 0; border-top: 1px solid var(--gray-border); }
 .prow { display: flex; align-items: center; gap: 18px; padding: 16px 4px; border-bottom: 1px solid var(--gray-border); }
@@ -147,6 +148,7 @@ summary { cursor: pointer; font-weight: 700; color: var(--navy); }
 
 footer.site { background: var(--navy); color: var(--offwhite); margin-top: 32px; padding: 16px 0; font-size: 14px; border-top: 3px solid var(--terracotta); }
 footer.site a { color: #fff; }
+footer.site a.ver { font-family: var(--font-mono); font-size: 12px; opacity: .85; }
 
 article.doc { max-width: 860px; }
 article.doc h1 { font-size: 40px; }

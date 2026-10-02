@@ -10,7 +10,8 @@ from __future__ import annotations
 import json
 import re
 import shutil
-from datetime import date
+import subprocess
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import markdown
@@ -34,28 +35,30 @@ US = ('<span class="flagwrap"><svg class="flag" viewBox="0 0 60 60" aria-hidden=
 LANGS = {
     "pt": {
         "html": "pt-BR", "og": "pt_BR", "flag": BR, "switch_label": "Idioma",
-        "paths": {"home": "/", "projects": "/projetos/", "jb": "/jot-brief/", "docs": "/jot-brief/docs/"},
+        "paths": {"home": "/", "projects": "/projetos/", "jb": "/jot-brief/", "docs": "/jot-brief/docs/", "versions": "/versoes/"},
         "nav": {"home": "Sobre", "projects": "Projetos"}, "nav_label": "Principal", "crumb_label": "Você está em",
-        "docs_label": "Documentação", "footer_email": "E-mail",
+        "docs_label": "Documentação", "footer_email": "E-mail", "ver_title": "Versões do site", "ver_lead": "A versão é a data e a hora (Brasília) da última alteração publicada.", "ver_tip": "Histórico de versões",
         "titles": {
             "home": ("João Barnabé", "CFO e Diretor Financeiro com mais de 8 anos em e-commerce de alto crescimento: Controladoria, Tesouraria, FP&A, 2 IPOs e integração de M&A."),
             "projects": ("Projetos · João Barnabé", "Projetos de João Barnabé: ferramentas para o dia a dia de finanças e gestão, abertas para quem quiser usar."),
             "jb": ("JB - Jot Brief · Transcrição de reuniões para Windows", "Transcreva reuniões do Meet, Teams e Zoom sem bot, veja quem falou e converse com o Claude. 100% local."),
             "docs": ("Documentação · JB - Jot Brief", "Tudo o que o JB - Jot Brief faz e como usar."),
+            "versions": ("Versões do site · João Barnabé", "Histórico de versões do site."),
             "404": ("Página não encontrada · João Barnabé", "Esta página não existe. This page does not exist."),
         },
         "docs_md": HERE.parent / "DOCUMENTACAO.md",
     },
     "en": {
         "html": "en", "og": "en_US", "flag": US, "switch_label": "Language",
-        "paths": {"home": "/en/", "projects": "/en/projects/", "jb": "/en/jot-brief/", "docs": "/en/jot-brief/docs/"},
+        "paths": {"home": "/en/", "projects": "/en/projects/", "jb": "/en/jot-brief/", "docs": "/en/jot-brief/docs/", "versions": "/en/versions/"},
         "nav": {"home": "About", "projects": "Projects"}, "nav_label": "Main", "crumb_label": "You are here",
-        "docs_label": "Documentation", "footer_email": "Email",
+        "docs_label": "Documentation", "footer_email": "Email", "ver_title": "Site versions", "ver_lead": "The version is the date and time (Brasília) of the last published change. Change descriptions are written in Portuguese.", "ver_tip": "Version history",
         "titles": {
             "home": ("João Barnabé", "CFO and Finance Director with 8+ years in high-growth e-commerce: Controllership, Treasury, FP&A, 2 IPOs and M&A integration."),
             "projects": ("Projects · João Barnabé", "João Barnabé's projects: tools for everyday finance and management work, open to anyone who wants to use them."),
             "jb": ("JB - Jot Brief · Meeting transcription for Windows", "Transcribe Meet, Teams and Zoom meetings without a bot, see who spoke and chat with Claude. 100% local."),
             "docs": ("Documentation · JB - Jot Brief", "Everything JB - Jot Brief does and how to use it."),
+            "versions": ("Site versions · João Barnabé", "Site version history."),
         },
         "docs_md": HERE.parent / "DOCUMENTATION.en.md",
     },
@@ -82,8 +85,8 @@ LAYOUT = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=17">
-<link rel="stylesheet" href="/assets/posicoes.css?v=17">
+<link rel="stylesheet" href="/assets/site.css?v=18">
+<link rel="stylesheet" href="/assets/posicoes.css?v=18">
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -106,13 +109,35 @@ LAYOUT = """<!doctype html>
 {content}
 </main>
 <footer class="site"><div class="wrap">
-  <p>© {year} João Barnabé · <a href="https://www.linkedin.com/in/joao-barnabe">LinkedIn</a> · <a href="mailto:joaobarna@gmail.com">{footer_email}</a></p>
+  <p>© {year} João Barnabé · <a href="https://www.linkedin.com/in/joao-barnabe">LinkedIn</a> · <a href="mailto:joaobarna@gmail.com">{footer_email}</a> · <a class="ver" href="{versions}" title="{ver_tip}">v{site_version}</a></p>
 </div></footer>
 </body>
 </html>
 """
 
 POS: set[str] = set()
+BRT = timezone(timedelta(hours=-3))  # Brasília (sem horário de verão desde 2019)
+
+
+def ler_changelog() -> list[dict[str, str]]:
+    """Commits que mexeram em site/ (mais novo primeiro). Versão = data/hora do commit em Brasília."""
+    sep = "|||"
+    try:
+        out = subprocess.run(["git", "log", f"--pretty=format:%aI{sep}%s", "--", "site"], cwd=HERE.parent,
+                             capture_output=True, text=True, encoding="utf-8", check=True).stdout
+    except (OSError, subprocess.CalledProcessError):
+        return []
+    itens = []
+    for linha in out.splitlines():
+        if sep not in linha:
+            continue
+        iso, titulo = linha.split(sep, 1)
+        itens.append({"versao": datetime.fromisoformat(iso).astimezone(BRT).strftime("%Y.%m.%d.%H.%M"), "titulo": titulo})
+    return itens
+
+
+CHANGELOG = ler_changelog()
+SITE_VERSION = CHANGELOG[0]["versao"] if CHANGELOG else datetime.now(BRT).strftime("%Y.%m.%d.%H.%M")
 
 
 def sem_estilo_inline(html: str) -> str:
@@ -152,7 +177,7 @@ def render(content: str, lang: str, page: str, path: str, alt_paths: dict[str, s
         nav_home=L["nav"]["home"], nav_projects=L["nav"]["projects"], switch_label=L["switch_label"],
         cur_home=mark("home"), cur_apps=('aria-current="page"' if page in ("projects", "jb", "docs") else ""),
         flag_now=L["flag"], flag_pt=BR, flag_en=US,
-        pt_href=alt_paths.get("pt", "/"), en_href=alt_paths.get("en", "/en/"), footer_email=L["footer_email"])
+        pt_href=alt_paths.get("pt", "/"), en_href=alt_paths.get("en", "/en/"), footer_email=L["footer_email"], versions=L["paths"]["versions"], ver_tip=L["ver_tip"], site_version=SITE_VERSION)
     for k, v in CFG.items():
         html = html.replace("{{" + k + "}}", str(v))
     return sem_estilo_inline(html)
@@ -186,6 +211,13 @@ def main() -> None:
                 content = (SRC / "pages" / lang / frag).read_text(encoding="utf-8")
             write(path, render(content, lang, page, path, alt))
             urls.append(path)
+    for lang, L in LANGS.items():
+        itens = "\n".join(f'    <li><h3>v{c["versao"]}</h3><p>{c["titulo"]}</p></li>' for c in CHANGELOG)
+        content = (f'<section class="hero"><div class="wrap"><h1>{L["ver_title"]}</h1><p class="lead">{L["ver_lead"]}</p></div></section>\n'
+                   f'<section class="wrap"><ul class="flist vlist">\n{itens}\n  </ul></section>\n')
+        path = L["paths"]["versions"]
+        write(path, render(content, lang, "versions", path, {k: LANGS[k]["paths"]["versions"] for k in LANGS}))
+        urls.append(path)
     # 404 bilíngue: a Cloudflare serve /404.html da raiz
     write("/404.html", render((SRC / "pages" / "pt" / "404.html").read_text(encoding="utf-8"), "pt", "404", "/404.html",
                               {"pt": "/", "en": "/en/"}))
