@@ -1,21 +1,46 @@
 name: Release do instalador
 
-# Ao publicar uma tag (ex.: v0.2.0) gera o instalador do Windows e o anexa à Release do GitHub.
+# A cada alteração do app na main, gera o instalador do Windows e publica uma Release.
+# A versão é a data/hora do commit em Brasília (YYYY.MM.DD.HH.mm), igual à do app e à do JB Ladder.
+# Mudanças só no site (site/**, docs) não geram instalador: o site é publicado pela Cloudflare Pages.
 on:
   push:
-    tags: ["v*"]
+    branches: [main]
+    paths:
+      - "src/**"
+      - "packaging/**"
+      - "extension/**"
+      - "scripts/**"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/workflows/release.yml"
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
   windows-installer:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # o histórico inteiro alimenta a lista de versões
 
       - uses: astral-sh/setup-uv@v6
+
+      - name: Versão (data/hora do commit, Brasília)
+        id: ver
+        shell: pwsh
+        run: |
+          $v = (uv run python scripts/gerar_changelog.py --versao).Trim()
+          "versao=$v" >> $env:GITHUB_OUTPUT
+          (git log -1 --pretty=%s) | Out-File -Encoding utf8 notas.txt
+          "Versão $v"
 
       - name: Dependências
         run: uv sync
@@ -30,9 +55,7 @@ jobs:
       - name: Instalador (Inno Setup)
         shell: pwsh
         run: |
-          $v = "${{ github.ref_name }}".TrimStart("v")
-          if (-not $v -or $v -eq "main") { $v = "0.0.0-dev" }
-          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "/DAppVersion=$v" packaging/installer.iss
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "/DAppVersion=${{ steps.ver.outputs.versao }}" packaging/installer.iss
 
       - uses: actions/upload-artifact@v4
         with:
@@ -40,8 +63,10 @@ jobs:
           path: dist/JB-Jot-Brief-Setup-*.exe
 
       - name: Publicar na Release
-        if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: v${{ steps.ver.outputs.versao }}
+          target_commitish: ${{ github.sha }}
+          name: JB - Jot Brief ${{ steps.ver.outputs.versao }}
+          body_path: notas.txt
           files: dist/JB-Jot-Brief-Setup-*.exe
-          generate_release_notes: true

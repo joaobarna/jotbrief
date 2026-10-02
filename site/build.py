@@ -18,6 +18,10 @@ import markdown
 HERE = Path(__file__).resolve().parent
 SRC, OUT = HERE / "src", HERE / "public"
 CFG = json.loads((HERE / "config.json").read_text(encoding="utf-8"))
+try:  # versão = a do último commit (YYYY.MM.DD.HH.mm), igual à do app e à da Release
+    CFG["version"] = json.loads((HERE.parent / "src" / "jotbrief" / "data" / "changelog.json").read_text(encoding="utf-8"))[0]["versao"]
+except (OSError, ValueError, IndexError, KeyError):
+    pass
 
 # bandeiras redondas (sem ids, para poder repetir na mesma página)
 BR = ('<span class="flagwrap"><svg class="flag" viewBox="0 0 60 60" aria-hidden="true"><rect width="60" height="60" fill="#009C3B"/>'

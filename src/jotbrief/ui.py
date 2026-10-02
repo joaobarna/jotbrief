@@ -59,8 +59,11 @@ QPushButton#dayHdr {{ background: {t['border']}; color: {t['text']}; font-weight
                  padding: 5px 11px; border: 1px solid transparent; border-radius: 8px; text-align: left; }}
 QPushButton#dayHdr:hover {{ background: {t['hover']}; border-color: {t['accent']}; }}
 QPushButton#dayHdr[today="true"] {{ background: {t['accent']}; color: {t['accent_text']}; }}
-QLabel#footer {{ background: {t['panel']}; border-top: 1px solid {t['border']}; color: {t['muted']};
-                 font-size: 11px; padding: 6px 20px; }}
+QWidget#footerbar {{ background: {t['panel']}; border-top: 1px solid {t['border']}; }}
+QLabel#footer {{ background: transparent; color: {t['muted']}; font-size: 11px; padding: 6px 20px; }}
+QPushButton#verlink {{ background: transparent; border: none; color: {t['muted']}; font-size: 11px; padding: 6px 20px;
+                      text-decoration: underline; }}
+QPushButton#verlink:hover {{ color: {t['text']}; }}
 QWidget#chatpanel {{ background: {t['panel']}; }}
 QTextBrowser#chatview {{ background: {t['bg']}; border: 1px solid {t['border']}; border-radius: 12px; padding: 10px; }}
 QTextEdit#chatinput {{ background: {t['bg']}; border: 1px solid {t['border']}; border-radius: 12px; padding: 8px 10px;
@@ -1022,6 +1025,29 @@ class ApiKeyDialog(QDialog):
         self.accept()
 
 
+class VersionsDialog(QDialog):
+    """Histórico de versões (mesmo formato do JB Ladder): 'YYYY.MM.DD.HH.mm' = data e hora do commit, em Brasília."""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        from .versao import atual, entradas
+        self.setWindowTitle("Versões")
+        self.resize(560, 460)
+        lay = QVBoxLayout(self)
+        lay.addWidget(QLabel(f"Versão atual: {atual()}", objectName="brand"))
+        note = QLabel("A versão é a data e a hora (Brasília) da última alteração publicada: ano.mês.dia.hora.minuto.", objectName="note")
+        note.setWordWrap(True)
+        lay.addWidget(note)
+        view = QTextBrowser()
+        items = entradas()
+        view.setHtml("".join(f"<p><b>{_esc(e['versao'])}</b><br>{_esc(e['titulo'])}</p>" for e in items)
+                     or "<p>O histórico não está disponível nesta versão.</p>")
+        lay.addWidget(view, 1)
+        close = QPushButton("Fechar", objectName="ghost")
+        close.clicked.connect(self.accept)
+        lay.addWidget(close, 0, Qt.AlignRight)
+
+
 class ChatPanel(QWidget):
     """Coluna do chat com o Claude: botões prontos (resumo detalhado…) + conversa livre sobre a reunião."""
     ask = Signal(str, str)   # (texto mostrado, pedido enviado ao Claude)
@@ -1411,6 +1437,17 @@ class Window(QWidget):
         lgpd = QLabel("Aviso LGPD: gravar e transcrever reuniões exige o consentimento dos participantes. "
                       "Avise-os antes de iniciar.", objectName="footer")
         lgpd.setWordWrap(True)
+        from .versao import atual
+        ver = QPushButton(f"Versão {atual()}", objectName="verlink")
+        ver.setCursor(Qt.PointingHandCursor)
+        ver.setToolTip("Ver o histórico de versões")
+        ver.clicked.connect(lambda: VersionsDialog(self).exec())
+        foot = QWidget(objectName="footerbar")
+        foot.setAttribute(Qt.WA_StyledBackground, True)
+        fl = QHBoxLayout(foot)
+        fl.setContentsMargins(0, 0, 0, 0)
+        fl.addWidget(lgpd, 1)
+        fl.addWidget(ver, 0)
 
         self.chat = ChatPanel()
         self.chat.ask.connect(self.chat_ask)
@@ -1435,7 +1472,7 @@ class Window(QWidget):
         lay = QVBoxLayout(self)
         lay.setContentsMargins(0, 0, 0, 0)
         lay.addWidget(split, 1)
-        lay.addWidget(lgpd)  # rodapé separado, na largura toda da janela
+        lay.addWidget(foot)  # rodapé separado, na largura toda da janela
 
         self.apply_theme()
         self.refresh_list()

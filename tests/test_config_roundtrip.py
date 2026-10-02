@@ -31,3 +31,25 @@ def test_runtime_frozen_and_source_modes(monkeypatch, tmp_path):
     nvidia.mkdir(parents=True)
     monkeypatch.setattr(sys, "path", [str(tmp_path)])
     assert nvidia in runtime.dll_search_dirs()
+
+
+def test_version_format_and_changelog_merge():
+    import re
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+    import gerar_changelog as g
+
+    from jotbrief import versao
+
+    assert g.para_versao("2026-10-02T13:35:12-03:00") == "2026.10.02.13.35"          # horário de Brasília
+    assert g.para_versao("2026-10-02T16:35:12+00:00") == "2026.10.02.13.35"          # UTC convertido para Brasília
+    assert g.para_versao("2026-10-03T01:10:00+00:00") == "2026.10.02.22.10"          # vira o dia para trás
+    git = [{"versao": "2026.10.02.13.35", "titulo": "novo", "hash": "abc1234"}]
+    old = [{"versao": "2026.10.02.13.35", "titulo": "novo", "hash": ""},               # repetido (mesma versão e título)
+           {"versao": "2026.09.29.15.52", "titulo": "antigo", "hash": ""}]
+    assert [e["titulo"] for e in g.mesclar(git, old)] == ["novo", "antigo"]
+    atual = versao.atual()
+    assert atual == "dev" or re.fullmatch(r"\d{4}\.\d{2}\.\d{2}\.\d{2}\.\d{2}", atual)
+    assert all(re.fullmatch(r"\d{4}\.\d{2}\.\d{2}\.\d{2}\.\d{2}", e["versao"]) for e in versao.entradas())

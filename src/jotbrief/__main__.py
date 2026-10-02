@@ -210,6 +210,8 @@ def main():
     _load_env()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
     p = argparse.ArgumentParser(prog="jotbrief")
+    from .versao import atual
+    p.add_argument("--version", action="version", version=f"JB - Jot Brief {atual()}")
     sub = p.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run", help="grava e transcreve (CLI)")
     r.set_defaults(fn=cmd_run)

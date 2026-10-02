@@ -193,3 +193,15 @@ def test_api_key_dialog_rejects_bad_keys_without_calling_the_api(app, monkeypatc
     d.edit.setText("sk-ant-" + "z" * 30)
     d._save()
     assert "recusou" in d.msg.text() and d.result() != ui.QDialog.Accepted
+
+
+def test_footer_shows_version_and_versions_dialog_lists_history(app):
+    from jotbrief import ui, versao
+
+    w = ui.Window()
+    btn = w.findChild(QtWidgets.QPushButton, "verlink")
+    assert btn is not None and btn.text() == f"Versão {versao.atual()}"
+    d = ui.VersionsDialog(w)
+    assert versao.atual() in d.findChild(QtWidgets.QLabel, "brand").text()
+    assert versao.entradas()[0]["titulo"][:20] in d.findChild(QtWidgets.QTextBrowser).toPlainText()
+    w.close()
