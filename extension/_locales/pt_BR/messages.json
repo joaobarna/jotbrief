@@ -1,0 +1,22 @@
+{
+  "extName": { "message": "JB - Jot Brief: nomes no Google Meet" },
+  "extDescription": { "message": "Mostra ao app JB - Jot Brief (Windows) quem está falando no Google Meet, para dar nome às vozes da transcrição." },
+  "actionTitle": { "message": "JB - Jot Brief" },
+  "popupTitle": { "message": "JB - Jot Brief" },
+  "popupLead": { "message": "Esta extensão avisa o app JB - Jot Brief, instalado no seu computador, quem está falando no Google Meet." },
+  "statusChecking": { "message": "Verificando o app…" },
+  "statusNoApp": { "message": "O app JB - Jot Brief não está aberto neste computador." },
+  "statusIdle": { "message": "App conectado. Não está gravando." },
+  "statusRecording": { "message": "App conectado e gravando." },
+  "downloadApp": { "message": "Baixar o app para Windows" },
+  "howItWorks": { "message": "Como funciona e privacidade" },
+  "showBadge": { "message": "Mostrar o selo no Google Meet" },
+  "badgeHint": { "message": "O selo mostra quem a extensão vê falando e se o app está conectado." },
+  "badgeWaiting": { "message": "aguardando…" },
+  "badgeNobody": { "message": "ninguém falando" },
+  "badgeNoExt": { "message": "extensão sem resposta" },
+  "badgeAppClosed": { "message": "app fechado ✗" },
+  "badgeAppIdle": { "message": "app aberto (não está gravando)" },
+  "badgeAppRecording": { "message": "app gravando ✓" },
+  "iconRecording": { "message": "JB - Jot Brief: gravando" }
+}

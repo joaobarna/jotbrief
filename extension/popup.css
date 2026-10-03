@@ -1,0 +1,15 @@
+:root { --navy: #0A192F; --offwhite: #F8F9FA; --terracotta: #E07A5F; --terracotta-texto: #B94A28; --charcoal: #212529; --gray-border: #E0E0E0; }
+* { box-sizing: border-box; }
+body { width: 320px; margin: 0; padding: 14px 16px 12px; background: var(--offwhite); color: var(--charcoal); font: 13px/1.5 system-ui, "Segoe UI", Arial, sans-serif; }
+h1 { margin: 0 0 4px; font: 700 17px Georgia, serif; color: var(--navy); }
+p { margin: 8px 0; }
+.muted { color: var(--charcoal); }
+.small { font-size: 12px; }
+.status { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: #fff; border: 1px solid var(--gray-border); border-left: 4px solid var(--terracotta); border-radius: 8px; font-weight: 600; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: #9ca3af; flex: none; }
+.dot.ok { background: #12805C; }
+.dot.rec { background: #D63B3B; }
+.btn { display: inline-block; background: var(--terracotta-texto); color: #fff; text-decoration: none; font-weight: 700; padding: 8px 14px; border-radius: 8px; }
+.btn:hover { background: var(--navy); }
+a { color: var(--terracotta-texto); }
+.opt { display: flex; gap: 8px; align-items: center; margin-top: 10px; }

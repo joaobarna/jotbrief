@@ -77,12 +77,22 @@ def test_live_speaker_names_the_solo_speaker_only():
     assert meet_names.live_speaker([ev(0, "Você", True)], 0, 5) is None         # você mesmo não conta
 
 
-def test_extension_manifest_and_icons_are_consistent():
+def test_extension_package_is_ready_for_the_web_store(tmp_path, monkeypatch):
     import json
+    import sys
+    import zipfile
     from pathlib import Path
 
-    ext = Path(__file__).resolve().parents[1] / "extension"
-    m = json.loads((ext / "manifest.json").read_text(encoding="utf-8"))
-    for size, rel in {**m["icons"], **m["action"]["default_icon"]}.items():
-        assert (ext / rel).exists() and rel.endswith(f"icon{size}.png"), rel
-    assert "alarms" in m["permissions"] and (ext / m["background"]["service_worker"]).exists()
+    root = Path(__file__).resolve().parents[1]
+    sys.path.insert(0, str(root / "scripts"))
+    import pack_extension as pe
+
+    assert pe.problemas() == []                                      # manifesto, idiomas, ícones, descrição ≤ 132, sem código remoto
+    m = json.loads((root / "extension" / "manifest.json").read_text(encoding="utf-8"))
+    assert sorted(m["permissions"]) == ["alarms", "storage"]         # nada além do necessário
+    assert m["host_permissions"] == ["http://127.0.0.1:47821/*"] and m["content_scripts"][0]["matches"] == ["https://meet.google.com/*"]
+    monkeypatch.setattr(pe, "OUT", tmp_path)
+    z = pe.pack()
+    names = zipfile.ZipFile(z).namelist()
+    assert "manifest.json" in names and "popup.html" in names and "_locales/en/messages.json" in names
+    assert not [n for n in names if n.endswith(".md") or n.startswith("loja") or "pack_extension" in n]

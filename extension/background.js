@@ -27,7 +27,7 @@ async function paintIcon(recording) {
     imageData[s] = g.getImageData(0, 0, s, s);
   }
   await chrome.action.setIcon({ imageData });
-  await chrome.action.setTitle({ title: recording ? "JB - Jot Brief: gravando" : "JB - Jot Brief" });
+  await chrome.action.setTitle({ title: recording ? chrome.i18n.getMessage("iconRecording") : chrome.i18n.getMessage("actionTitle") });
 }
 
 function setRecording(recording) {
