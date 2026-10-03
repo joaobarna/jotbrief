@@ -110,7 +110,7 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 .band p { margin: 4px 0 0; }
 
 /* linha do tempo: régua proporcional aos anos + cards numerados */
-.axis { position: relative; height: 112px; margin: 16px 0 4px; }
+.axis { position: relative; height: 154px; margin: 16px 0 4px; }
 .axis .line { position: absolute; left: 0; right: 0; top: 52px; height: 2px; background: var(--gray-border); }
 .axis .seg { position: absolute; top: -2px; height: 6px; border-radius: 3px; }
 .axis .seg.s0 { background: var(--navy); }
@@ -119,8 +119,12 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 .axis .ticks { position: absolute; left: 0; right: 0; top: 60px; }
 .axis .tick { position: absolute; top: 0; width: 1px; height: 6px; background: #8a9099; }
 .axis .tick .y { position: absolute; top: 9px; left: 0; transform: translateX(-50%); font-family: var(--font-mono); font-size: 11px; color: #5c636a; }
-.axis .rot { position: absolute; top: 90px; height: 0; border-top: 2px dotted #8a9099; }
+.axis .rot { position: absolute; top: 132px; height: 0; border-top: 2px dotted #8a9099; }
 .axis .rot .rlbl { position: absolute; left: 50%; top: 5px; transform: translateX(-50%); white-space: nowrap; font-family: var(--font-mono); font-size: 11px; color: #5c636a; }
+.axis .co { position: absolute; top: 90px; height: 30px; border-radius: 4px; background: #E3E8EF; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.15; overflow: hidden; }
+.axis .co.toky { background: #D3DBE6; }
+.axis .co .lbl { font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: var(--navy); white-space: nowrap; }
+.axis .co .sub { font-family: var(--font-mono); font-size: 9.5px; color: #4a5563; white-space: nowrap; }
 .axis .mile { position: absolute; top: 4px; width: 1px; height: 46px; background: var(--terracotta); }
 .axis .mile .lbl { position: absolute; top: -2px; left: 6px; white-space: nowrap; font-family: var(--font-mono); font-size: 11px; color: var(--navy); }
 .axis .mile.edu { background: var(--navy); }
@@ -134,6 +138,7 @@ ol.timeline strong { font-size: 15px; line-height: 1.35; color: var(--navy); mar
 ol.timeline p { margin: 0; font-size: 14px; line-height: 1.5; }
 ol.timeline .badge { display: none; }
 @media (max-width: 900px) {
+  .axis .co.toky .lbl, .axis .co.toky .sub { display: none; }
   .axis .tick:nth-child(even) .y { visibility: hidden; }
   .axis .mile .lbl { display: none; }
   .axis .mile { height: 26px; top: 24px; }
