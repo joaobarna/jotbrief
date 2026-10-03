@@ -271,7 +271,8 @@ def main() -> None:
     (OUT / "_headers").write_text(
         "/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n"
         "  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n"
-        "  Content-Security-Policy: default-src 'self'; style-src 'self' https://fonts.googleapis.com; "
+        "  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; "
+        "connect-src 'self' https://cloudflareinsights.com; style-src 'self' https://fonts.googleapis.com; "
         "font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'self'; form-action 'none'\n"
         "/*.vcf\n  Content-Type: text/vcard; charset=utf-8\n"
         "/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n", encoding="utf-8")
