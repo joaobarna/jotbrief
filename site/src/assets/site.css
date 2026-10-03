@@ -80,7 +80,7 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 @media (max-width: 760px) { .flist li { grid-template-columns: 1fr; } }
 /* seções que expandem e escondem (home) */
 .fold details { background: none; border: 0; border-radius: 0; padding: 0; margin: 0; }
-.fold summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; }
+.fold summary { display: flex; align-items: center; justify-content: flex-start; gap: 14px; cursor: pointer; list-style: none; }
 .fold summary::-webkit-details-marker { display: none; }
 .fold summary h2 { margin: 24px 0 8px; }
 .band.fold summary h2 { margin: 0 0 4px; }
@@ -88,6 +88,10 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 .fold details[open] > summary::after { transform: rotate(-135deg); margin-top: 4px; }
 .band.fold summary::after { border-color: #fff; }
 .fold summary:focus-visible { outline-offset: 2px; }
+.qrbox { display: flex; align-items: center; gap: 28px; margin: 10px 0; }
+.qrbox .qr { width: 240px; height: auto; flex: none; border-radius: 14px; box-shadow: 0 6px 18px rgba(10,25,47,.18); }
+.qrbox p { margin: 0 0 4px; max-width: 520px; }
+@media (max-width: 640px) { .qrbox { flex-direction: column; align-items: flex-start; } .qrbox .qr { width: 220px; } }
 .plist { list-style: none; padding: 0; margin: 10px 0; border-top: 1px solid var(--gray-border); }
 .prow { display: flex; align-items: center; gap: 18px; padding: 16px 4px; border-bottom: 1px solid var(--gray-border); }
 .prow .appicon { width: 56px; height: 56px; flex: none; margin: 0; }
