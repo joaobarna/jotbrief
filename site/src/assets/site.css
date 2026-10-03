@@ -60,7 +60,7 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 .btn:hover { background: var(--navy); color: #fff; }
 .btn.alt { background: transparent; color: var(--navy); border: 2px solid var(--navy); padding: 7px 18px; }
 .btn.alt:hover { background: var(--navy); color: #fff; }
-.actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 6px; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 14px 0 6px; }
 .note { font-size: 15px; }
 
 .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin: 12px 0; }
@@ -88,10 +88,8 @@ h3 { font-size: 18px; margin: 16px 0 6px; }
 .fold details[open] > summary::after { transform: rotate(-135deg); margin-top: 4px; }
 .band.fold summary::after { border-color: #fff; }
 .fold summary:focus-visible { outline-offset: 2px; }
-.qrbox { display: flex; align-items: center; gap: 28px; margin: 10px 0; }
-.qrbox .qr { width: 240px; height: auto; flex: none; border-radius: 14px; box-shadow: 0 6px 18px rgba(10,25,47,.18); }
-.qrbox p { margin: 0 0 4px; max-width: 520px; }
-@media (max-width: 640px) { .qrbox { flex-direction: column; align-items: flex-start; } .qrbox .qr { width: 220px; } }
+.qrmini { width: 104px; height: 104px; flex: none; background: #fff; padding: 5px; border: 1px solid var(--gray-border); border-radius: 8px; }
+@media (max-width: 760px) { .qrmini { display: none; } }  /* no celular o botão já abre o WhatsApp */
 .plist { list-style: none; padding: 0; margin: 10px 0; border-top: 1px solid var(--gray-border); }
 .prow { display: flex; align-items: center; gap: 18px; padding: 16px 4px; border-bottom: 1px solid var(--gray-border); }
 .prow .appicon { width: 56px; height: 56px; flex: none; margin: 0; }
