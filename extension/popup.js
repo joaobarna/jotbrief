@@ -1,4 +1,4 @@
-// Janela do ícone: mostra se o app JB está conectado e deixa esconder o selo no Meet.
+// Janela do ícone: mostra se o app SaidKeep está conectado e deixa esconder o selo no Meet.
 const t = (k) => chrome.i18n.getMessage(k);
 const $ = (id) => document.getElementById(id);
 
@@ -11,8 +11,8 @@ $("badgeHint").textContent = t("badgeHint");
 $("how").textContent = t("howItWorks");
 $("statusText").textContent = t("statusChecking");
 if (chrome.i18n.getUILanguage().toLowerCase().startsWith("en")) {  // links em inglês para quem usa o Chrome em inglês
-  $("downloadLink").href = "https://joao-barnabe.com/en/jot-brief/";
-  $("how").href = "https://joao-barnabe.com/en/jot-brief/privacy/";
+  $("downloadLink").href = "https://joao-barnabe.com/en/saidkeep/";
+  $("how").href = "https://joao-barnabe.com/en/saidkeep/privacy/";
 }
 
 chrome.runtime.sendMessage({ type: "status" }, (r) => {

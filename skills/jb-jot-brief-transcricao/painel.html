@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JB · Painel da reunião</title>
+<title>SaidKeep · Painel da reunião</title>
 <style>
   :root { --bg:#ffffff; --panel:#f6f7f9; --text:#1f2328; --muted:#6b7280; --border:#e5e7eb; --accent:#12805c; --accent-text:#ffffff; }
   @media (prefers-color-scheme: dark) {
@@ -36,7 +36,7 @@
 </head>
 <body>
 <main>
-  <h1>JB · Painel da reunião</h1>
+  <h1>SaidKeep · Painel da reunião</h1>
   <p class="sub" id="sub"></p>
 
   <div class="card">
@@ -54,7 +54,7 @@
 </main>
 
 <script>
-const DADOS = {"titulo": "AAAA-MM-DD | hh:mm | Assunto", "subtitulo": "", "opcoes": [{"icone": "✨", "nome": "Ata da reunião", "pedido": "Gere a ata desta reunião com: participantes (se dá para identificar), pauta, principais discussões, decisões tomadas, action items (tarefa, responsável e prazo, quando citados) e pendências em aberto. Seja fiel ao que foi dito e não invente responsáveis nem prazos."}, {"icone": "✨", "nome": "Resumo curto", "pedido": "Faça um resumo curto desta reunião, em até 5 linhas."}, {"icone": "✓", "nome": "Resumo detalhado", "pedido": "Faça um resumo detalhado desta reunião, organizado por tópico, com contexto, argumentos e conclusões."}, {"icone": "✨", "nome": "Resumo detalhado com citação", "pedido": "Faça um resumo detalhado desta reunião, por tópico, citando trechos literais entre aspas com o horário da fala entre colchetes, como [00:12:30]."}, {"icone": "✓", "nome": "Resumo e itens de ação", "pedido": "Faça um resumo desta reunião e, ao final, liste os itens de ação (o que, quem e quando)."}, {"icone": "☑", "nome": "Gerar tarefas", "pedido": "Extraia desta reunião uma lista de tarefas, cada uma com responsável, prazo e prioridade (marque como 'não informado' o que não foi dito)."}, {"icone": "✉", "nome": "Rascunho de e-mail", "pedido": "Escreva um rascunho de e-mail de follow-up para os participantes desta reunião: agradecimento, resumo objetivo, decisões e próximos passos com responsáveis."}, {"icone": "▦", "nome": "Preparar slides", "pedido": "Monte a estrutura de uma apresentação (slides) sobre esta reunião: título, e para cada slide um título e 3 a 5 tópicos curtos."}, {"icone": "🧠", "nome": "Conselhos inteligentes", "pedido": "Faça uma análise crítica desta reunião: riscos, lacunas, pontos que ficaram sem definição, perguntas que deveriam ter sido feitas e recomendações de próximos passos."}, {"icone": "🔄", "nome": "Sincronização da equipe", "pedido": "Extraia as atualizações de status desta reunião por assunto ou pessoa: o que foi feito, o que está em andamento e o que está bloqueado."}]};
+const DADOS = {"titulo": "AAAA-MM-DD | hh:mm | Assunto", "subtitulo": "", "opcoes": [{"icone": "✨", "nome": "Ata da reunião", "pedido": "Gere a ata desta reunião com: participantes (se dá para identificar), pauta, principais discussões, decisões tomadas, action items (tarefa, responsável e prazo, quando citados) e pendências em aberto. Seja fiel ao que foi dito e não invente responsáveis nem prazos."}, {"icone": "✨", "nome": "Resumo curto", "pedido": "Faça um resumo curto desta reunião, em até 5 linhas."}, {"icone": "✓", "nome": "Resumo detalhado", "pedido": "Faça um resumo detalhado desta reunião, organizado por tópico, com contexto, argumentos e conclusões."}, {"icone": "✨", "nome": "Resumo detalhado com citação", "pedido": "Faça um resumo detalhado desta reunião, por tópico, citando trechos literais entre aspas com a data e a hora da fala entre colchetes, como [2026-09-29 15:52:08]."}, {"icone": "✓", "nome": "Resumo e itens de ação", "pedido": "Faça um resumo desta reunião e, ao final, liste os itens de ação (o que, quem e quando)."}, {"icone": "☑", "nome": "Gerar tarefas", "pedido": "Extraia desta reunião uma lista de tarefas, cada uma com responsável, prazo e prioridade (marque como 'não informado' o que não foi dito)."}, {"icone": "✉", "nome": "Rascunho de e-mail", "pedido": "Escreva um rascunho de e-mail de follow-up para os participantes desta reunião: agradecimento, resumo objetivo, decisões e próximos passos com responsáveis."}, {"icone": "▦", "nome": "Preparar slides", "pedido": "Monte a estrutura de uma apresentação (slides) sobre esta reunião: título, e para cada slide um título e 3 a 5 tópicos curtos."}, {"icone": "🧠", "nome": "Conselhos inteligentes", "pedido": "Faça uma análise crítica desta reunião: riscos, lacunas, pontos que ficaram sem definição, perguntas que deveriam ter sido feitas e recomendações de próximos passos."}, {"icone": "🔄", "nome": "Sincronização da equipe", "pedido": "Extraia as atualizações de status desta reunião por assunto ou pessoa: o que foi feito, o que está em andamento e o que está bloqueado."}]};
 
 function copiar(texto, botao, rotulo) {
   const feito = () => {

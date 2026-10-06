@@ -1,7 +1,7 @@
 import numpy as np
 
-from jotbrief import voices
-from jotbrief.ui_helpers import (apply_auto_names, mark_manual, read_auto_names, read_names, write_names)
+from saidkeep import voices
+from saidkeep.ui_helpers import (apply_auto_names, mark_manual, read_auto_names, read_names, write_names)
 
 
 def v(*x):

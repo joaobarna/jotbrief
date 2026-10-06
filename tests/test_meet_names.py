@@ -2,8 +2,8 @@ import json
 import urllib.error
 import urllib.request
 
-from jotbrief import meet_bridge, meet_names
-from jotbrief.ui_helpers import read_auto_names, read_names, write_meta
+from saidkeep import meet_bridge, meet_names
+from saidkeep.ui_helpers import read_auto_names, read_names, write_meta
 
 
 def ev(t, name, on):
@@ -54,10 +54,10 @@ def test_bridge_accepts_extension_and_rejects_web_pages():
     try:
         url = f"http://127.0.0.1:{srv.server_address[1]}/event"
         body = json.dumps({"name": "Ana", "on": True}).encode()
-        ok = urllib.request.Request(url, body, {"X-JotBrief": "1", "Content-Type": "application/json"})
+        ok = urllib.request.Request(url, body, {"X-SaidKeep": "1", "Content-Type": "application/json"})
         assert json.load(urllib.request.urlopen(ok))["stored"] is True and got == [("Ana", True)]
         for headers in ({"Content-Type": "application/json"},  # sem o header da extensão
-                        {"X-JotBrief": "1", "Origin": "https://evil.example"}):  # vindo de uma página
+                        {"X-SaidKeep": "1", "Origin": "https://evil.example"}):  # vindo de uma página
             try:
                 urllib.request.urlopen(urllib.request.Request(url, body, headers))
                 raise AssertionError("deveria recusar")

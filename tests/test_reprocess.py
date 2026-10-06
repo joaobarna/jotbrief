@@ -1,8 +1,8 @@
 import json
 
-from jotbrief.reprocess import mark_echoes, write_reprocessed
-from jotbrief.session import clean_records
-from jotbrief.ui_helpers import parse_stamp, write_names, write_subject
+from saidkeep.reprocess import mark_echoes, write_reprocessed
+from saidkeep.session import clean_records
+from saidkeep.ui_helpers import parse_stamp, write_names, write_subject
 
 
 def test_write_reprocessed_backs_up_and_keeps_meta(tmp_path):
@@ -15,7 +15,7 @@ def test_write_reprocessed_backs_up_and_keeps_meta(tmp_path):
     lines = (tmp_path / "transcricao.jsonl").read_text(encoding="utf-8").splitlines()
     assert [json.loads(l)["text"] for l in lines] == ["a", "b"]                    # ordenado por tempo
     assert "| Marcos | a" not in (tmp_path / "transcricao.md").read_text(encoding="utf-8") or True
-    from jotbrief.ui_helpers import read_names, read_subject
+    from saidkeep.ui_helpers import read_names, read_subject
     assert read_subject(tmp_path) == "Assunto" and read_names(tmp_path) == {"Eu": "Marcos"}
 
 

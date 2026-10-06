@@ -1,11 +1,11 @@
 {
-  "extName": { "message": "JB - Jot Brief: names in Google Meet" },
-  "extDescription": { "message": "Tells the JB - Jot Brief Windows app who is speaking in Google Meet, so transcript voices get real names." },
-  "actionTitle": { "message": "JB - Jot Brief" },
-  "popupTitle": { "message": "JB - Jot Brief" },
-  "popupLead": { "message": "This extension tells the JB - Jot Brief app, installed on your computer, who is speaking in Google Meet." },
+  "extName": { "message": "SaidKeep: names in Google Meet" },
+  "extDescription": { "message": "Tells the SaidKeep Windows app who is speaking in Google Meet, so transcript voices get real names." },
+  "actionTitle": { "message": "SaidKeep" },
+  "popupTitle": { "message": "SaidKeep" },
+  "popupLead": { "message": "This extension tells the SaidKeep app, installed on your computer, who is speaking in Google Meet." },
   "statusChecking": { "message": "Checking the app…" },
-  "statusNoApp": { "message": "The JB - Jot Brief app is not open on this computer." },
+  "statusNoApp": { "message": "The SaidKeep app is not open on this computer." },
   "statusIdle": { "message": "App connected. Not recording." },
   "statusRecording": { "message": "App connected and recording." },
   "downloadApp": { "message": "Download the Windows app" },
@@ -18,5 +18,5 @@
   "badgeAppClosed": { "message": "app closed ✗" },
   "badgeAppIdle": { "message": "app open (not recording)" },
   "badgeAppRecording": { "message": "app recording ✓" },
-  "iconRecording": { "message": "JB - Jot Brief: recording" }
+  "iconRecording": { "message": "SaidKeep: recording" }
 }

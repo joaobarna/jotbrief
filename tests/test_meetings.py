@@ -2,9 +2,9 @@ import json
 
 import pytest
 
-from jotbrief import meetings
-from jotbrief.mcp_server import slugify
-from jotbrief.ui_helpers import write_names, write_subject
+from saidkeep import meetings
+from saidkeep.mcp_server import slugify
+from saidkeep.ui_helpers import write_names, write_subject
 
 
 def _make(root, name, recs, subject=None, names=None):

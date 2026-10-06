@@ -1,7 +1,7 @@
 from datetime import date
 from pathlib import Path
 
-from jotbrief.ui_helpers import call_title, clean_subject, group_by_day, pretty_name
+from saidkeep.ui_helpers import call_title, clean_subject, group_by_day, pretty_name
 
 
 def test_grouping_one_group_per_day():
@@ -28,7 +28,7 @@ def test_playable_wav_mono_mix(tmp_path):
     import numpy as np
     import soundfile as sf
 
-    from jotbrief.ui_helpers import playable_wav
+    from saidkeep.ui_helpers import playable_wav
     folder = tmp_path / "2026-09-29_1000"
     folder.mkdir()
     sr = 16000
@@ -44,7 +44,7 @@ def test_playable_wav_mono_mix(tmp_path):
 
 
 def test_parts_and_items(tmp_path):
-    from jotbrief.ui_helpers import add_part, build_items, read_parts, read_subject, write_subject
+    from saidkeep.ui_helpers import add_part, build_items, read_parts, read_subject, write_subject
     f = tmp_path / "2026-09-29_1542"
     f.mkdir()
     write_subject(f, "Teste")
@@ -62,7 +62,7 @@ def test_parts_and_items(tmp_path):
 
 
 def test_word_timings_real_and_estimated():
-    from jotbrief.ui_helpers import active_word, word_timings
+    from saidkeep.ui_helpers import active_word, word_timings
     real = {"t0": 1.0, "t1": 3.0, "text": "oi tudo bem", "words": [[1.0, 1.4, "oi"], [1.5, 2.0, "tudo"], [2.1, 2.9, "bem"]]}
     tm = word_timings(real)
     assert [w for *_, w in tm] == ["oi", "tudo", "bem"]
@@ -73,7 +73,7 @@ def test_word_timings_real_and_estimated():
 
 
 def test_duplicate_parts_are_merged(tmp_path):
-    from jotbrief.ui_helpers import add_part, read_parts, write_meta
+    from saidkeep.ui_helpers import add_part, read_parts, write_meta
     write_meta(tmp_path, parts=[{"start": 0.0, "at": "16:52"}, {"start": 0.0, "at": "16:52"}, {"start": 29.06, "at": "16:53"}])
     assert read_parts(tmp_path) == [{"start": 0.0, "at": "16:52"}, {"start": 29.06, "at": "16:53"}]
     add_part(tmp_path, 29.2, "16:54")                       # reiniciou em seguida: substitui em vez de duplicar

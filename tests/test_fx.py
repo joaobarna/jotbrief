@@ -1,6 +1,6 @@
 import json
 
-from jotbrief import fx
+from saidkeep import fx
 
 
 def test_refresh_uses_cache_then_falls_back_between_sources_and_keeps_old_on_failure(tmp_path):
@@ -29,7 +29,7 @@ def test_refresh_uses_cache_then_falls_back_between_sources_and_keeps_old_on_fai
 
 
 def test_chat_usage_shows_brl():
-    from jotbrief.chat import fmt_usage
+    from saidkeep.chat import fmt_usage
 
     txt = fmt_usage("claude-sonnet-5-5", {"in": 1_000_000, "out": 0, "read": 0, "write": 0}, brl=5.0)
     assert "US$ 2,000 (R$ 10,00)" in txt

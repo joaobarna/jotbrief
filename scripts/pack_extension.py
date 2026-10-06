@@ -1,4 +1,4 @@
-"""Empacota a extensão do Chrome para a Chrome Web Store: dist/jb-jot-brief-extensao-<versão>.zip.
+"""Empacota a extensão do Chrome para a Chrome Web Store: dist/saidkeep-extensao-<versão>.zip.
 
 Valida antes de zipar (manifesto, idiomas, ícones, descrição ≤ 132 caracteres, versão numérica). Só vão para o zip os arquivos
 da extensão; documentos da loja (pasta loja/) e scripts de apoio ficam de fora.
@@ -70,7 +70,7 @@ def pack() -> Path:
         raise SystemExit("Não dá para empacotar:\n - " + "\n - ".join(erros))
     version = json.loads((EXT / "manifest.json").read_text(encoding="utf-8"))["version"]
     OUT.mkdir(exist_ok=True)
-    zip_path = OUT / f"jb-jot-brief-extensao-{version}.zip"
+    zip_path = OUT / f"saidkeep-extensao-{version}.zip"
     zip_path.unlink(missing_ok=True)
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
         for f in arquivos():

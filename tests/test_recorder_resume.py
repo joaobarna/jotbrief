@@ -1,7 +1,7 @@
 import numpy as np
 import soundfile as sf
 
-from jotbrief.audio import SR, StereoRecorder
+from saidkeep.audio import SR, StereoRecorder
 
 
 def test_resume_appends_and_keeps_alignment(tmp_path):

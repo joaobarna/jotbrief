@@ -1,5 +1,5 @@
-from jotbrief.session import render_markdown, render_transcript, speaker_labels, transcript_meta
-from jotbrief.ui_helpers import read_names, read_subject, write_names, write_subject
+from saidkeep.session import render_markdown, render_transcript, speaker_labels, transcript_meta
+from saidkeep.ui_helpers import read_names, read_subject, write_names, write_subject
 
 RECS = [{"t0": 2.0, "t1": 5.0, "source": "loop", "speaker": "Pessoa 1", "text": "Conta, Carlos."},
         {"t0": 8.0, "t1": 10.0, "source": "loop", "speaker": "Pessoa 2", "text": "Não acredito."},

@@ -1,6 +1,6 @@
 import json
 
-from jotbrief.prompts import DEFAULTS, build_message, load_prompts
+from saidkeep.prompts import DEFAULTS, build_message, load_prompts
 
 
 def test_defaults_created_and_editable(tmp_path):

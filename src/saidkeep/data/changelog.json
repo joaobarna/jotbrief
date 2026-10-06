@@ -1,0 +1,637 @@
+[
+  {
+    "versao": "2026.10.03.10.44",
+    "titulo": "Site: faixa de empresas na regua da trajetoria (Mobly, depois Grupo Toky com Tok&Stok e Mobly), pt e en",
+    "hash": "fb144ab"
+  },
+  {
+    "versao": "2026.10.03.06.24",
+    "titulo": "Extensao v1.0.0 para a Chrome Web Store: popup, idiomas pt/en, selo opcional, pacote validado; politica de privacidade no site; textos e imagens da listagem",
+    "hash": "cd1764e"
+  },
+  {
+    "versao": "2026.10.03.06.18",
+    "titulo": "Site: QR do WhatsApp embaixo da foto, fora da linha de botoes",
+    "hash": "5c0c124"
+  },
+  {
+    "versao": "2026.10.03.06.15",
+    "titulo": "Site: QR do WhatsApp pequeno ao lado do botao no topo (escondido no celular); remove a secao do QR do final",
+    "hash": "e19281e"
+  },
+  {
+    "versao": "2026.10.03.06.14",
+    "titulo": "Site: libera o Cloudflare Web Analytics na politica de seguranca (script e envio das metricas)",
+    "hash": "05402ff"
+  },
+  {
+    "versao": "2026.10.03.06.11",
+    "titulo": "Site: secao com o QR code do WhatsApp (pt e en) e seta de expandir logo apos o titulo das secoes",
+    "hash": "0b81573"
+  },
+  {
+    "versao": "2026.10.02.17.39",
+    "titulo": "Atualizacao dentro do app: aviso de versao nova no rodape, botao Atualizar (baixa, confere SHA-256, instala por cima e reabre) e Verificar atualizacoes",
+    "hash": "a8edb8c"
+  },
+  {
+    "versao": "2026.10.02.17.21",
+    "titulo": "Site: botao Salvar contato (cartao .vcf em pt e en, dois telefones, cargo Diretor Financeiro, com foto)",
+    "hash": "a2b81ee"
+  },
+  {
+    "versao": "2026.10.02.17.15",
+    "titulo": "Site: remove o numero da versao da nota da pagina do JB (pt e en)",
+    "hash": "51a08de"
+  },
+  {
+    "versao": "2026.10.02.17.14",
+    "titulo": "Site: imagem de pre-visualizacao do link (og:image 1200x630, pt e en) e UNICAMP em negrito",
+    "hash": "4122774"
+  },
+  {
+    "versao": "2026.10.02.17.11",
+    "titulo": "Site: foto ao lado da abertura (pt e en), circular, otimizada em 18 KB",
+    "hash": "4527e89"
+  },
+  {
+    "versao": "2026.10.02.17.08",
+    "titulo": "Site: mais respiro no logo da UNICAMP e remove a nota de job rotation abaixo da trajetoria",
+    "hash": "c0bd3f9"
+  },
+  {
+    "versao": "2026.10.02.15.55",
+    "titulo": "Robustez do app instalado: novas tentativas ao abrir o modelo (arquivo preso), erro de GPU e CPU juntos, log em arquivo, comando selftest, pasta de reunioes em Documentos, setup corrigido",
+    "hash": "2305e59"
+  },
+  {
+    "versao": "2026.10.02.15.22",
+    "titulo": "Chave da API: link clicavel para criar a chave (platform.claude.com/settings/keys)",
+    "hash": "b984149"
+  },
+  {
+    "versao": "2026.10.02.13.52",
+    "titulo": "Site: LinkedIn e e-mail (Gmail para joaobarna@gmail.com) abrem em nova aba, como o WhatsApp",
+    "hash": "67674a6"
+  },
+  {
+    "versao": "2026.10.02.13.52",
+    "titulo": "Site: botao do WhatsApp abre em nova aba",
+    "hash": "dbec131"
+  },
+  {
+    "versao": "2026.10.02.13.49",
+    "titulo": "Site: botao do WhatsApp com mensagem pre-pronta (pt e en)",
+    "hash": "b3bbf46"
+  },
+  {
+    "versao": "2026.10.02.13.47",
+    "titulo": "Site: linha de Marketing como Diretor de Marketing, com o traçado pela metade (2022-2024)",
+    "hash": "250c31e"
+  },
+  {
+    "versao": "2026.10.02.13.46",
+    "titulo": "Site: secoes da home expandem e escondem; Certificados e cursos comeca escondida",
+    "hash": "6e15bf4"
+  },
+  {
+    "versao": "2026.10.02.13.46",
+    "titulo": "Site: logo oficial da UNICAMP no card da formacao, icone do Gmail no botao de e-mail, mes dos cursos",
+    "hash": "458b86c"
+  },
+  {
+    "versao": "2026.10.02.13.41",
+    "titulo": "Site: versao no rodape (AAAA.MM.DD.HH.mm como no JB Ladder) com pagina de historico de versoes",
+    "hash": "673392b"
+  },
+  {
+    "versao": "2026.10.02.13.40",
+    "titulo": "Site: job rotation de Marketing na regua, favicon JB, certificados e cursos, icone do LinkedIn no botao",
+    "hash": "ccb5dfb"
+  },
+  {
+    "versao": "2026.10.02.13.40",
+    "titulo": "Versao no formato do JB Ladder (YYYY.MM.DD.HH.mm = commit em Brasilia): app, instalador, Release e historico de versoes",
+    "hash": "58d00ca"
+  },
+  {
+    "versao": "2026.10.02.13.35",
+    "titulo": "Site: pagina do JB em listas (pt e en) e trilha de navegacao legivel no fundo claro",
+    "hash": "a3d9589"
+  },
+  {
+    "versao": "2026.10.02.13.32",
+    "titulo": "Site: remove a frase do JB - Jot Brief do card Automacao sob medida (pt e en)",
+    "hash": "ed82a50"
+  },
+  {
+    "versao": "2026.10.02.13.04",
+    "titulo": "Site bilingue: portugues na raiz e ingles em /en/, seletor de idioma com bandeira no header, documentacao traduzida",
+    "hash": "25190ab"
+  },
+  {
+    "versao": "2026.10.02.13.00",
+    "titulo": "Site: abertura com +8 anos liderando",
+    "hash": "07bbb50"
+  },
+  {
+    "versao": "2026.10.02.13.00",
+    "titulo": "Site: card Automacao sob medida em Como eu trabalho",
+    "hash": "c61e6bc"
+  },
+  {
+    "versao": "2026.10.02.12.59",
+    "titulo": "Site: Projetos em formato de lista, icone de globo offline em 100% local, remove Proximo app",
+    "hash": "f391288"
+  },
+  {
+    "versao": "2026.10.02.12.58",
+    "titulo": "Site: Como eu construo passa de Projetos para a pagina do JB",
+    "hash": "0a6c5cb"
+  },
+  {
+    "versao": "2026.10.02.12.57",
+    "titulo": "Site: titulo da aba da home e so Joao Barnabe",
+    "hash": "022b73c"
+  },
+  {
+    "versao": "2026.10.02.12.57",
+    "titulo": "Site: destaques em negrito em Como eu trabalho",
+    "hash": "b108c61"
+  },
+  {
+    "versao": "2026.10.02.12.57",
+    "titulo": "Site: caixa de R$ 120 mi de movimentacao por mes",
+    "hash": "fec660e"
+  },
+  {
+    "versao": "2026.10.02.12.56",
+    "titulo": "Site: card Mobly inclui FP&A e RI",
+    "hash": "530fd3a"
+  },
+  {
+    "versao": "2026.10.02.12.55",
+    "titulo": "Site: card da formacao com Resolucao de problemas",
+    "hash": "98a2c8e"
+  },
+  {
+    "versao": "2026.10.02.12.54",
+    "titulo": "Site: titulo da home Dados que decidem. Automacao que entrega.",
+    "hash": "5684c34"
+  },
+  {
+    "versao": "2026.10.02.12.54",
+    "titulo": "Site: titulo da home Financas guiadas por dados, movidas por automacao",
+    "hash": "c2e063d"
+  },
+  {
+    "versao": "2026.10.02.12.54",
+    "titulo": "Site: remove o numero do banco de dados financeiro da faixa Em numeros",
+    "hash": "14b6608"
+  },
+  {
+    "versao": "2026.10.02.12.53",
+    "titulo": "Site: texto de abertura com destaques em negrito, sem SQL/Python nem analise de contratos",
+    "hash": "0b1ea0b"
+  },
+  {
+    "versao": "2026.10.02.12.51",
+    "titulo": "Site: numero do banco de dados financeiro (300 mil docs/mes) com integracoes",
+    "hash": "56f6c63"
+  },
+  {
+    "versao": "2026.10.02.12.50",
+    "titulo": "Site: corrige trajetoria quebrada pela CSP (posicoes viram classes), bandeira dos EUA completa, formacao UNICAMP como card da trajetoria",
+    "hash": "cf11dc1"
+  },
+  {
+    "versao": "2026.10.02.12.47",
+    "titulo": "Site: layout compacto, header fixo e fino, remove secao Contato",
+    "hash": "1ae9080"
+  },
+  {
+    "versao": "2026.10.02.12.45",
+    "titulo": "Site: texto de abertura com IA generativa no lugar de SQL/Python escritos à mão",
+    "hash": "2063d3b"
+  },
+  {
+    "versao": "2026.10.02.12.45",
+    "titulo": "Site: menu so com Sobre e Projetos (JB e documentacao dentro de Projetos, com trilha); titulo da home mais enxuto",
+    "hash": "ff8b487"
+  },
+  {
+    "versao": "2026.10.02.12.44",
+    "titulo": "Site: secao de idiomas com bandeiras; remove apps da home, selo do topo e 3 KPIs",
+    "hash": "07bb307"
+  },
+  {
+    "versao": "2026.10.02.12.42",
+    "titulo": "Site: linha do tempo com régua proporcional aos anos, UNICAMP 2013 na régua; remove MBA da home",
+    "hash": "09eb192"
+  },
+  {
+    "versao": "2026.10.02.12.40",
+    "titulo": "Site: selo de sinergias em uma linha para alinhar a linha do tempo",
+    "hash": "9da4b41"
+  },
+  {
+    "versao": "2026.10.02.12.34",
+    "titulo": "Site: linha do tempo horizontal com marcos de resultado; CSS versionado para furar o cache",
+    "hash": "7c062fe"
+  },
+  {
+    "versao": "2026.10.02.12.32",
+    "titulo": "Site: home passa a ser sobre o João (CFO), apps movidos para /apps/",
+    "hash": "b4a89bb"
+  },
+  {
+    "versao": "2026.10.02.11.58",
+    "titulo": "JB - Jot Brief: transcricao local de reunioes (Meet/Teams/Zoom) para Windows",
+    "hash": "91708f3"
+  },
+  {
+    "versao": "2026.10.02.12.30",
+    "titulo": "Site: home passa a ser sobre o João (CFO), apps movidos para /apps/",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.11.58",
+    "titulo": "Site: link de download aponta para o repositorio joaobarna/jotbrief",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.11.55",
+    "titulo": "Prepara repositorio publico: nomes ficticios nos testes e exemplos, sem dados pessoais",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.11.49",
+    "titulo": "Site joao-barnabe.com (Brandbook V3): hub de apps, pagina do JB e documentacao; gerado por site/build.py",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.11.46",
+    "titulo": "Empacotamento: executavel (PyInstaller), instalador (Inno Setup), release no GitHub; modo instalado (runtime), aceleracao por GPU baixada na 1a vez, chave da API no app",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.11.41",
+    "titulo": "VAD via ONNX (sem PyTorch): -460 MB no instalador, 2,4x mais rapido, estado separado por faixa",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.11.30",
+    "titulo": "Documentacao completa do app (DOCUMENTACAO.md)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.11.24",
+    "titulo": "Eco: so e vazamento se o mic esta baixo (nunca esconde a voz do usuario); recupera fala sobreposta confirmada pelo Meet; escrita dos eventos com trava",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.11.21",
+    "titulo": "Extensao: icone igual ao do app (JB mic verde) e circulo vermelho quando o app esta gravando; ignora 'Reframe' como nome",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.11.17",
+    "titulo": "Excluir: nao deixa apagar a reuniao que esta sendo gravada (caminho relativo x absoluto)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.11.10",
+    "titulo": "Excluir reuniao: fecha o app.log (arquivo em uso impedia a Lixeira)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.11.01",
+    "titulo": "Chat: seletor de modelo (Sonnet/Opus/Haiku), esforco, custo em US$ e em R$ com cotacao atual; botao de perguntas sugeridas",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.10.58",
+    "titulo": "Chat: mostra modelo, esforco (editavel) e consumo de tokens/custo; hover da data nao corta o texto",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.10.57",
+    "titulo": "Lista: dias recolhiveis (so o ultimo dia com transcricao aberto de inicio)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.10.55",
+    "titulo": "Visual: reunioes como cartoes, data em negrito, faixa HOJE, caixas do chat visiveis, rodape LGPD separado",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.10.45",
+    "titulo": "Coluna de chat com o Claude: botoes prontos (resumo detalhado etc.) e conversa livre sobre a reuniao, ao vivo",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.10.43",
+    "titulo": "Identificar falantes em processo separado (janela nao trava); linha Nova reuniao na lista; tarefas em andamento aparecem no app",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.10.24",
+    "titulo": "Selo do Meet: [JB - Jot Brief]",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.10.21",
+    "titulo": "Selo da extensao mostra o estado da ligacao com o app",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.10.17",
+    "titulo": "Nome ao vivo: as bolhas da reuniao saem com o nome que o Meet mostra falando sozinho",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.10.15",
+    "titulo": "Extensao repete o estado de fala a cada 2 s; app so grava mudancas",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.10.11",
+    "titulo": "Eco do microfone tambem ao vivo: envelope dos canais na sessao; falas vazadas ficam marcadas e escondidas",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.10.08",
+    "titulo": "Eco do microfone detectado pelo audio (envelope); extensao ignora icones e rotulos como nome",
+    "hash": ""
+  },
+  {
+    "versao": "2026.10.02.09.54",
+    "titulo": "Eco do microfone: compara com a soma dos trechos da reuniao que cobrem o mesmo tempo",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.17.56",
+    "titulo": "Extensao do Chrome (Meet): nomes das vozes pelo indicador de fala; servidor local e cruzamento no app",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.16.47",
+    "titulo": "Sugere os convidados da agenda (iCal) na lista de nomes das pessoas",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.16.03",
+    "titulo": "Remove o botao de titulo; boxes separados: falantes+nomes, reprocessar, pasta, copiar",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.15.59",
+    "titulo": "Ordem: navegador, pasta, app; selo de prancheta (manual) no icone do app",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.15.57",
+    "titulo": "Mensagem compacta: so chama a skill e indica a transcricao",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.15.53",
+    "titulo": "Envio automatico no botao do navegador (Enter apos a pagina carregar, com travas) e auto_send em config",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.15.49",
+    "titulo": "Barra em linhas fixas: Claude (app na frente) abre a linha de baixo",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.15.46",
+    "titulo": "Botoes do Claude (navegador, app, projeto) juntos num box; app abre o projeto e copia o texto (links claude:// so aceitam q)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.15.42",
+    "titulo": "Dois botoes: Claude no navegador (globo) e no app do Windows (janela), via claude://claude.ai/new",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.15.39",
+    "titulo": "Skill renomeada para jb-jot-brief-transcricao (configuravel em skill_name)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.15.36",
+    "titulo": "Skill jb-transcricao (SKILL.md + painel HTML + zip), botao do Claude envia o pedido da skill, painel de botoes no titulo",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.15.28",
+    "titulo": "Botao para copiar o titulo da reuniao (renomear a conversa no Claude)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.15.24",
+    "titulo": "Filtro cobre variantes de 'Legenda por <nome>'",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.30.15.23",
+    "titulo": "Botao do Claude abre conversa nova dentro do projeto com o pedido e a transcricao preenchidos (link ?project=&q=)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.17.32",
+    "titulo": "Aprender voz tambem do rotulo 'Reuniao' (outro lado sem identificar falantes)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.17.30",
+    "titulo": "Reconhecimento de pessoas pela voz: aprende ao nomear, reconhece sozinho nas proximas reunioes",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.17.15",
+    "titulo": "Cadastro de pessoas: lista dos nomes ja usados (ou digitar um novo) ao renomear",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.17.08",
+    "titulo": "Botao Reprocessar, filtros de alucinacao/alfabeto, idioma automatico restrito a pt/en, funde vozes fantasma, pasta unica por reuniao",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.16.53",
+    "titulo": "Mensagem clara quando falta a credencial da API",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.16.52",
+    "titulo": "Chave da API: .env em varios lugares, comandos check-key e subjects, aviso quando falta a chave",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.16.48",
+    "titulo": "Restaura o README (acentos corrompidos) e documenta mcp-install",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.16.34",
+    "titulo": "Corrige string quebrada no comando mcp-install e adiciona teste de importacao de todos os modulos",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.16.34",
+    "titulo": "Comando mcp-install (recusa com o Claude aberto, backup, detecta a copia da Microsoft Store)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.16.29",
+    "titulo": "Servidor MCP (somente leitura): list_meetings, get_transcript e pedidos como prompts; meetings.py",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.16.26",
+    "titulo": "Nome da pessoa vira botao (chip) que renomeia ao clicar",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.16.26",
+    "titulo": "Bolhas antigas somem na hora ao recarregar (sem residuo visual)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.16.25",
+    "titulo": "Botao de renomear ao lado do nome da pessoa em cada bolha",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.16.22",
+    "titulo": "Dar nome as pessoas da reuniao (vale na tela e na exportacao)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.16.20",
+    "titulo": "Botao para rolar ao final e acompanhamento automatico das falas ao vivo",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.16.08",
+    "titulo": "Layout flexivel, transcricao compacta com data/hora por linha, separacao de vozes dentro da fala e escolha do numero de pessoas",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.59",
+    "titulo": "Identificar falantes do canal da reuniao (sherpa-onnx local): Pessoa N com cor por pessoa",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.54",
+    "titulo": "Gravar+tempo e Nova reuniao+idioma em boxes cinzas",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.52",
+    "titulo": "Remove gerar ata do app; Levar para o Claude com lista de pedidos (ata, resumos, tarefas...) no inicio do chat",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.50",
+    "titulo": "Partes com separador e ouvir por parte, destaque palavra a palavra, idioma pt/en/auto, boxes separados",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.46",
+    "titulo": "Player em box com volume/mudo e audio normalizado ao ouvir",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.44",
+    "titulo": "Player de audio: play/pause, voltar/avancar 10s, barra e ouvir a partir da fala",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.42",
+    "titulo": "Cabecalho do dia em YYYY-MM-DD",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.42",
+    "titulo": "Botao de excluir (Lixeira) por reuniao e agrupamento por dia",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.39",
+    "titulo": "Gravar mantem o app aberto; botao de modo balao opcional",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.38",
+    "titulo": "Retomar reuniao, Nova reuniao, toolbar em box, logo JB+mic e icone Claude laranja",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.35",
+    "titulo": "Lista mostra 'YYYY-MM-DD | hh:mm | Assunto' com quebra de linha",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.34",
+    "titulo": "Separadores entre reunioes e remove frase inicial do headset",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.34",
+    "titulo": "Nome exibido 'JB - Jot Brief' e texto legivel na reuniao selecionada",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.33",
+    "titulo": "Titulo 'YYYY-MM-DD | hh:mm | Assunto' gerado pelo Claude e icone do Claude no botao",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.29",
+    "titulo": "Renomeia o app para JotBrief (pacote, comando, UI, README, migracao da config)",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.27",
+    "titulo": "Botao de gravar vermelho e abas em pilula com destaque",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.27",
+    "titulo": "Aviso de LGPD fixo no rodape",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.26",
+    "titulo": "Remove aviso de consentimento ao iniciar a gravacao",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.26",
+    "titulo": "Botao de gravar centralizado na barra",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.25",
+    "titulo": "Tema claro como padrao",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.25",
+    "titulo": "UI: temas claro/escuro, transcricao em bolhas, barra flutuante ao gravar, lista por dia",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.15",
+    "titulo": "UI: lista de reunioes, abrir pasta, levar para Claude e tema do brandbook",
+    "hash": ""
+  },
+  {
+    "versao": "2026.09.29.15.08",
+    "titulo": "Meet Transcriber: captura, VAD, Whisper, sessao, ata Claude, CLI e UI",
+    "hash": ""
+  }
+]

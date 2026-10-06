@@ -1,12 +1,12 @@
-# Gera o app instalável em dist\JotBrief\ (PyInstaller, pasta única). Uso: powershell -File packaging\build.ps1
+# Gera o app instalável em dist\SaidKeep\ (PyInstaller, pasta única). Uso: powershell -File packaging\build.ps1
 $ErrorActionPreference = "Stop"
 Set-Location (Split-Path $PSScriptRoot -Parent)
 uv run python scripts\gerar_changelog.py   # versão = data/hora do último commit (YYYY.MM.DD.HH.mm), embutida no app
-uv run pyinstaller --noconfirm --clean --windowed --name JotBrief `
-  --icon src\jotbrief\assets\jotbrief.ico `
+uv run pyinstaller --noconfirm --clean --windowed --name SaidKeep `
+  --icon src\saidkeep\assets\saidkeep.ico `
   --paths src `
-  --add-data "src\jotbrief\assets;jotbrief\assets" `
-  --add-data "src\jotbrief\data;jotbrief\data" `
+  --add-data "src\saidkeep\assets;saidkeep\assets" `
+  --add-data "src\saidkeep\data;saidkeep\data" `
   --collect-data faster_whisper `
   --collect-all sherpa_onnx `
   --collect-all ctranslate2 `
@@ -15,4 +15,4 @@ uv run pyinstaller --noconfirm --clean --windowed --name JotBrief `
   --exclude-module tkinter `
   --exclude-module matplotlib `
   --exclude-module pytest `
-  packaging\jb_entry.py
+  packaging\entry.py

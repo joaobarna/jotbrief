@@ -1,4 +1,6 @@
-# JB - Jot Brief — documentação
+# SaidKeep — documentação
+
+> Antes chamado **JB - Jot Brief**. Os dados de quem já usava (reuniões, configuração, vozes) são movidos sozinhos na primeira abertura da versão nova.
 
 App para Windows que **transcreve reuniões (Google Meet, Teams, Zoom) sem bot**, separa e nomeia quem fala, e leva a
 conversa para o Claude (chat dentro do app, projeto do claude.ai ou app Claude do Windows).
@@ -32,13 +34,13 @@ Requisitos: Windows 11, Python 3.12 (gerenciado pelo `uv`), e, para velocidade, 
 ```
 uv sync --extra cuda          # com GPU NVIDIA; sem GPU: uv sync
 copy .env.example .env        # preencha ANTHROPIC_API_KEY
-uv run jotbrief setup         # baixa os modelos de transcrição (~1,6 GB)
-uv run jotbrief gui           # abre a janela
+uv run saidkeep setup         # baixa os modelos de transcrição (~1,6 GB)
+uv run saidkeep gui           # abre a janela
 ```
 
 - A chave da API fica **só** no arquivo `.env` (nunca vai para o Git nem para a tela).
 - Os modelos de separação de voz (≈ 32 MB) são baixados na primeira vez que você usa 👥.
-- Dispositivos de áudio: `uv run jotbrief devices` lista; por padrão o app usa os padrões do Windows.
+- Dispositivos de áudio: `uv run saidkeep devices` lista; por padrão o app usa os padrões do Windows.
 
 **Primeira gravação:** abra o app → escolha o idioma (Português, Inglês ou Automático) → clique no botão redondo de gravar →
 fale/ouça a reunião → clique de novo para parar. A reunião aparece na lista à esquerda.
@@ -134,7 +136,7 @@ Se o microfone "escuta" o alto-falante, o som da reunião voltaria como se fosse
 ### 4.4 Dar nomes às pessoas
 Quatro fontes, da mais fraca para a mais forte (o que você digita **nunca** é sobrescrito):
 1. **Reconhecimento por voz:** ao nomear alguém, o app guarda a **impressão de voz** e, nas próximas reuniões, dá o nome sozinho
-   (`voice_match_threshold` 0,75 e `voice_match_margin` 0,05). É dado biométrico: fica só em `%APPDATA%\jotbrief\voices.json`
+   (`voice_match_threshold` 0,75 e `voice_match_margin` 0,05). É dado biométrico: fica só em `%APPDATA%\saidkeep\voices.json`
    (apague o arquivo para esquecer todas).
 2. **Convidados da agenda:** com `calendar_ics_url` (endereço secreto iCal do Google Agenda), o app acha o evento do horário
    (inclui reuniões semanais/diárias) e põe os convidados no topo da lista de nomes.
@@ -144,8 +146,8 @@ Quatro fontes, da mais fraca para a mais forte (o que você digita **nunca** é 
 ### 4.5 Extensão do Chrome (Google Meet)
 Pasta `extension/` — instalar em `chrome://extensions` → Modo do desenvolvedor → **Carregar sem compactação** → pasta `extension`.
 - Observa a página do Meet e avisa o app quem está falando. Mostra um selo no canto inferior esquerdo:
-  `[JB - Jot Brief] Nome · app gravando ✓` (também diz se o app está fechado ou não está gravando).
-- **Ícone da extensão:** o JB verde; ganha um **círculo vermelho** quando o app está gravando.
+  `[SaidKeep] Nome · app gravando ✓` (também diz se o app está fechado ou não está gravando).
+- **Ícone da extensão:** o SaidKeep verde; ganha um **círculo vermelho** quando o app está gravando.
 - **Ao vivo:** quando uma só pessoa fala, a bolha já sai com o nome dela. Depois de parar, o cruzamento por voz refaz os nomes e
   aprende a voz.
 - **Segurança:** só conversa com `127.0.0.1:47821`; o app recusa pedidos vindos de páginas da web (exige um header que só a extensão
@@ -165,9 +167,9 @@ opcionalmente já identificando os falantes. Útil depois de melhorias no app ou
 - **✳🪟 App do Windows (manual):** o app Claude só aceita texto em conversas novas fora de projetos. Por isso o botão abre o projeto
   e copia o texto: clique em "Nova sessão" e cole (Ctrl+V).
 - **⚙ Projeto:** define a URL do projeto (`https://claude.ai/project/…`).
-- **Skill `jb-jot-brief-transcricao`:** `uv run jotbrief skill` gera o `.zip` (e o `painel.html`) para enviar ao Claude. A skill pergunta
+- **Skill `jb-jot-brief-transcricao`:** `uv run saidkeep skill` gera o `.zip` (e o `painel.html`) para enviar ao Claude. A skill pergunta
   o que gerar e entrega o nome sugerido da conversa e botões de copiar.
-- **Servidor MCP:** `uv run jotbrief mcp-install` (com o Claude Desktop **fechado**) registra um servidor **somente leitura** com
+- **Servidor MCP:** `uv run saidkeep mcp-install` (com o Claude Desktop **fechado**) registra um servidor **somente leitura** com
   `list_meetings` e `get_transcript`; o Claude Desktop passa a ler as reuniões sozinho.
 - **Copiar (📋):** uma fala por linha, com data e hora reais:
   ```
@@ -197,7 +199,7 @@ Ao parar, o Claude gera um título curto (até 8 palavras) e a lista passa a mos
 | `transcricao.jsonl.bak` | backup antes de reprocessar/identificar |
 | `app.log` | log da gravação |
 
-### 5.2 Do app — `%APPDATA%\jotbrief\`
+### 5.2 Do app — `%APPDATA%\saidkeep\`
 `config.toml` · `people.json` (nomes cadastrados) · `voices.json` (impressões de voz) · `prompts.json` (pedidos do botão do Claude) ·
 `cotacao.json` (dólar em R$) · `models\` (modelos de separação de voz).
 
@@ -221,14 +223,14 @@ Ao parar, o Claude gera um título curto (até 8 palavras) e a lista passa a mos
 | `voice_match_threshold` / `voice_match_margin` | `0.75` / `0.05` | rigor do reconhecimento por voz |
 | `speaker_threshold` | `0.55` | separação sem o modelo de troca de voz |
 | `silence_ms` / `max_segment_s` | `600` / `15` | corte das falas |
-| `mic_device` / `loopback_device` | — | índices dos dispositivos (`jotbrief devices`) |
+| `mic_device` / `loopback_device` | — | índices dos dispositivos (`saidkeep devices`) |
 | `theme` / `volume` / `floating` | `claro` / `100` / `false` | aparência e modo balão |
 
 ---
 
 ## 6. Linha de comando
 
-`uv run jotbrief <comando>`
+`uv run saidkeep <comando>`
 
 | Comando | Faz |
 |---|---|
@@ -290,9 +292,9 @@ ui.py (PySide6)  ui_helpers.py (partes sem Qt)       extension/ (Chrome)
 | Muitas pessoas "fantasma" na separação | Informe o número de pessoas em 👥 ou aumente `diarization_threshold` |
 | Nome de voz errado | Corrija no ✏; a correção manual vale mais e nunca é sobrescrita |
 | App Claude do Windows | Não aceita texto + projeto: botão é manual (abre o projeto, você cola) |
-| Extensão não mostra o nome certo | Recarregue a extensão e a aba do Meet; veja o selo `[JB - Jot Brief]` e o Console (F12) com `[JotBrief]` |
+| Extensão não mostra o nome certo | Recarregue a extensão e a aba do Meet; veja o selo `[SaidKeep]` e o Console (F12) com `[SaidKeep]` |
 | Não consigo excluir uma reunião | Não dá enquanto ela está sendo gravada; pare a gravação primeiro |
-| Chat sem resposta | Veja a mensagem no painel: normalmente chave ausente/inválida ou sem internet (`uv run jotbrief check-key`) |
+| Chat sem resposta | Veja a mensagem no painel: normalmente chave ausente/inválida ou sem internet (`uv run saidkeep check-key`) |
 | Custo do chat | Cada pergunta reenvia a transcrição como contexto (com cache). Reuniões longas custam mais por pergunta |
 | Teams/Zoom desktop | A captura de áudio funciona para qualquer app; os **nomes automáticos pelo Meet** só valem para o Meet no navegador |
 
@@ -304,4 +306,4 @@ ui.py (PySide6)  ui_helpers.py (partes sem Qt)       extension/ (Chrome)
 - **Eco/vazamento:** o microfone captando o alto-falante.
 - **Esforço:** quanto o Claude "pensa" antes de responder (mais esforço = mais lento e mais caro).
 - **MCP:** protocolo pelo qual o Claude Desktop lê as reuniões como ferramenta.
-- **Skill:** pacote de instruções que você instala no Claude para tratar transcrições do JB.
+- **Skill:** pacote de instruções que você instala no Claude para tratar transcrições do SaidKeep.

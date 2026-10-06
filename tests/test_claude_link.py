@@ -1,6 +1,6 @@
 from urllib.parse import parse_qs, urlparse
 
-from jotbrief import claude_link as cl
+from saidkeep import claude_link as cl
 
 PROJ = "https://claude.ai/project/01234567-89ab-7cde-8f01-23456789abcd"
 

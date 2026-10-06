@@ -21,7 +21,7 @@ HERE = Path(__file__).resolve().parent
 SRC, OUT = HERE / "src", HERE / "public"
 CFG = json.loads((HERE / "config.json").read_text(encoding="utf-8"))
 try:  # versão = a do último commit (YYYY.MM.DD.HH.mm), igual à do app e à da Release
-    CFG["version"] = json.loads((HERE.parent / "src" / "jotbrief" / "data" / "changelog.json").read_text(encoding="utf-8"))[0]["versao"]
+    CFG["version"] = json.loads((HERE.parent / "src" / "saidkeep" / "data" / "changelog.json").read_text(encoding="utf-8"))[0]["versao"]
 except (OSError, ValueError, IndexError, KeyError):
     pass
 
@@ -36,15 +36,15 @@ US = ('<span class="flagwrap"><svg class="flag" viewBox="0 0 60 60" aria-hidden=
 LANGS = {
     "pt": {
         "html": "pt-BR", "og": "pt_BR", "og_img": "/assets/og.jpg", "og_alt": "João Barnabé, CFO e Diretor Financeiro: dados que decidem, automação que entrega", "flag": BR, "switch_label": "Idioma",
-        "paths": {"home": "/", "projects": "/projetos/", "jb": "/jot-brief/", "docs": "/jot-brief/docs/", "privacy": "/jot-brief/privacidade/", "versions": "/versoes/"},
+        "paths": {"home": "/", "projects": "/projetos/", "jb": "/saidkeep/", "docs": "/saidkeep/docs/", "privacy": "/saidkeep/privacidade/", "versions": "/versoes/"},
         "nav": {"home": "Sobre", "projects": "Projetos"}, "nav_label": "Principal", "crumb_label": "Você está em",
         "docs_label": "Documentação", "privacy_label": "Privacidade", "footer_email": "E-mail", "ver_title": "Versões do site", "ver_lead": "A versão é a data e a hora (Brasília) da última alteração publicada.", "ver_tip": "Histórico de versões",
         "titles": {
             "home": ("João Barnabé", "CFO e Diretor Financeiro com mais de 8 anos em e-commerce de alto crescimento: Controladoria, Tesouraria, FP&A, 2 IPOs e integração de M&A."),
             "projects": ("Projetos · João Barnabé", "Projetos de João Barnabé: ferramentas para o dia a dia de finanças e gestão, abertas para quem quiser usar."),
-            "jb": ("JB - Jot Brief · Transcrição de reuniões para Windows", "Transcreva reuniões do Meet, Teams e Zoom sem bot, veja quem falou e converse com o Claude. 100% local."),
-            "docs": ("Documentação · JB - Jot Brief", "Tudo o que o JB - Jot Brief faz e como usar."),
-            "privacy": ("Política de Privacidade · JB - Jot Brief", "Política de privacidade da extensão do Chrome JB - Jot Brief: nomes no Google Meet."),
+            "jb": ("SaidKeep · Transcrição de reuniões para Windows", "Transcreva reuniões do Meet, Teams e Zoom sem bot, veja quem falou e converse com o Claude. 100% local."),
+            "docs": ("Documentação · SaidKeep", "Tudo o que o SaidKeep faz e como usar."),
+            "privacy": ("Política de Privacidade · SaidKeep", "Política de privacidade da extensão do Chrome SaidKeep: nomes no Google Meet."),
             "versions": ("Versões do site · João Barnabé", "Histórico de versões do site."),
             "404": ("Página não encontrada · João Barnabé", "Esta página não existe. This page does not exist."),
         },
@@ -52,21 +52,21 @@ LANGS = {
     },
     "en": {
         "html": "en", "og": "en_US", "og_img": "/assets/og-en.jpg", "og_alt": "João Barnabé, CFO and Finance Director: data that decides, automation that delivers", "flag": US, "switch_label": "Language",
-        "paths": {"home": "/en/", "projects": "/en/projects/", "jb": "/en/jot-brief/", "docs": "/en/jot-brief/docs/", "privacy": "/en/jot-brief/privacy/", "versions": "/en/versions/"},
+        "paths": {"home": "/en/", "projects": "/en/projects/", "jb": "/en/saidkeep/", "docs": "/en/saidkeep/docs/", "privacy": "/en/saidkeep/privacy/", "versions": "/en/versions/"},
         "nav": {"home": "About", "projects": "Projects"}, "nav_label": "Main", "crumb_label": "You are here",
         "docs_label": "Documentation", "privacy_label": "Privacy", "footer_email": "Email", "ver_title": "Site versions", "ver_lead": "The version is the date and time (Brasília) of the last published change. Change descriptions are written in Portuguese.", "ver_tip": "Version history",
         "titles": {
             "home": ("João Barnabé", "CFO and Finance Director with 8+ years in high-growth e-commerce: Controllership, Treasury, FP&A, 2 IPOs and M&A integration."),
             "projects": ("Projects · João Barnabé", "João Barnabé's projects: tools for everyday finance and management work, open to anyone who wants to use them."),
-            "jb": ("JB - Jot Brief · Meeting transcription for Windows", "Transcribe Meet, Teams and Zoom meetings without a bot, see who spoke and chat with Claude. 100% local."),
-            "docs": ("Documentation · JB - Jot Brief", "Everything JB - Jot Brief does and how to use it."),
-            "privacy": ("Privacy Policy · JB - Jot Brief", "Privacy policy of the JB - Jot Brief Chrome extension: names in Google Meet."),
+            "jb": ("SaidKeep · Meeting transcription for Windows", "Transcribe Meet, Teams and Zoom meetings without a bot, see who spoke and chat with Claude. 100% local."),
+            "docs": ("Documentation · SaidKeep", "Everything SaidKeep does and how to use it."),
+            "privacy": ("Privacy Policy · SaidKeep", "Privacy policy of the SaidKeep Chrome extension: names in Google Meet."),
             "versions": ("Site versions · João Barnabé", "Site version history."),
         },
         "docs_md": HERE.parent / "DOCUMENTATION.en.md",
     },
 }
-FRAGS = {"home": "index.html", "projects": {"pt": "projetos.html", "en": "projects.html"}, "jb": "jot-brief.html", "privacy": {"pt": "privacidade.html", "en": "privacy.html"}}
+FRAGS = {"home": "index.html", "projects": {"pt": "projetos.html", "en": "projects.html"}, "jb": "saidkeep.html", "privacy": {"pt": "privacidade.html", "en": "privacy.html"}}
 
 LAYOUT = """<!doctype html>
 <html lang="{html_lang}">
@@ -199,9 +199,9 @@ def render(content: str, lang: str, page: str, path: str, alt_paths: dict[str, s
     L = LANGS[lang]
     title, desc = L["titles"][page]
     mark = lambda k: 'aria-current="page"' if page == k else ""  # noqa: E731
-    if page in ("jb", "docs", "privacy"):  # JB, a documentacao e a privacidade ficam dentro de Projetos: trilha de volta
-        last = '<span aria-current="page">JB - Jot Brief</span>' if page == "jb" else (
-            f'<a href="{L["paths"]["jb"]}">JB - Jot Brief</a> <span aria-hidden="true">/</span> '
+    if page in ("jb", "docs", "privacy"):  # SaidKeep, a documentacao e a privacidade ficam dentro de Projetos: trilha de volta
+        last = '<span aria-current="page">SaidKeep</span>' if page == "jb" else (
+            f'<a href="{L["paths"]["jb"]}">SaidKeep</a> <span aria-hidden="true">/</span> '
             f'<span aria-current="page">{L["docs_label"] if page == "docs" else L["privacy_label"]}</span>')
         content = (f'<div class="wrap"><nav class="crumbs" aria-label="{L["crumb_label"]}">'
                    f'<a href="{L["paths"]["projects"]}">{L["nav"]["projects"]}</a> <span aria-hidden="true">/</span> {last}</nav></div>\n'
@@ -269,7 +269,9 @@ def main() -> None:
     (OUT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "".join(f"  <url><loc>{CFG['site_url']}{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
-    (OUT / "_redirects").write_text("/apps /projetos/ 301\n/apps/ /projetos/ 301\n/en /en/ 301\n", encoding="utf-8")
+    (OUT / "_redirects").write_text(("/apps /projetos/ 301\n/apps/ /projetos/ 301\n/en /en/ 301\n"
+         "/jot-brief /saidkeep/ 301\n/jot-brief/* /saidkeep/:splat 301\n"      # endereços do nome antigo (JB - Jot Brief)
+         "/en/jot-brief /en/saidkeep/ 301\n/en/jot-brief/* /en/saidkeep/:splat 301\n"), encoding="utf-8")
     (OUT / "_headers").write_text(
         "/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n"
         "  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n"

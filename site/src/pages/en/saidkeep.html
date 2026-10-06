@@ -1,0 +1,65 @@
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Windows app</span>
+    <h1>SaidKeep</h1>
+    <p class="lead">Transcribe Google Meet, Teams and Zoom meetings without putting a bot on the call. See who said what, in real time, and chat with Claude about the meeting while it happens.</p>
+    <div class="actions">
+      <a class="btn" href="{{download_url}}">Download for Windows</a>
+      <a class="btn alt" href="/en/saidkeep/docs/">Read the documentation</a>
+    </div>
+    <p class="note">Tested on Windows 11. It also works without an NVIDIA card, just slower. The app interface is in Portuguese.</p>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="faz">
+  <h2 id="faz">What it does</h2>
+  <ul class="flist">
+    <li><h3>Records without a bot</h3><p>Captures the audio coming out of Windows (the other people's voices) and your microphone. Nobody has to accept an extra guest in the meeting.</p></li>
+    <li><h3>Transcribes live</h3><p>Whisper running on your NVIDIA card. Speech shows up in chat-style bubbles, and the text follows the audio when you replay it.</p></li>
+    <li><h3>Knows who spoke</h3><p>Separates the voices, recognizes people you have already named, reads the speaker's name in Google Meet (Chrome extension) and suggests guests from your calendar.</p></li>
+    <li><h3>Chats with Claude</h3><p>Detailed summary, decisions and tasks, questions to ask right now. Pick the model and the effort, and see the cost of each answer in dollars and reais.</p></li>
+  </ul>
+</section>
+
+<section class="band" aria-label="By the numbers">
+  <div class="wrap">
+    <h2>By the numbers</h2>
+    <div class="kpis">
+      <div><div class="kpi">100%</div><p>of the transcription runs on your computer</p></div>
+      <div><div class="kpi">52 s</div><p>to separate the voices of a 9-minute meeting (measured on an RTX 4070)</p></div>
+      <div><div class="kpi">390 MB</div><p>is what the app takes up once installed</p></div>
+      <div><div class="kpi">1.3 GB</div><p>one-time, optional download to use the NVIDIA card</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="principios">
+  <h2 id="principios">How I build</h2>
+  <ul class="flist">
+    <li><h3>Your data stays with you</h3><p>Audio, voice and transcripts are processed on your computer. Only text leaves it, and only when you ask.</p></li>
+    <li><h3>Cost in plain sight</h3><p>Wherever a cloud AI is involved, the app shows token usage and the estimated cost in dollars and reais, on every answer.</p></li>
+  </ul>
+</section>
+
+<section class="wrap" aria-labelledby="instalar">
+  <h2 id="instalar">How to install</h2>
+  <ol class="steps">
+    <li><strong>Download the installer</strong> with the button above and run it. It installs only for your user, with no administrator prompt.</li>
+    <li><strong>Paste your Claude API key</strong> when the app asks. It is used for the chat and for the meeting subject, and stays only on your computer. Without a key, the app still records and transcribes normally.</li>
+    <li><strong>With an NVIDIA card</strong>, the app offers to download GPU acceleration (1.3 GB, once). Without it, it uses the processor.</li>
+    <li><strong>Click record</strong> and open your meeting.</li>
+  </ol>
+  <details>
+    <summary>Windows warned "Windows protected your PC"</summary>
+    <p>The installer does not have a paid digital signature yet, so SmartScreen shows this warning for any new program. Click <strong>More info</strong> and then <strong>Run anyway</strong>.</p>
+  </details>
+</section>
+
+<section class="wrap" aria-labelledby="duvidas">
+  <h2 id="duvidas">Frequently asked questions</h2>
+  <details><summary>Does it work with Teams and Zoom?</summary><p>Recording and transcription work with any application, because the app captures the Windows audio. The automatic reading of the speaker's name applies to Google Meet in the browser.</p></details>
+  <details><summary>Does it need internet?</summary><p>Not to record and transcribe. Only the chat with Claude and the automatic meeting subject use the internet.</p></details>
+  <details><summary>How much does it cost?</summary><p>The app is free. The chat uses your Anthropic API key, and the app shows how much each answer used, in tokens, dollars and reais.</p></details>
+  <details><summary>Is it allowed to record the meeting?</summary><p>Recording and transcribing meetings requires the participants' consent (under Brazil's LGPD data protection law). Warn them before you start. The app keeps a reminder in the footer.</p></details>
+  <details><summary>Where are my meetings stored?</summary><p>In the Documentos\SaidKeep folder (Documents). Uninstalling does not delete them.</p></details>
+</section>

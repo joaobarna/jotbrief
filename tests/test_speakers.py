@@ -1,6 +1,6 @@
 import numpy as np
 
-from jotbrief.speakers import apply_speakers, assign_speakers
+from saidkeep.speakers import apply_speakers, assign_speakers
 
 
 def _v(*x):

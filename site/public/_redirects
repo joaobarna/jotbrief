@@ -1,3 +1,7 @@
 /apps /projetos/ 301
 /apps/ /projetos/ 301
 /en /en/ 301
+/jot-brief /saidkeep/ 301
+/jot-brief/* /saidkeep/:splat 301
+/en/jot-brief /en/saidkeep/ 301
+/en/jot-brief/* /en/saidkeep/:splat 301

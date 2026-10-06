@@ -1,5 +1,5 @@
-from jotbrief.session import clean_records, fmt_time, is_echo, render_markdown
-from jotbrief.transcriber import is_hallucination
+from saidkeep.session import clean_records, fmt_time, is_echo, render_markdown
+from saidkeep.transcriber import is_hallucination
 
 
 def rec(t0, t1, src, text):
@@ -38,7 +38,7 @@ def test_hallucinations():
 def test_wall_clock_and_transcript_lines():
     from datetime import datetime
 
-    from jotbrief.session import render_transcript, transcript_meta, wall_clock
+    from saidkeep.session import render_transcript, transcript_meta, wall_clock
     recs = [{"t0": 2.0, "t1": 5.0, "source": "loop", "speaker": "Pessoa 1", "text": "Conta,\nCarlos."},
             {"t0": 19.4, "t1": 22.4, "source": "mic", "text": "Legal."}]
     assert wall_clock("2026-09-29_1552", None, 8.0) == datetime(2026, 9, 29, 15, 52, 8)
@@ -51,7 +51,7 @@ def test_wall_clock_and_transcript_lines():
 def test_wall_clock_with_resumed_parts_and_midnight():
     from datetime import datetime
 
-    from jotbrief.session import wall_clock
+    from saidkeep.session import wall_clock
     parts = [{"start": 0.0, "at": "23:50"}, {"start": 600.0, "at": "00:05"}]   # retomou após a meia-noite
     assert wall_clock("2026-09-29_2350", parts, 30.0) == datetime(2026, 9, 29, 23, 50, 30)
     assert wall_clock("2026-09-29_2350", parts, 630.0) == datetime(2026, 9, 30, 0, 5, 30)
@@ -93,7 +93,7 @@ def test_echo_by_audio_marks_leaked_mic_but_keeps_real_speech(tmp_path):
     import numpy as np
     import soundfile as sf
 
-    from jotbrief.echo import mark_echo_by_audio
+    from saidkeep.echo import mark_echo_by_audio
 
     sr = 16000
     t = np.arange(sr * 12) / sr
@@ -113,7 +113,7 @@ def test_echo_by_audio_marks_leaked_mic_but_keeps_real_speech(tmp_path):
 def test_live_envelope_log_flags_leak_and_keeps_own_voice():
     import numpy as np
 
-    from jotbrief.echo import EnvelopeLog
+    from saidkeep.echo import EnvelopeLog
 
     sr = 16000
     rng = np.random.default_rng(1)
@@ -130,7 +130,7 @@ def test_live_envelope_log_flags_leak_and_keeps_own_voice():
 
 
 def test_chat_usage_cost_and_format():
-    from jotbrief.chat import fmt_usage, sum_usage, usage_cost
+    from saidkeep.chat import fmt_usage, sum_usage, usage_cost
 
     u = {"in": 10_000, "out": 1_000, "read": 90_000, "write": 0}
     assert round(usage_cost("claude-sonnet-5-5", u), 4) == round(0.02 + 0.01 + 0.018, 4)   # 2/10/0,20 por milhão
@@ -141,8 +141,8 @@ def test_chat_usage_cost_and_format():
 
 
 def test_effort_support_and_total_cost_per_model():
-    from jotbrief.chat import total_cost
-    from jotbrief.config import supports_effort
+    from saidkeep.chat import total_cost
+    from saidkeep.config import supports_effort
 
     assert supports_effort("claude-sonnet-5-5") and supports_effort("claude-opus-5-5")
     assert not supports_effort("claude-haiku-4-5")
@@ -156,7 +156,7 @@ def test_release_logs_lets_windows_delete_the_folder(tmp_path):
     import logging
     import shutil
 
-    from jotbrief.session import release_logs
+    from saidkeep.session import release_logs
 
     folder = tmp_path / "2026-10-02_1107"
     folder.mkdir()
@@ -172,7 +172,7 @@ def test_release_logs_lets_windows_delete_the_folder(tmp_path):
 
 
 def test_leak_rule_never_hides_your_own_loud_voice():
-    from jotbrief.echo import is_leak_score
+    from saidkeep.echo import is_leak_score
 
     assert is_leak_score(0.89, 0.0017, 0.06)          # vazamento medido: mic baixíssimo
     assert not is_leak_score(0.73, 0.0408, 0.034)     # sua voz por cima da reunião, mesmo com envelope parecido
@@ -183,8 +183,8 @@ def test_leak_rule_never_hides_your_own_loud_voice():
 def test_overlapped_second_speaker_is_recovered_only_when_meet_confirms_overlap(tmp_path):
     import json
 
-    from jotbrief import meet_names
-    from jotbrief.echo import recover_overlapped
+    from saidkeep import meet_names
+    from saidkeep.echo import recover_overlapped
 
     folder = tmp_path / "2026-10-02_1114"
     folder.mkdir()
@@ -206,7 +206,7 @@ def test_meet_event_file_survives_concurrent_writes(tmp_path):
     import json
     import threading
 
-    from jotbrief import meet_names
+    from saidkeep import meet_names
 
     folder = tmp_path / "r"
     folder.mkdir()
@@ -221,7 +221,7 @@ def test_meet_event_file_survives_concurrent_writes(tmp_path):
 def test_load_whisper_retries_when_file_is_temporarily_locked(monkeypatch):
     import faster_whisper
 
-    from jotbrief import transcriber
+    from saidkeep import transcriber
 
     calls = []
 
@@ -242,8 +242,8 @@ def test_load_whisper_retries_when_file_is_temporarily_locked(monkeypatch):
 
 
 def test_gpu_and_cpu_failures_are_both_reported(monkeypatch):
-    from jotbrief import transcriber
-    from jotbrief.config import Config
+    from saidkeep import transcriber
+    from saidkeep.config import Config
 
     monkeypatch.setattr(transcriber, "resolve_device", lambda cfg: ("large-v3-turbo", "cuda", "float16"))
 
@@ -261,7 +261,7 @@ def test_logs_setup_writes_file_and_records_thread_exceptions(tmp_path):
     import sys
     import threading
 
-    from jotbrief import logs
+    from saidkeep import logs
 
     saved = (sys.excepthook, threading.excepthook, list(logging.getLogger().handlers))
     try:

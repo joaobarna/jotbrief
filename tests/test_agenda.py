@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from jotbrief import agenda
+from saidkeep import agenda
 
 ICS = """BEGIN:VCALENDAR
 BEGIN:VEVENT

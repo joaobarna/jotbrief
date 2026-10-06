@@ -1,4 +1,4 @@
-"""Gera src/jotbrief/data/changelog.json a partir do histórico do git (mesmo formato do JB Ladder).
+"""Gera src/saidkeep/data/changelog.json a partir do histórico do git (mesmo formato do JB Ladder).
 
 Versão = data/hora do commit em Brasília, formato YYYY.MM.DD.HH.mm. Título = assunto do commit.
 Mescla o que o git devolve com o arquivo já versionado (um clone raso não alcança o histórico antigo). Nunca falha o build.
@@ -15,7 +15,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DEST = ROOT / "src" / "jotbrief" / "data" / "changelog.json"
+DEST = ROOT / "src" / "saidkeep" / "data" / "changelog.json"
 SEP = "|||"
 BRT = timezone(timedelta(hours=-3))  # Brasília não tem horário de verão desde 2019
 

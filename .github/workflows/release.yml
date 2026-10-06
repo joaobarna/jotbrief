@@ -57,16 +57,26 @@ jobs:
         run: |
           & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "/DAppVersion=${{ steps.ver.outputs.versao }}" packaging/installer.iss
 
+      # Ponte da troca de nome: os apps antigos (JB - Jot Brief) procuram o instalador com o nome antigo. Publicamos uma
+      # cópia idêntica com esse nome para eles conseguirem se atualizar para o SaidKeep. Pode sair depois que todos migrarem.
+      - name: Cópia com o nome antigo (para os apps antigos acharem a atualização)
+        shell: pwsh
+        run: |
+          $v = "${{ steps.ver.outputs.versao }}"
+          Copy-Item "dist/SaidKeep-Setup-$v.exe" "dist/JB-Jot-Brief-Setup-$v.exe"
+
       - uses: actions/upload-artifact@v4
         with:
           name: instalador-windows
-          path: dist/JB-Jot-Brief-Setup-*.exe
+          path: dist/*-Setup-*.exe
 
       - name: Publicar na Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.ver.outputs.versao }}
           target_commitish: ${{ github.sha }}
-          name: JB - Jot Brief ${{ steps.ver.outputs.versao }}
+          name: SaidKeep ${{ steps.ver.outputs.versao }}
           body_path: notas.txt
-          files: dist/JB-Jot-Brief-Setup-*.exe
+          files: |
+            dist/SaidKeep-Setup-*.exe
+            dist/JB-Jot-Brief-Setup-*.exe

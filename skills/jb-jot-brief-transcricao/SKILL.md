@@ -1,11 +1,11 @@
 ---
 name: jb-jot-brief-transcricao
-description: Use quando o usuário colar ou anexar a transcrição de uma reunião gravada pelo app JB - Jot Brief (cabeçalho "Reunião: AAAA-MM-DD | hh:mm | Assunto" e linhas "data hora | falante | fala"), ou pedir para trabalhar uma call/reunião gravada. Pergunta o que gerar (ata, resumos, tarefas, e-mail, slides, análise) e entrega um painel HTML com botões para copiar o nome da conversa e os pedidos.
+description: Use quando o usuário colar ou anexar a transcrição de uma reunião gravada pelo app SaidKeep (cabeçalho "Reunião: AAAA-MM-DD | hh:mm | Assunto" e linhas "data hora | falante | fala"), ou pedir para trabalhar uma call/reunião gravada. Pergunta o que gerar (ata, resumos, tarefas, e-mail, slides, análise) e entrega um painel HTML com botões para copiar o nome da conversa e os pedidos.
 ---
 
-# JB · Transcrição de reunião
+# SaidKeep · Transcrição de reunião
 
-O usuário grava reuniões com o app JB - Jot Brief e cola a transcrição aqui. Seu trabalho: entender a reunião, perguntar o que ele quer gerar e entregar o resultado junto com um painel de botões de copiar.
+O usuário grava reuniões com o app SaidKeep e cola a transcrição aqui. Seu trabalho: entender a reunião, perguntar o que ele quer gerar e entregar o resultado junto com um painel de botões de copiar.
 
 ## Passo 1 · Entender o material
 - Leia o cabeçalho: `Reunião: AAAA-MM-DD | hh:mm | Assunto`, `Duração`, `Participantes` e a nota sobre falantes.
@@ -43,7 +43,7 @@ Siga o pedido da opção escolhida. Catálogo (o texto de cada pedido):
 1. **✨ Ata da reunião**: Gere a ata desta reunião com: participantes (se dá para identificar), pauta, principais discussões, decisões tomadas, action items (tarefa, responsável e prazo, quando citados) e pendências em aberto. Seja fiel ao que foi dito e não invente responsáveis nem prazos.
 2. **✨ Resumo curto**: Faça um resumo curto desta reunião, em até 5 linhas.
 3. **✓ Resumo detalhado**: Faça um resumo detalhado desta reunião, organizado por tópico, com contexto, argumentos e conclusões.
-4. **✨ Resumo detalhado com citação**: Faça um resumo detalhado desta reunião, por tópico, citando trechos literais entre aspas com o horário da fala entre colchetes, como [00:12:30].
+4. **✨ Resumo detalhado com citação**: Faça um resumo detalhado desta reunião, por tópico, citando trechos literais entre aspas com a data e a hora da fala entre colchetes, como [2026-09-29 15:52:08].
 5. **✓ Resumo e itens de ação**: Faça um resumo desta reunião e, ao final, liste os itens de ação (o que, quem e quando).
 6. **☑ Gerar tarefas**: Extraia desta reunião uma lista de tarefas, cada uma com responsável, prazo e prioridade (marque como 'não informado' o que não foi dito).
 7. **✉ Rascunho de e-mail**: Escreva um rascunho de e-mail de follow-up para os participantes desta reunião: agradecimento, resumo objetivo, decisões e próximos passos com responsáveis.

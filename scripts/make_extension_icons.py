@@ -1,4 +1,4 @@
-"""Gera os PNGs do ícone da extensão (16/32/48/128) a partir do logo do app (src/jotbrief/assets/jotbrief.svg)."""
+"""Gera os PNGs do ícone da extensão (16/32/48/128) a partir do logo do app (src/saidkeep/assets/saidkeep.svg)."""
 import os
 import sys
 from pathlib import Path
@@ -10,7 +10,7 @@ from PySide6.QtSvg import QSvgRenderer
 
 root = Path(__file__).resolve().parents[1]
 app = QGuiApplication(sys.argv)
-svg = QSvgRenderer(str(root / "src" / "jotbrief" / "assets" / "jotbrief.svg"))
+svg = QSvgRenderer(str(root / "src" / "saidkeep" / "assets" / "saidkeep.svg"))
 out = root / "extension" / "icons"
 out.mkdir(parents=True, exist_ok=True)
 for size in (16, 32, 48, 128):

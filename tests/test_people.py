@@ -1,7 +1,7 @@
 import json
 
-from jotbrief import people
-from jotbrief.ui_helpers import write_names
+from saidkeep import people
+from saidkeep.ui_helpers import write_names
 
 
 def test_remember_orders_by_recent_and_ignores_auto_labels(tmp_path):

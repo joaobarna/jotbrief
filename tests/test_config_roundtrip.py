@@ -1,5 +1,5 @@
-from jotbrief import config
-from jotbrief.config import Config
+from saidkeep import config
+from saidkeep.config import Config
 
 
 def test_bool_and_theme_roundtrip(tmp_path, monkeypatch):
@@ -16,16 +16,16 @@ def test_bool_and_theme_roundtrip(tmp_path, monkeypatch):
 def test_runtime_frozen_and_source_modes(monkeypatch, tmp_path):
     import sys
 
-    from jotbrief import runtime
+    from saidkeep import runtime
 
     assert not runtime.is_frozen()
-    assert runtime.app_command("identify", "x")[-3:] == ["jotbrief", "identify", "x"] and runtime.app_command("mcp")[1] == "-m"
+    assert runtime.app_command("identify", "x")[-3:] == ["saidkeep", "identify", "x"] and runtime.app_command("mcp")[1] == "-m"
     assert str(runtime.default_output_dir()) == "reunioes"
     monkeypatch.setattr(sys, "frozen", True, raising=False)
     assert runtime.is_frozen()
     assert runtime.app_command("identify", "x") == [sys.executable, "identify", "x"]       # o executável é o app
-    assert runtime.default_output_dir().parts[-3:] == ("Documents", "JB - Jot Brief", "reunioes")
-    from jotbrief.claude_config import server_entry
+    assert runtime.default_output_dir().parts[-3:] == ("Documents", "SaidKeep", "reunioes")
+    from saidkeep.claude_config import server_entry
     assert server_entry() == {"command": sys.executable, "args": ["mcp"]}
     nvidia = tmp_path / "nvidia" / "cudnn" / "bin"
     nvidia.mkdir(parents=True)
@@ -41,7 +41,7 @@ def test_version_format_and_changelog_merge():
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
     import gerar_changelog as g
 
-    from jotbrief import versao
+    from saidkeep import versao
 
     assert g.para_versao("2026-10-02T13:35:12-03:00") == "2026.10.02.13.35"          # horário de Brasília
     assert g.para_versao("2026-10-02T16:35:12+00:00") == "2026.10.02.13.35"          # UTC convertido para Brasília
@@ -58,7 +58,7 @@ def test_version_format_and_changelog_merge():
 def test_installed_app_resolves_relative_output_dir_into_documents(tmp_path, monkeypatch):
     import sys
 
-    from jotbrief import config
+    from saidkeep import config
 
     cfg_file = tmp_path / "config.toml"
     cfg_file.write_text('output_dir = "reunioes"\n', encoding="utf-8")
@@ -66,4 +66,4 @@ def test_installed_app_resolves_relative_output_dir_into_documents(tmp_path, mon
     assert str(config.Config.load().output_dir) == "reunioes"                       # código-fonte: continua relativo
     monkeypatch.setattr(sys, "frozen", True, raising=False)
     out = config.Config.load().output_dir
-    assert out.is_absolute() and out.parts[-3:] == ("Documents", "JB - Jot Brief", "reunioes") or out.parts[-2:] == ("JB - Jot Brief", "reunioes")
+    assert out.is_absolute() and out.parts[-3:] == ("Documents", "SaidKeep", "reunioes") or out.parts[-2:] == ("SaidKeep", "reunioes")

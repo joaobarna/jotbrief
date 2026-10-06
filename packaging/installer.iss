@@ -1,6 +1,6 @@
-; Instalador do JB - Jot Brief (Inno Setup 6). Gera dist\JB-Jot-Brief-Setup-<versão>.exe a partir de dist\JotBrief\ (build.ps1).
+; Instalador do SaidKeep (Inno Setup 6). Gera dist\SaidKeep-Setup-<versão>.exe a partir de dist\SaidKeep\ (build.ps1).
 ; Uso: ISCC.exe /DAppVersion=0.1.0 packaging\installer.iss
-#define AppName "JB - Jot Brief"
+#define AppName "SaidKeep"
 #ifndef AppVersion
   #define AppVersion "0.1.0"
 #endif
@@ -13,15 +13,15 @@ AppName={#AppName}
 AppVersion={#AppVersion}
 AppPublisher=João Barnabé
 AppPublisherURL=https://joao-barnabe.com
-DefaultDirName={autopf}\JotBrief
+DefaultDirName={autopf}\SaidKeep
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 ; instala só para o usuário (sem pedir administrador)
 PrivilegesRequired=lowest
 OutputDir=..\dist
-OutputBaseFilename=JB-Jot-Brief-Setup-{#AppVersion}
-SetupIconFile=..\src\jotbrief\assets\jotbrief.ico
-UninstallDisplayIcon={app}\JotBrief.exe
+OutputBaseFilename=SaidKeep-Setup-{#AppVersion}
+SetupIconFile=..\src\saidkeep\assets\saidkeep.ico
+UninstallDisplayIcon={app}\SaidKeep.exe
 Compression=lzma2/max
 SolidCompression=yes
 WizardStyle=modern
@@ -33,20 +33,27 @@ Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortugue
 
 [Tasks]
 Name: "desktopicon"; Description: "Criar um atalho na área de trabalho"; Flags: unchecked
-Name: "startup"; Description: "Abrir o JB junto com o Windows"; Flags: unchecked
+Name: "startup"; Description: "Abrir o SaidKeep junto com o Windows"; Flags: unchecked
 
 [Files]
-Source: "..\dist\JotBrief\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\dist\SaidKeep\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{autoprograms}\{#AppName}"; Filename: "{app}\JotBrief.exe"
-Name: "{autodesktop}\{#AppName}"; Filename: "{app}\JotBrief.exe"; Tasks: desktopicon
-Name: "{userstartup}\{#AppName}"; Filename: "{app}\JotBrief.exe"; Tasks: startup
+Name: "{autoprograms}\{#AppName}"; Filename: "{app}\SaidKeep.exe"
+Name: "{autodesktop}\{#AppName}"; Filename: "{app}\SaidKeep.exe"; Tasks: desktopicon
+Name: "{userstartup}\{#AppName}"; Filename: "{app}\SaidKeep.exe"; Tasks: startup
+
+[InstallDelete]
+; atualização de quem tinha o app com o nome antigo (JB - Jot Brief): tira o executável e os atalhos velhos
+Type: files; Name: "{app}\JotBrief.exe"
+Type: files; Name: "{autoprograms}\JB - Jot Brief.lnk"
+Type: files; Name: "{autodesktop}\JB - Jot Brief.lnk"
+Type: files; Name: "{userstartup}\JB - Jot Brief.lnk"
 
 [Run]
-Filename: "{app}\JotBrief.exe"; Description: "Abrir o JB - Jot Brief"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\SaidKeep.exe"; Description: "Abrir o SaidKeep"; Flags: nowait postinstall skipifsilent
 ; atualização feita de dentro do app: o app se fechou e o instalador o reabre ao terminar
-Filename: "{app}\JotBrief.exe"; Flags: nowait; Check: RelaunchRequested
+Filename: "{app}\SaidKeep.exe"; Flags: nowait; Check: RelaunchRequested
 
 [Code]
 function RelaunchRequested: Boolean;

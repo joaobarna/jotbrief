@@ -1,4 +1,4 @@
-// Detecta quem está falando no Google Meet e avisa o app JB - Jot Brief, que roda no seu computador (via background.js).
+// Detecta quem está falando no Google Meet e avisa o app SaidKeep, que roda no seu computador (via background.js).
 //
 // O Meet não expõe "quem fala" de forma estável (as classes mudam). Por isso a detecção é por ATIVIDADE:
 // cada "bloco de participante" ([data-participant-id]) que tem animação/mutações recorrentes fora do vídeo
@@ -23,7 +23,7 @@
     "font:12px system-ui;padding:4px 8px;border-radius:8px;opacity:.85;pointer-events:none";
   const paint = () => {
     if (showBadge) {
-      badge.textContent = "[JB - Jot Brief] " + lastText + "  ·  " + link;
+      badge.textContent = "[SaidKeep] " + lastText + "  ·  " + link;
       if (!badge.isConnected) document.documentElement.appendChild(badge);
     } else if (badge.isConnected) {
       badge.remove();

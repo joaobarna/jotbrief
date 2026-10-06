@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation · SaidKeep</title>
+<meta name="description" content="Everything SaidKeep does and how to use it.">
+<meta property="og:title" content="Documentation · SaidKeep">
+<meta property="og:description" content="Everything SaidKeep does and how to use it.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://joao-barnabe.com/en/saidkeep/docs/">
+<meta property="og:image" content="https://joao-barnabe.com/assets/og-en.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="João Barnabé, CFO and Finance Director: data that decides, automation that delivers">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://joao-barnabe.com/assets/og-en.jpg">
+<link rel="canonical" href="https://joao-barnabe.com/en/saidkeep/docs/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="alternate" hreflang="pt-BR" href="https://joao-barnabe.com/saidkeep/docs/">
+<link rel="alternate" hreflang="en" href="https://joao-barnabe.com/en/saidkeep/docs/">
+<link rel="alternate" hreflang="x-default" href="https://joao-barnabe.com/saidkeep/docs/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=38">
+<link rel="stylesheet" href="/assets/posicoes.css?v=38">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="/en/">João Barnabé</a>
+  <div class="right">
+    <nav aria-label="Main">
+      <a href="/en/" >About</a>
+      <a href="/en/projects/" aria-current="page">Projects</a>
+    </nav>
+    <details class="langsw">
+      <summary aria-label="Language"><span class="flagwrap"><svg class="flag" viewBox="0 0 60 60" aria-hidden="true"><rect width="60" height="60" fill="#fff"/><rect y="0.000" width="60" height="4.615" fill="#B22234"/><rect y="9.231" width="60" height="4.615" fill="#B22234"/><rect y="18.462" width="60" height="4.615" fill="#B22234"/><rect y="27.692" width="60" height="4.615" fill="#B22234"/><rect y="36.923" width="60" height="4.615" fill="#B22234"/><rect y="46.154" width="60" height="4.615" fill="#B22234"/><rect y="55.385" width="60" height="4.615" fill="#B22234"/><rect width="26" height="32.308" fill="#3C3B6E"/></svg></span></summary>
+      <ul>
+        <li><a href="/saidkeep/docs/" hreflang="pt-BR" lang="pt-BR"><span class="flagwrap"><svg class="flag" viewBox="0 0 60 60" aria-hidden="true"><rect width="60" height="60" fill="#009C3B"/><path d="M30 9 55 30 30 51 5 30Z" fill="#FFDF00"/><circle cx="30" cy="30" r="11" fill="#002776"/></svg></span> Português</a></li>
+        <li><a href="/en/saidkeep/docs/" hreflang="en" lang="en"><span class="flagwrap"><svg class="flag" viewBox="0 0 60 60" aria-hidden="true"><rect width="60" height="60" fill="#fff"/><rect y="0.000" width="60" height="4.615" fill="#B22234"/><rect y="9.231" width="60" height="4.615" fill="#B22234"/><rect y="18.462" width="60" height="4.615" fill="#B22234"/><rect y="27.692" width="60" height="4.615" fill="#B22234"/><rect y="36.923" width="60" height="4.615" fill="#B22234"/><rect y="46.154" width="60" height="4.615" fill="#B22234"/><rect y="55.385" width="60" height="4.615" fill="#B22234"/><rect width="26" height="32.308" fill="#3C3B6E"/></svg></span> English</a></li>
+      </ul>
+    </details>
+  </div>
+</div></header>
+<main id="conteudo">
+<div class="wrap"><nav class="crumbs" aria-label="You are here"><a href="/en/projects/">Projects</a> <span aria-hidden="true">/</span> <a href="/en/saidkeep/">SaidKeep</a> <span aria-hidden="true">/</span> <span aria-current="page">Documentation</span></nav></div>
+<div class="wrap"><article class="doc"><h1 id="saidkeep-documentation">SaidKeep — documentation</h1>
+<blockquote>
+<p>Formerly called <strong>JB - Jot Brief</strong>. Existing users keep their data: on the first launch of the new version, meetings, settings and voices are moved automatically.</p>
+</blockquote>
+<p>A Windows app that <strong>transcribes meetings (Google Meet, Teams, Zoom) without a bot</strong>, separates and names who is speaking, and takes the
+conversation to Claude (chat inside the app, a claude.ai project, or the Claude app for Windows).
+Everything audio-related runs <strong>on your computer</strong>; only the text goes to Claude, when you ask for it.</p>
+<blockquote>
+<p>This documentation describes the app as it is today. To install it and use it day to day, also see the <code>README.md</code>.</p>
+</blockquote>
+<hr />
+<h2 id="1-overview">1. Overview</h2>
+<table>
+<thead>
+<tr>
+<th>What it does</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Records the meeting <strong>without a bot</strong></td>
+<td>Captures the audio that comes out of your speakers/headset (WASAPI loopback) + your microphone</td>
+</tr>
+<tr>
+<td>Transcribes <strong>locally</strong></td>
+<td>Whisper (faster-whisper) on your NVIDIA GPU; without one, it uses the CPU with a smaller model</td>
+</tr>
+<tr>
+<td>Shows the conversation <strong>live</strong></td>
+<td>Chat-style bubbles that follow the audio; you on the right, the meeting on the left</td>
+</tr>
+<tr>
+<td>Separates and names people</td>
+<td>Voice separation + voice recognition + names seen in Meet + calendar invitees</td>
+</tr>
+<tr>
+<td>Chats with Claude <strong>during the meeting</strong></td>
+<td>Chat column with ready-made buttons (summary, tasks, questions to ask…)</td>
+</tr>
+<tr>
+<td>Takes it to Claude</td>
+<td>Browser, Windows app, or MCP server (Claude Desktop reads the meetings on its own)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Costs:</strong> transcription, voice separation, and recognition are free (they run locally). What uses the Anthropic API
+(with your <code>ANTHROPIC_API_KEY</code>) is the <strong>panel chat</strong> and the meeting's <strong>automatic subject</strong>. The app shows token usage
+and the estimated cost in USD and in BRL (R$).</p>
+<hr />
+<h2 id="2-installation-and-first-use">2. Installation and first use</h2>
+<p>Requirements: Windows 11, Python 3.12 (managed by <code>uv</code>), and, for speed, an NVIDIA GPU.</p>
+<pre><code>uv sync --extra cuda          # with an NVIDIA GPU; without a GPU: uv sync
+copy .env.example .env        # fill in ANTHROPIC_API_KEY
+uv run saidkeep setup         # downloads the transcription models (~1.6 GB)
+uv run saidkeep gui           # opens the window
+</code></pre>
+<ul>
+<li>The API key lives <strong>only</strong> in the <code>.env</code> file (it never goes to Git or onto the screen).</li>
+<li>The voice separation models (≈ 32 MB) are downloaded the first time you use 👥.</li>
+<li>Audio devices: <code>uv run saidkeep devices</code> lists them; by default the app uses the Windows defaults.</li>
+</ul>
+<p><strong>First recording:</strong> open the app → choose the language (Português, Inglês, or Automático — Portuguese, English, or Automatic) → click the round record button →
+speak/listen to the meeting → click again to stop. The meeting shows up in the list on the left.</p>
+<hr />
+<h2 id="3-the-window">3. The window</h2>
+<pre><code>┌──────────────┬───────────────────────────────┬──────────────────┐
+│  Meeting     │  ● 00:00:00   + Nova reunião   │  Claude          │
+│  list        │  [button bar]                  │  model · effort  │
+│  (by day)    │  Gravando em: title            │  usage (US$/R$)  │
+│              │  audio player                  │  [ready buttons] │
+│              │  transcript bubbles            │  conversation    │
+│              │                                │  [question ↑]    │
+├──────────────┴───────────────────────────────┴──────────────────┤
+│  LGPD notice                                                     │
+└──────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="31-meeting-list-left">3.1 Meeting list (left)</h3>
+<ul>
+<li>Each meeting is a card: <strong><code>YYYY-MM-DD | hh:mm | Subject</code></strong> (date and time in bold), number of utterances and, if a task is in
+  progress, the line <code>⏳ identificando falantes…</code> (identifying speakers…).</li>
+<li>Grouped by day; the day button (<strong><code>▾ HOJE · 2026-10-02 (7)</code></strong>, where HOJE = TODAY) collapses/expands it. When you open the app, only the latest day with a transcript
+  is open. The selected meeting, or the one being recorded, is never hidden.</li>
+<li><strong>Buscar reuniões</strong> (Search meetings): searches the title and the text of the transcripts.</li>
+<li>🗑 moves the meeting to the <strong>Windows Recycle Bin</strong> (you can recover it). It won't let you delete the one being recorded.</li>
+<li><strong>+ Nova reunião</strong> (New meeting) leaves none selected: the next recording creates a new one (a "Nova reunião" row appears at the top).
+  Recording with a meeting selected <strong>continues it</strong> (it becomes "Parte 2" (Part 2), with a separator).</li>
+</ul>
+<h3 id="32-button-bar-center">3.2 Button bar (center)</h3>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Buttons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Record (Gravar)</td>
+<td>Record/stop + time · <strong>Nova reunião</strong> (New meeting) · language</td>
+</tr>
+<tr>
+<td>Claude</td>
+<td>✳🌐 browser · ⚙ project · ✳🪟 Windows app (manual)</td>
+</tr>
+<tr>
+<td>People</td>
+<td>👥 identify speakers · ✏ assign names</td>
+</tr>
+<tr>
+<td>Reprocess</td>
+<td>🔄 transcribes the audio again</td>
+</tr>
+<tr>
+<td>Folder</td>
+<td>📁 opens the meeting folder</td>
+</tr>
+<tr>
+<td>Copy</td>
+<td>📋 copies the transcript in the ideal format for AI</td>
+</tr>
+<tr>
+<td>Chat</td>
+<td>💬 shows/hides the Claude column</td>
+</tr>
+<tr>
+<td>Visual</td>
+<td>🎈 balloon mode · light/dark theme</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33-bubbles-and-player">3.3 Bubbles and player</h3>
+<ul>
+<li>You ("Eu" = Me) on the right, in green; the meeting on the left, one color per person. Partial text appears dotted and becomes
+  final when the utterance closes.</li>
+<li>Click the <strong>name</strong> on a bubble to rename the person (this also teaches the app their voice).</li>
+<li><strong>Player:</strong> play/pause, ±10 s, position bar, volume. The text <strong>follows the audio</strong> like song lyrics; <strong>"▶ Ouvir parte"</strong> (Play section)
+  plays just one section. The ↓ button jumps to the end; during recording the screen scrolls on its own.</li>
+<li><strong>Balloon mode (🎈):</strong> when recording, the window turns into a floating bar with the latest utterance.</li>
+</ul>
+<h3 id="34-chat-with-claude-right">3.4 Chat with Claude (right)</h3>
+<ul>
+<li><strong>Ready-made buttons:</strong> 📝 Resumo detalhado (Detailed summary) · ⚡ Resumo rápido (Quick summary) · 🎯 Pontos-chave (Key points) · ✅ Decisões e tarefas (Decisions and tasks) · ❓ Em aberto (Open items) ·
+  💡 Perguntas para fazer (Questions to ask) · 🔎 Última fala (Last utterance). The text of the request appears when you hover over the button.</li>
+<li><strong>Free conversation:</strong> type and press Enter (Shift+Enter breaks the line). The answer arrives gradually; ■ interrupts it.</li>
+<li><strong>During recording</strong> Claude reads the transcript <strong>up to that moment</strong> (refreshed with every question).</li>
+<li><strong>Model</strong> (Sonnet 5.5, Opus 5.5, or Haiku 4.5) and <strong>effort</strong> (low → max) are chosen at the top; they apply to the whole app
+  (chat and subject). Haiku has no effort setting.</li>
+<li><strong>Usage:</strong> last answer and meeting total (input tokens, the part that came from cache, output), estimated cost in
+  <strong>USD and BRL (R$)</strong> (current exchange rate, refreshed every hour; the source and time are shown in the panel).</li>
+<li>Each meeting has its own conversation, saved in <code>chat.json</code> in its folder. 🗑 clears it.</li>
+</ul>
+<hr />
+<h2 id="4-how-each-feature-works">4. How each feature works</h2>
+<h3 id="41-capture-and-transcription">4.1 Capture and transcription</h3>
+<ul>
+<li><strong>Two channels</strong> recorded into a stereo 16 kHz <code>audio.wav</code>: <strong>left = your microphone, right = the meeting audio</strong>.</li>
+<li>A speech detector (silero-vad, running via ONNX, without PyTorch) cuts the audio into chunks; each chunk goes to Whisper. There are filters against "hallucinations"
+  (ghost subtitles such as "Legenda Adriana Zanotto" (a Portuguese subtitle credit), text in another alphabet, repeated phrases).</li>
+<li>Language: Português, Inglês, or <strong>Automático</strong> (chooses between pt and en per chunk).</li>
+</ul>
+<h3 id="42-microphone-echo-without-a-headset">4.2 Microphone echo (without a headset)</h3>
+<p>If the microphone "hears" the speaker, the meeting sound would come back as if it were you. The app handles this in layers:
+1. <strong>Text:</strong> discards mic utterances that repeat what the meeting said at the same moment.
+2. <strong>Audio, live and after stopping:</strong> compares the volume of the two channels over time. It is leakage when the <strong>microphone is
+   extremely quiet</strong> (≤ 0.002 measured) while the meeting is speaking; <strong>your voice</strong>, even on top of the meeting, is 10–40× louder and
+   is never hidden.
+3. <strong>Recovery:</strong> when two people talk at once, the meeting channel only transcribes the stronger voice; the other may have been left only in the
+   mic leakage. If Meet confirms 2+ people speaking together and the text does not exist in the meeting channel, the chunk comes back as an utterance
+   (with the name of whoever talked over the other).</p>
+<blockquote>
+<p><strong>Limit:</strong> with a <strong>headset</strong> the mic doesn't pick up the meeting; so there is no echo, but a second voice talking over the first is not
+recorded. Only capturing each participant's audio separately would solve this (not implemented).</p>
+</blockquote>
+<h3 id="43-identify-speakers">4.3 Identify speakers (👥)</h3>
+<ul>
+<li>Separates the voices in the meeting channel into <strong>Pessoa 1, 2…</strong> (Person 1, 2…) (local models: pyannote segmentation + voice embeddings via
+  sherpa-onnx), including splitting an utterance in which two people alternate.</li>
+<li>Runs <strong>automatically when you stop</strong> the recording, in a <strong>separate process</strong> (the window doesn't freeze) — ~1 min for 9 min of audio.</li>
+<li>When you click it manually you can enter how many people are speaking (not counting you); this separates similar voices better.</li>
+<li>Settings in <code>config.toml</code>: <code>diarization_threshold</code> (lower = separates more; 0.3 default) and <code>num_speakers</code>.</li>
+</ul>
+<h3 id="44-assigning-names-to-people">4.4 Assigning names to people</h3>
+<p>Four sources, from weakest to strongest (what you type is <strong>never</strong> overwritten):
+1. <strong>Voice recognition:</strong> when you name someone, the app stores their <strong>voice print</strong> and, in future meetings, assigns the name on its own
+   (<code>voice_match_threshold</code> 0.75 and <code>voice_match_margin</code> 0.05). It is biometric data: it stays only in <code>%APPDATA%\saidkeep\voices.json</code>
+   (delete the file to forget everyone).
+2. <strong>Calendar invitees:</strong> with <code>calendar_ics_url</code> (the secret iCal address of Google Calendar), the app finds the event at that time
+   (including weekly/daily meetings) and puts the invitees at the top of the name list.
+3. <strong>Names seen in Meet</strong> (Chrome extension, below): matches who Meet showed speaking alone with each voice.
+4. <strong>You:</strong> by clicking the name on the bubble or ✏ (a list of people already registered + typing a new one).</p>
+<h3 id="45-chrome-extension-google-meet">4.5 Chrome extension (Google Meet)</h3>
+<p><code>extension/</code> folder — install at <code>chrome://extensions</code> → Developer mode → <strong>Load unpacked</strong> → <code>extension</code> folder.
+- It watches the Meet page and tells the app who is speaking. It shows a badge in the bottom-left corner:
+  <code>[SaidKeep] Name · app gravando ✓</code> (app recording ✓; it also says whether the app is closed or not recording).
+- <strong>Extension icon:</strong> the green SaidKeep; it gets a <strong>red circle</strong> when the app is recording.
+- <strong>Live:</strong> when only one person is speaking, the bubble already comes out with their name. After you stop, the voice matching redoes the names and
+  learns the voice.
+- <strong>Security:</strong> it only talks to <code>127.0.0.1:47821</code>; the app refuses requests coming from web pages (it requires a header that only the extension
+  sends).
+- The notices are kept in <code>falantes_meet.jsonl</code> in the meeting folder.
+- It is <strong>experimental</strong>: Meet doesn't expose "who is speaking" in a stable way, so detection is based on interface activity and may need
+  adjusting if Meet changes (<code>DEBUG</code> in <code>content.js</code> keeps the badge visible).</p>
+<h3 id="46-reprocess">4.6 Reprocess (🔄)</h3>
+<p>Transcribes <code>audio.wav</code> again with the current language and filters (backing up the previous transcript to <code>transcricao.jsonl.bak</code>),
+optionally identifying the speakers right away. Useful after improvements to the app or to fix the language.</p>
+<h3 id="47-taking-it-to-claude">4.7 Taking it to Claude</h3>
+<ul>
+<li><strong>✳🌐 Browser:</strong> opens a new conversation <strong>inside your project</strong> on claude.ai with the skill's request + the transcript. With
+  <code>auto_send = true</code> the app waits for the page to load and presses Enter (only if the front window is a new Claude page).
+  Long calls (&gt; ~7,500 characters in the link) carry the request in the link and the transcript stays on the clipboard for you to paste.</li>
+<li><strong>✳🪟 Windows app (manual):</strong> the Claude app only accepts text in new conversations outside projects. So the button opens the project
+  and copies the text: click "Nova sessão" (New session) and paste (Ctrl+V).</li>
+<li><strong>⚙ Project:</strong> sets the project URL (<code>https://claude.ai/project/…</code>).</li>
+<li><strong><code>jb-jot-brief-transcricao</code> skill:</strong> <code>uv run saidkeep skill</code> generates the <code>.zip</code> (and the <code>painel.html</code>) to upload to Claude. The skill asks
+  what to generate and delivers the suggested conversation name and copy buttons.</li>
+<li><strong>MCP server:</strong> <code>uv run saidkeep mcp-install</code> (with Claude Desktop <strong>closed</strong>) registers a <strong>read-only</strong> server with
+  <code>list_meetings</code> and <code>get_transcript</code>; Claude Desktop then reads the meetings on its own.</li>
+<li><strong>Copy (📋):</strong> one utterance per line, with real date and time:
+  ```
+  Reunião: 2026-09-29 | 15:52 | Assunto
+  Duração: 00:00:22 | Participantes: Pessoa 1, Eu</li>
+</ul>
+<p>2026-09-29 15:52:02 | Pessoa 1 | Conta, Carlos. Por que você está tão animado?
+  ```</p>
+<h3 id="48-automatic-subject">4.8 Automatic subject</h3>
+<p>When you stop, Claude generates a short title (up to 8 words) and the list starts showing <code>YYYY-MM-DD | hh:mm | Subject</code>. Without a key/network, it stays as
+"Sem assunto" (No subject) (no harm done).</p>
+<hr />
+<h2 id="5-files">5. Files</h2>
+<h3 id="51-per-meeting-reunioesyyyy-mm-dd_hhmm">5.1 Per meeting — <code>reunioes\YYYY-MM-DD_HHMM\</code></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>audio.wav</code></td>
+<td>stereo 16 kHz (L = mic, R = meeting)</td>
+</tr>
+<tr>
+<td><code>transcricao.jsonl</code></td>
+<td>one utterance per line: <code>t0</code>, <code>t1</code>, <code>source</code> (mic/loop), <code>text</code>, <code>speaker</code>, <code>words</code>, <code>echo</code>, <code>recovered</code></td>
+</tr>
+<tr>
+<td><code>transcricao.md</code></td>
+<td>readable transcript</td>
+</tr>
+<tr>
+<td><code>meta.json</code></td>
+<td>subject, parts, names (<code>names</code>), which ones were automatic (<code>auto_names</code>), calendar invitees</td>
+</tr>
+<tr>
+<td><code>falantes_meet.jsonl</code></td>
+<td>extension notices (second, name, started/stopped)</td>
+</tr>
+<tr>
+<td><code>chat.json</code></td>
+<td>conversation with Claude and the usage of each answer</td>
+</tr>
+<tr>
+<td><code>transcricao.jsonl.bak</code></td>
+<td>backup before reprocessing/identifying</td>
+</tr>
+<tr>
+<td><code>app.log</code></td>
+<td>recording log</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-app-level-appdatasaidkeep">5.2 App-level — <code>%APPDATA%\saidkeep\</code></h3>
+<p><code>config.toml</code> · <code>people.json</code> (registered names) · <code>voices.json</code> (voice prints) · <code>prompts.json</code> (the Claude button's requests) ·
+<code>cotacao.json</code> (dollar rate in BRL) · <code>models\</code> (voice separation models).</p>
+<h3 id="53-configuration-configtoml">5.3 Configuration (<code>config.toml</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>What for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>language</code></td>
+<td><code>pt</code></td>
+<td>transcription language (<code>pt</code>, <code>en</code>, <code>auto</code>)</td>
+</tr>
+<tr>
+<td><code>device</code></td>
+<td><code>auto</code></td>
+<td><code>auto</code>, <code>cuda</code>, or <code>cpu</code></td>
+</tr>
+<tr>
+<td><code>model_gpu</code> / <code>model_cpu</code></td>
+<td><code>large-v3-turbo</code> / <code>small</code></td>
+<td>Whisper models</td>
+</tr>
+<tr>
+<td><code>output_dir</code></td>
+<td><code>reunioes</code></td>
+<td>where the meetings are stored</td>
+</tr>
+<tr>
+<td><code>claude_model</code></td>
+<td><code>claude-sonnet-5-5</code></td>
+<td>model for the chat and the subject</td>
+</tr>
+<tr>
+<td><code>chat_effort</code></td>
+<td><code>medium</code></td>
+<td>Claude's effort in the chat (<code>low</code>…<code>max</code>)</td>
+</tr>
+<tr>
+<td><code>chat_open</code></td>
+<td><code>true</code></td>
+<td>chat column visible</td>
+</tr>
+<tr>
+<td><code>claude_project_url</code></td>
+<td>—</td>
+<td>claude.ai project</td>
+</tr>
+<tr>
+<td><code>skill_name</code></td>
+<td><code>jb-jot-brief-transcricao</code></td>
+<td>skill name (goes at the start of the message)</td>
+</tr>
+<tr>
+<td><code>auto_send</code></td>
+<td><code>true</code></td>
+<td>presses Enter on its own in the browser</td>
+</tr>
+<tr>
+<td><code>ask_in_app</code></td>
+<td><code>false</code></td>
+<td><code>true</code>: the button asks what to generate in the app (otherwise the skill asks in Claude)</td>
+</tr>
+<tr>
+<td><code>calendar_ics_url</code></td>
+<td>empty</td>
+<td>secret iCal address of Google Calendar</td>
+</tr>
+<tr>
+<td><code>diarization_threshold</code></td>
+<td><code>0.3</code></td>
+<td>voice separation (lower = separates more)</td>
+</tr>
+<tr>
+<td><code>num_speakers</code></td>
+<td><code>0</code></td>
+<td>number of people, if you know it (0 = automatic)</td>
+</tr>
+<tr>
+<td><code>voice_match_threshold</code> / <code>voice_match_margin</code></td>
+<td><code>0.75</code> / <code>0.05</code></td>
+<td>strictness of voice recognition</td>
+</tr>
+<tr>
+<td><code>speaker_threshold</code></td>
+<td><code>0.55</code></td>
+<td>separation without the voice-change model</td>
+</tr>
+<tr>
+<td><code>silence_ms</code> / <code>max_segment_s</code></td>
+<td><code>600</code> / <code>15</code></td>
+<td>utterance cutting</td>
+</tr>
+<tr>
+<td><code>mic_device</code> / <code>loopback_device</code></td>
+<td>—</td>
+<td>device indexes (<code>saidkeep devices</code>)</td>
+</tr>
+<tr>
+<td><code>theme</code> / <code>volume</code> / <code>floating</code></td>
+<td><code>claro</code> / <code>100</code> / <code>false</code></td>
+<td>appearance and balloon mode (<code>claro</code> = light)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-command-line">6. Command line</h2>
+<p><code>uv run saidkeep &lt;command&gt;</code></p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gui</code></td>
+<td>opens the window</td>
+</tr>
+<tr>
+<td><code>run</code></td>
+<td>records and transcribes in the terminal (Ctrl+C to stop)</td>
+</tr>
+<tr>
+<td><code>devices</code></td>
+<td>lists audio devices</td>
+</tr>
+<tr>
+<td><code>setup</code></td>
+<td>downloads/loads the models</td>
+</tr>
+<tr>
+<td><code>identify &lt;folder&gt; [--people N]</code></td>
+<td>separates the voices of a meeting (used by the app, in a separate process)</td>
+</tr>
+<tr>
+<td><code>learn-voices</code></td>
+<td>learns the voices of people already named in the saved meetings</td>
+</tr>
+<tr>
+<td><code>subjects</code></td>
+<td>generates the subject for meetings with "Sem assunto"</td>
+</tr>
+<tr>
+<td><code>check-key</code></td>
+<td>tests the <code>ANTHROPIC_API_KEY</code></td>
+</tr>
+<tr>
+<td><code>skill</code></td>
+<td>generates the Claude skill (<code>skills\</code>)</td>
+</tr>
+<tr>
+<td><code>mcp</code> / <code>mcp-config</code> / <code>mcp-install</code></td>
+<td>MCP server; shows the configuration; installs it in Claude Desktop (close it first)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-architecture-for-anyone-who-will-tinker-with-it">7. Architecture (for anyone who will tinker with it)</h2>
+<pre><code>audio.py ─ Track/StereoRecorder ─► session.py ─► transcriber.py (Whisper) ─► transcricao.jsonl
+vad.py (silero)                       │   ├─ echo.py (audio echo, recovery)
+                                      │   └─ meet_names.py / meet_bridge.py (extension)
+speakers.py (separation)  voices.py (recognition)  people.py  agenda.py (invitees)
+reprocess.py   jobs.py (identify in a separate process)
+chat.py (Claude: streaming, prices, usage)   fx.py (dollar→BRL)   summarize.py (subject)
+claude_link.py  prompts.py  skill.py  auto_send.py  claude_config.py  mcp_server.py  meetings.py
+ui.py (PySide6)  ui_helpers.py (Qt-free parts)       extension/ (Chrome)
+</code></pre>
+<ul>
+<li><strong>UI golden rule:</strong> workers → UI only via <code>Signal</code>.</li>
+<li><strong>Heavy work outside the window:</strong> voice separation runs in another process (<code>jobs.run_identify</code>), because it was native code that
+  froze the interface.</li>
+<li><strong>Echo:</strong> <code>echo.EnvelopeLog</code> stores the volume of both channels live; <code>echo.mark_echo_by_audio</code> repeats the measurement on the full audio
+  (when identifying speakers and when reprocessing).</li>
+<li><strong>Time:</strong> the session timeline (<code>session.now()</code>) is the clock for everything: utterances, Meet notices, and position in the audio; when resuming a
+  meeting, it adds what has already been recorded.</li>
+<li><strong>Tests:</strong> <code>uv run pytest -q</code> (≈ 95 tests: pure logic, UI without a screen (offscreen), extension, formats). The ones that download models are
+  marked <code>slow</code>.</li>
+</ul>
+<hr />
+<h2 id="8-privacy-and-security">8. Privacy and security</h2>
+<ul>
+<li><strong>LGPD (Brazil's data protection law):</strong> recording and transcribing meetings requires the participants' consent (the notice is in the footer). Tell people before you start.</li>
+<li><strong>Audio and voice stay on your PC.</strong> Voice prints are biometric data: only in <code>voices.json</code>, never sent anywhere.</li>
+<li><strong>What goes to Anthropic:</strong> the transcript text (and the request), only when you use the chat, generate the subject, or send it to Claude.</li>
+<li><strong>API key:</strong> only in <code>.env</code>; never in the code, in Git, or in messages.</li>
+<li><strong>Chrome extension:</strong> talks only to <code>127.0.0.1</code>; the app refuses requests from websites.</li>
+<li><strong>Calendar:</strong> the secret iCal address is equivalent to a read-only password for your calendar; keep it only in <code>config.toml</code> (if it leaks, use
+  "Reset" in Google Calendar).</li>
+<li><strong>Deletion:</strong> goes to the Windows Recycle Bin.</li>
+</ul>
+<hr />
+<h2 id="9-known-issues-and-limits">9. Known issues and limits</h2>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What happens / what to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Two people speak at the same time</td>
+<td>The meeting channel transcribes the stronger voice. The other only shows up if it leaked through the mic (no headset) and Meet confirmed the simultaneous speech</td>
+</tr>
+<tr>
+<td>No headset</td>
+<td>Some echo may remain; the app filters it by volume. A headset is ideal</td>
+</tr>
+<tr>
+<td>Many "ghost" people in the separation</td>
+<td>Enter the number of people in 👥 or raise <code>diarization_threshold</code></td>
+</tr>
+<tr>
+<td>Wrong voice name</td>
+<td>Fix it with ✏; the manual correction carries more weight and is never overwritten</td>
+</tr>
+<tr>
+<td>Claude app for Windows</td>
+<td>Doesn't accept text + project: the button is manual (it opens the project, you paste)</td>
+</tr>
+<tr>
+<td>Extension doesn't show the right name</td>
+<td>Reload the extension and the Meet tab; check the <code>[SaidKeep]</code> badge and the Console (F12) with <code>[SaidKeep]</code></td>
+</tr>
+<tr>
+<td>I can't delete a meeting</td>
+<td>You can't while it is being recorded; stop the recording first</td>
+</tr>
+<tr>
+<td>Chat doesn't answer</td>
+<td>Check the message in the panel: usually a missing/invalid key or no internet (<code>uv run saidkeep check-key</code>)</td>
+</tr>
+<tr>
+<td>Chat cost</td>
+<td>Each question resends the transcript as context (with cache). Long meetings cost more per question</td>
+</tr>
+<tr>
+<td>Teams/Zoom desktop</td>
+<td>Audio capture works for any app; the <strong>automatic names from Meet</strong> only apply to Meet in the browser</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-glossary">10. Glossary</h2>
+<ul>
+<li><strong>Loopback:</strong> audio that comes out of the computer (the voice of the others in the meeting).</li>
+<li><strong>Pessoa N</strong> (Person N)<strong>:</strong> automatic label for a separated voice.</li>
+<li><strong>Echo/leakage:</strong> the microphone picking up the speaker.</li>
+<li><strong>Effort:</strong> how much Claude "thinks" before answering (more effort = slower and more expensive).</li>
+<li><strong>MCP:</strong> the protocol through which Claude Desktop reads the meetings as a tool.</li>
+<li><strong>Skill:</strong> a package of instructions you install in Claude to handle SaidKeep transcripts.</li>
+</ul></article></div>
+</main>
+<footer class="site"><div class="wrap">
+  <p>© 2026 João Barnabé · <a href="https://www.linkedin.com/in/joao-barnabe" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="mailto:joaobarna@gmail.com">Email</a> · <a class="ver" href="/en/versions/" title="Version history">v2026.10.03.10.44</a></p>
+</div></footer>
+</body>
+</html>

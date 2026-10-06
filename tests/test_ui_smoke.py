@@ -14,8 +14,8 @@ def app():
 
 
 def test_window_and_dialogs_construct(app, tmp_path):
-    from jotbrief import ui
-    from jotbrief.prompts import load_prompts
+    from saidkeep import ui
+    from saidkeep.prompts import load_prompts
 
     w = ui.Window()
     for name in ("btn_claude_app", "btn_reprocess", "btn_speakers", "btn_names", "btn_claude", "btn_folder", "btn_copy", "rec"):
@@ -45,7 +45,7 @@ def test_window_and_dialogs_construct(app, tmp_path):
 def test_new_meeting_row_and_busy_marker(app, tmp_path):
     from pathlib import Path
 
-    from jotbrief import ui
+    from saidkeep import ui
 
     w = ui.Window()
     w.cfg.output_dir = tmp_path
@@ -71,7 +71,7 @@ def test_new_meeting_row_and_busy_marker(app, tmp_path):
 def test_chat_panel_streams_and_persists(app, tmp_path, monkeypatch):
     import time
 
-    from jotbrief import chat, ui
+    from saidkeep import chat, ui
 
     folder = tmp_path / "2026-09-29_1600"
     folder.mkdir()
@@ -105,7 +105,7 @@ def test_chat_panel_streams_and_persists(app, tmp_path, monkeypatch):
 
 
 def test_day_groups_collapse_except_latest(app, tmp_path):
-    from jotbrief import ui
+    from saidkeep import ui
 
     for name in ("2026-09-28_0900", "2026-09-29_1600", "2026-09-29_1700"):
         d = tmp_path / name
@@ -136,7 +136,7 @@ def test_delete_blocked_for_meeting_being_recorded_even_with_relative_path(app, 
     from pathlib import Path
     from types import SimpleNamespace
 
-    from jotbrief import ui
+    from saidkeep import ui
 
     monkeypatch.chdir(tmp_path)
     (tmp_path / "reunioes" / "2026-10-02_1114").mkdir(parents=True)
@@ -154,7 +154,7 @@ def test_delete_blocked_for_meeting_being_recorded_even_with_relative_path(app, 
 def test_cuda_offer_only_in_installed_app_with_nvidia_and_missing_libs(app, monkeypatch):
     import sys
 
-    from jotbrief import cuda_setup, ui
+    from saidkeep import cuda_setup, ui
 
     w = ui.Window()
     asked = []
@@ -181,7 +181,7 @@ def test_cuda_offer_only_in_installed_app_with_nvidia_and_missing_libs(app, monk
 
 
 def test_api_key_dialog_rejects_bad_keys_without_calling_the_api(app, monkeypatch):
-    from jotbrief import chat, ui
+    from saidkeep import chat, ui
 
     called = []
     monkeypatch.setattr(chat, "test_key", lambda k, m: called.append(k) or "")
@@ -196,7 +196,7 @@ def test_api_key_dialog_rejects_bad_keys_without_calling_the_api(app, monkeypatc
 
 
 def test_footer_shows_version_and_versions_dialog_lists_history(app):
-    from jotbrief import ui, versao
+    from saidkeep import ui, versao
 
     w = ui.Window()
     btn = w.findChild(QtWidgets.QPushButton, "verlink")
@@ -208,7 +208,7 @@ def test_footer_shows_version_and_versions_dialog_lists_history(app):
 
 
 def test_api_key_dialog_links_to_anthropic_keys_page(app):
-    from jotbrief import ui
+    from saidkeep import ui
 
     d = ui.ApiKeyDialog(None, False)
     intro = d.findChildren(QtWidgets.QLabel)[0]
@@ -219,7 +219,7 @@ def test_api_key_dialog_links_to_anthropic_keys_page(app):
 def test_update_button_appears_only_for_a_newer_release_and_blocks_while_recording(app, monkeypatch):
     from types import SimpleNamespace
 
-    from jotbrief import ui, update
+    from saidkeep import ui, update
 
     w = ui.Window()
     assert w.btn_update.isHidden()

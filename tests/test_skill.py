@@ -2,8 +2,8 @@ import json
 import re
 import zipfile
 
-from jotbrief import skill
-from jotbrief.prompts import DEFAULTS
+from saidkeep import skill
+from saidkeep.prompts import DEFAULTS
 
 
 def test_skill_md_has_frontmatter_and_every_prompt():

@@ -5,7 +5,7 @@
   "description": "__MSG_extDescription__",
   "default_locale": "pt_BR",
   "minimum_chrome_version": "110",
-  "homepage_url": "https://joao-barnabe.com/jot-brief/",
+  "homepage_url": "https://joao-barnabe.com/saidkeep/",
   "permissions": ["alarms", "storage"],
   "host_permissions": ["http://127.0.0.1:47821/*"],
   "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },

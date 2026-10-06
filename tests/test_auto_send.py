@@ -1,4 +1,4 @@
-from jotbrief import auto_send as a
+from saidkeep import auto_send as a
 
 
 class Clock:

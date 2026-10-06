@@ -1,4 +1,4 @@
-from jotbrief.speakers import speaker_at, split_by_speaker
+from saidkeep.speakers import speaker_at, split_by_speaker
 
 SEGS = [(0.0, 3.0, 0), (3.2, 6.0, 1)]
 
@@ -29,7 +29,7 @@ def test_short_flip_is_absorbed_and_no_segments_keeps_record():
 
 
 def test_merge_small_speakers_removes_ghost_voices():
-    from jotbrief.speakers import merge_small_speakers
+    from saidkeep.speakers import merge_small_speakers
     segs = [(0.0, 10.0, 0), (12.0, 14.0, 1), (15.0, 16.0, 7),   # pessoa 7: só 1 s de fala (ruído)
             (20.0, 32.0, 0), (33.0, 40.0, 1)]
     out = merge_small_speakers(segs)
@@ -41,6 +41,6 @@ def test_merge_small_speakers_removes_ghost_voices():
 
 
 def test_short_meeting_keeps_real_speakers():
-    from jotbrief.speakers import merge_small_speakers
+    from saidkeep.speakers import merge_small_speakers
     segs = [(1.97, 5.25, 0), (7.47, 8.65, 1), (9.04, 11.61, 0), (11.73, 13.53, 1)]   # a call curta de 27 s
     assert {s for *_, s in merge_small_speakers(segs)} == {0, 1}

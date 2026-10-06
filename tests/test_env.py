@@ -1,6 +1,6 @@
 import os
 
-from jotbrief.config import load_env
+from saidkeep.config import load_env
 
 
 def test_load_env_reads_values_without_overriding_and_ignores_comments(tmp_path, monkeypatch):
@@ -22,10 +22,10 @@ def test_load_env_reads_values_without_overriding_and_ignores_comments(tmp_path,
 def test_save_api_key_writes_env_replaces_old_line_and_applies_now(tmp_path, monkeypatch):
     import pytest
 
-    from jotbrief.config import save_api_key
+    from saidkeep.config import save_api_key
 
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
-    env = tmp_path / "jotbrief" / ".env"
+    env = tmp_path / "saidkeep" / ".env"
     env.parent.mkdir()
     env.write_text("HF_TOKEN=abc\nANTHROPIC_API_KEY=antiga\n", encoding="utf-8")
     save_api_key("sk-ant-" + "x" * 30, env)

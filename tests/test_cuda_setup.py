@@ -4,7 +4,7 @@ import zipfile
 
 import pytest
 
-from jotbrief import cuda_setup
+from saidkeep import cuda_setup
 
 
 def fake_wheel(sub: str, dll: str) -> bytes:
@@ -71,7 +71,7 @@ def test_install_rejects_corrupted_download_and_supports_cancel(tmp_path, fake_p
 
 
 def test_cuda_ready_looks_at_every_known_place(tmp_path, monkeypatch):
-    from jotbrief import runtime
+    from saidkeep import runtime
 
     monkeypatch.setattr(runtime, "cuda_dir", lambda: tmp_path / "cuda")
     monkeypatch.setattr("sys.path", [])

@@ -1,11 +1,11 @@
 // Repassa os eventos da página do Meet para o app local (127.0.0.1) e mostra no ícone quando o app está gravando.
 const BASE = "http://127.0.0.1:47821";
-const HEADERS = { "Content-Type": "application/json", "X-JotBrief": "1" };
+const HEADERS = { "Content-Type": "application/json", "X-SaidKeep": "1" };
 const SIZES = [16, 32, 48, 128];
 
 let shown = null; // estado do ícone: null (desconhecido) | false (normal) | true (gravando)
 
-// Ícone do app (JB com microfone, verde); quando gravando, ganha um círculo vermelho no canto.
+// Ícone do app (SaidKeep com microfone, verde); quando gravando, ganha um círculo vermelho no canto.
 async function paintIcon(recording) {
   const bmp = await createImageBitmap(await (await fetch(chrome.runtime.getURL("icons/icon128.png"))).blob());
   const imageData = {};

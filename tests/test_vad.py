@@ -1,6 +1,6 @@
 import numpy as np
 
-from jotbrief.vad import ONNX_PATH, SR, WIN, Segmenter, SileroVad
+from saidkeep.vad import ONNX_PATH, SR, WIN, Segmenter, SileroVad
 
 
 def test_model_ships_with_the_app_and_scores_silence_low():

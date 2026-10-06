@@ -3,12 +3,12 @@ import io
 
 import pytest
 
-from jotbrief import update
+from saidkeep import update
 
 PREFIX = update.DOWNLOAD_PREFIX
 
 
-def release_json(tag="v2026.10.02.15.55", name="JB-Jot-Brief-Setup-2026.10.02.15.55.exe", sha=None, url=None, size=5):
+def release_json(tag="v2026.10.02.15.55", name="SaidKeep-Setup-2026.10.02.15.55.exe", sha=None, url=None, size=5):
     a = {"name": name, "browser_download_url": url or f"{PREFIX}{tag}/{name}", "size": size}
     if sha:
         a["digest"] = f"sha256:{sha}"
