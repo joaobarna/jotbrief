@@ -26,8 +26,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=38">
-<link rel="stylesheet" href="/assets/posicoes.css?v=38">
+<link rel="stylesheet" href="/assets/site.css?v=41">
+<link rel="stylesheet" href="/assets/posicoes.css?v=39">
+<script src="/assets/tema.js?v=1"></script>
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -37,6 +38,14 @@
       <a href="/" >Sobre</a>
       <a href="/projetos/" >Projetos</a>
     </nav>
+    <details class="temasw">
+      <summary aria-label="Tema" title="Tema"><svg class="ic-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg class="ic-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8 8 0 1 1 9.8 4a6.3 6.3 0 0 0 10.2 10.2z"/></svg><svg class="ic-auto" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></summary>
+      <ul role="menu">
+        <li><button type="button" role="menuitemradio" data-tema="light" aria-checked="false"><svg class="ic-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg> Claro</button></li>
+        <li><button type="button" role="menuitemradio" data-tema="dark" aria-checked="false"><svg class="ic-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8 8 0 1 1 9.8 4a6.3 6.3 0 0 0 10.2 10.2z"/></svg> Escuro</button></li>
+        <li><button type="button" role="menuitemradio" data-tema="auto" aria-checked="true"><svg class="ic-auto" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg> Automático (do aparelho)</button></li>
+      </ul>
+    </details>
     <details class="langsw">
       <summary aria-label="Idioma"><span class="flagwrap"><svg class="flag" viewBox="0 0 60 60" aria-hidden="true"><rect width="60" height="60" fill="#009C3B"/><path d="M30 9 55 30 30 51 5 30Z" fill="#FFDF00"/><circle cx="30" cy="30" r="11" fill="#002776"/></svg></span></summary>
       <ul>
@@ -56,7 +65,7 @@
 
 </main>
 <footer class="site"><div class="wrap">
-  <p>© 2026 João Barnabé · <a href="https://www.linkedin.com/in/joao-barnabe" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="mailto:joaobarna@gmail.com">E-mail</a> · <a class="ver" href="/versoes/" title="Histórico de versões">v2026.10.03.10.44</a></p>
+  <p>© 2026 João Barnabé · <a href="https://www.linkedin.com/in/joao-barnabe" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="mailto:joaobarna@gmail.com">E-mail</a> · <a class="ver" href="/versoes/" title="Histórico de versões">v2026.10.07.16.29</a></p>
 </div></footer>
 </body>
 </html>

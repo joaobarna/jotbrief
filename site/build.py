@@ -35,7 +35,7 @@ US = ('<span class="flagwrap"><svg class="flag" viewBox="0 0 60 60" aria-hidden=
 
 LANGS = {
     "pt": {
-        "html": "pt-BR", "og": "pt_BR", "og_img": "/assets/og.jpg", "og_alt": "João Barnabé, CFO e Diretor Financeiro: dados que decidem, automação que entrega", "flag": BR, "switch_label": "Idioma",
+        "html": "pt-BR", "og": "pt_BR", "og_img": "/assets/og.jpg", "og_alt": "João Barnabé, CFO e Diretor Financeiro: dados que decidem, automação que entrega", "flag": BR, "switch_label": "Idioma", "tema_label": "Tema", "tema_claro": "Claro", "tema_escuro": "Escuro", "tema_auto": "Automático (do aparelho)",
         "paths": {"home": "/", "projects": "/projetos/", "jb": "/saidkeep/", "docs": "/saidkeep/docs/", "privacy": "/saidkeep/privacidade/", "versions": "/versoes/"},
         "nav": {"home": "Sobre", "projects": "Projetos"}, "nav_label": "Principal", "crumb_label": "Você está em",
         "docs_label": "Documentação", "privacy_label": "Privacidade", "footer_email": "E-mail", "ver_title": "Versões do site", "ver_lead": "A versão é a data e a hora (Brasília) da última alteração publicada.", "ver_tip": "Histórico de versões",
@@ -51,7 +51,7 @@ LANGS = {
         "docs_md": HERE.parent / "DOCUMENTACAO.md",
     },
     "en": {
-        "html": "en", "og": "en_US", "og_img": "/assets/og-en.jpg", "og_alt": "João Barnabé, CFO and Finance Director: data that decides, automation that delivers", "flag": US, "switch_label": "Language",
+        "html": "en", "og": "en_US", "og_img": "/assets/og-en.jpg", "og_alt": "João Barnabé, CFO and Finance Director: data that decides, automation that delivers", "flag": US, "switch_label": "Language", "tema_label": "Theme", "tema_claro": "Light", "tema_escuro": "Dark", "tema_auto": "Automatic (device)",
         "paths": {"home": "/en/", "projects": "/en/projects/", "jb": "/en/saidkeep/", "docs": "/en/saidkeep/docs/", "privacy": "/en/saidkeep/privacy/", "versions": "/en/versions/"},
         "nav": {"home": "About", "projects": "Projects"}, "nav_label": "Main", "crumb_label": "You are here",
         "docs_label": "Documentation", "privacy_label": "Privacy", "footer_email": "Email", "ver_title": "Site versions", "ver_lead": "The version is the date and time (Brasília) of the last published change. Change descriptions are written in Portuguese.", "ver_tip": "Version history",
@@ -94,8 +94,9 @@ LAYOUT = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=38">
-<link rel="stylesheet" href="/assets/posicoes.css?v=38">
+<link rel="stylesheet" href="/assets/site.css?v=41">
+<link rel="stylesheet" href="/assets/posicoes.css?v=39">
+<script src="/assets/tema.js?v=1"></script>
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -105,6 +106,14 @@ LAYOUT = """<!doctype html>
       <a href="{home}" {cur_home}>{nav_home}</a>
       <a href="{projects}" {cur_apps}>{nav_projects}</a>
     </nav>
+    <details class="temasw">
+      <summary aria-label="{tema_label}" title="{tema_label}"><svg class="ic-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg class="ic-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8 8 0 1 1 9.8 4a6.3 6.3 0 0 0 10.2 10.2z"/></svg><svg class="ic-auto" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></summary>
+      <ul role="menu">
+        <li><button type="button" role="menuitemradio" data-tema="light" aria-checked="false"><svg class="ic-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg> {tema_claro}</button></li>
+        <li><button type="button" role="menuitemradio" data-tema="dark" aria-checked="false"><svg class="ic-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8 8 0 1 1 9.8 4a6.3 6.3 0 0 0 10.2 10.2z"/></svg> {tema_escuro}</button></li>
+        <li><button type="button" role="menuitemradio" data-tema="auto" aria-checked="true"><svg class="ic-auto" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg> {tema_auto}</button></li>
+      </ul>
+    </details>
     <details class="langsw">
       <summary aria-label="{switch_label}">{flag_now}</summary>
       <ul>
@@ -215,7 +224,7 @@ def render(content: str, lang: str, page: str, path: str, alt_paths: dict[str, s
         html_lang=L["html"], og_locale=L["og"], og_img=L["og_img"], og_alt=L["og_alt"], title=title, description=desc, site_url=CFG["site_url"], path=path,
         alternates=alternates, content=content, year=date.today().year,
         home=L["paths"]["home"], projects=L["paths"]["projects"], nav_label=L["nav_label"],
-        nav_home=L["nav"]["home"], nav_projects=L["nav"]["projects"], switch_label=L["switch_label"],
+        nav_home=L["nav"]["home"], nav_projects=L["nav"]["projects"], switch_label=L["switch_label"], tema_label=L["tema_label"], tema_claro=L["tema_claro"], tema_escuro=L["tema_escuro"], tema_auto=L["tema_auto"],
         cur_home=mark("home"), cur_apps=('aria-current="page"' if page in ("projects", "jb", "docs", "privacy") else ""),
         flag_now=L["flag"], flag_pt=BR, flag_en=US,
         pt_href=alt_paths.get("pt", "/"), en_href=alt_paths.get("en", "/en/"), footer_email=L["footer_email"], versions=L["paths"]["versions"], ver_tip=L["ver_tip"], site_version=SITE_VERSION)
